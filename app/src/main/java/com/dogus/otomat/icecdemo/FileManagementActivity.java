@@ -123,7 +123,13 @@ public class FileManagementActivity extends AppCompatActivity {
             Uri selectedFile = data.getData();
 
             if (requestCode == PICK_IMAGE_REQUEST) {
-                handleImageUpload(selectedFile, data.getStringExtra("type"));
+                String type = data.getStringExtra("type");
+                if (type != null && !type.isEmpty()) {
+                    handleImageUpload(selectedFile, type);
+                } else {
+                    // Varsayılan tip olarak "product" kullan
+                    handleImageUpload(selectedFile, "product");
+                }
             } else if (requestCode == PICK_VIDEO_REQUEST) {
                 handleVideoUpload(selectedFile);
             }
@@ -132,7 +138,21 @@ public class FileManagementActivity extends AppCompatActivity {
 
     private void handleImageUpload(Uri imageUri, String type) {
         try {
+            // Null kontrolü
+            if (imageUri == null) {
+                showToast("Görsel URI'si null!");
+                return;
+            }
+            
+            if (type == null || type.isEmpty()) {
+                type = "product"; // Varsayılan tip
+            }
+            
             String fileName = getFileName(imageUri);
+            if (fileName == null || fileName.isEmpty()) {
+                fileName = "unknown_file.jpg"; // Varsayılan dosya adı
+            }
+            
             boolean success = false;
 
             switch (type) {
@@ -144,6 +164,9 @@ public class FileManagementActivity extends AppCompatActivity {
                     break;
                 case "screensaver":
                     success = fileManagementSystem.uploadScreensaver("Screensaver", "inputStream", fileName);
+                    break;
+                default:
+                    success = fileManagementSystem.uploadProductImage("Product", "inputStream", fileName);
                     break;
             }
 
@@ -166,7 +189,17 @@ public class FileManagementActivity extends AppCompatActivity {
 
     private void handleVideoUpload(Uri videoUri) {
         try {
+            // Null kontrolü
+            if (videoUri == null) {
+                showToast("Video URI'si null!");
+                return;
+            }
+            
             String fileName = getFileName(videoUri);
+            if (fileName == null || fileName.isEmpty()) {
+                fileName = "unknown_video.mp4"; // Varsayılan dosya adı
+            }
+            
             boolean success = fileManagementSystem.uploadVideo("Video", "inputStream", fileName);
             
             if (success) {
@@ -186,25 +219,45 @@ public class FileManagementActivity extends AppCompatActivity {
     }
 
     private String getFileName(Uri uri) {
+        if (uri == null) {
+            return "unknown_file";
+        }
+        
         String result = null;
-        if (uri.getScheme().equals("content")) {
-            try {
+        try {
+            if ("content".equals(uri.getScheme())) {
                 android.database.Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME));
+                    int columnIndex = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME);
+                    if (columnIndex != -1) {
+                        result = cursor.getString(columnIndex);
+                    }
                     cursor.close();
                 }
-            } catch (Exception e) {
-                Log.e(TAG, "Dosya adı alma hatası: " + e.getMessage());
             }
-        }
-        if (result == null) {
-            result = uri.getPath();
-            int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut + 1);
+            
+            if (result == null || result.isEmpty()) {
+                String path = uri.getPath();
+                if (path != null) {
+                    int cut = path.lastIndexOf('/');
+                    if (cut != -1) {
+                        result = path.substring(cut + 1);
+                    } else {
+                        result = path;
+                    }
+                }
             }
+            
+            // Son kontrol - eğer hala null ise varsayılan değer
+            if (result == null || result.isEmpty()) {
+                result = "unknown_file";
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Dosya adı alma hatası: " + e.getMessage());
+            result = "unknown_file";
         }
+        
         return result;
     }
 

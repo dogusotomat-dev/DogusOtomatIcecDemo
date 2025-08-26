@@ -85,7 +85,8 @@ public class CartItem {
      */
     @Override
     public String toString() {
-        return name + " x" + quantity + " - " + String.format("%.2f", getTotalPrice()) + " TL";
+        String safeName = (name != null) ? name : "Unknown";
+        return safeName + " x" + quantity + " - " + String.format("%.2f", getTotalPrice()) + " TL";
     }
 
     /**
@@ -98,11 +99,21 @@ public class CartItem {
         if (obj == null || getClass() != obj.getClass())
             return false;
         CartItem cartItem = (CartItem) obj;
-        return name.equals(cartItem.name) && type.equals(cartItem.type);
+        
+        // Null-safe karşılaştırma
+        if (name == null && cartItem.name != null) return false;
+        if (name != null && !name.equals(cartItem.name)) return false;
+        if (type == null && cartItem.type != null) return false;
+        if (type != null && !type.equals(cartItem.type)) return false;
+        
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode() + type.hashCode();
+        // Null-safe hashCode hesaplama
+        int nameHash = (name != null) ? name.hashCode() : 0;
+        int typeHash = (type != null) ? type.hashCode() : 0;
+        return nameHash + typeHash;
     }
 }
