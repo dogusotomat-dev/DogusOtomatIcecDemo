@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Doğuş Otomat Dondurma</string>
+    
+    <!-- Ana Menü -->
+    <string name="ui_base_back">Geri</string>
+    <string name="ui_base_exit">Sistemden Çık</string>
+    <string name="background_menu_settings">Menü Ayarları</string>
+    <string name="background_menu_set_tool">Araç Ayarları</string>
+    <string name="background_menu_func_set">Fonksiyon Ayarları</string>
+    
+    <!-- Seri Port Ayarları -->
+    <string name="background_serial_port_setup">Seri Port Ayarları</string>
+    <string name="serial_port_motherboard_serial">Ana Kart Seri Portu</string>
+    <string name="serial_port_motherboard_baud_rate">Ana Kart Baud Rate</string>
+    <string name="serial_port_server_serial">Yan Dolap Seri Portu</string>
+    
+    <!-- Dondurma Kontrolü -->
+    <string name="background_drive_spring_set">Yaylı Makine Ayarları</string>
+    <string name="background_drive_lift_set">Asansör Ayarları</string>
+    <string name="background_drive_lattice_set">Izgara Makine Ayarları</string>
+    <string name="background_drive_coff_set">Kahve Makinesi Ayarları</string>
+    <string name="background_drive_snake_set">Yılan Makine Ayarları</string>
+    <string name="background_drive_light_set">Işık Çubuğu Ayarları</string>
+    
+    <!-- Genel Mesajlar -->
+    <string name="background_drive_setting">Ayarlanıyor</string>
+    <string name="background_drive_tips_input_slotno">Lütfen ürün yolu numarasını girin!</string>
+    <string name="background_drive_tips_select_cabinetno">Lütfen dolap numarasını seçin</string>
+    <string name="background_drive_modify_ask">Değişikliği onaylıyor musunuz?</string>
+    <string name="background_drive_set">Ayarla</string>
+    <string name="background_drive_query">Sorgula</string>
+    <string name="background_drive_clean">Temizle</string>
+    
+    <!-- Hata Yönetimi -->
+    <string name="background_drive_clean_fault">Sürücü Kartı Hatasını Temizle</string>
+    <string name="background_drive_query_slot">Ürün Yolunu Sorgula</string>
+    <string name="background_drive_query_fault">Sürücü Kartı Hatasını Sorgula</string>
+    <string name="background_notify_contact_merchant">Lütfen satıcı ile iletişime geçin</string>
+    <string name="background_drive_tips_clean_fault_success">Hata başarıyla temizlendi</string>
+    <string name="background_drive_tips_no_fault">Hata yok</string>
+    <string name="background_drive_tips_have_fault">Hata var</string>
+    
+    <!-- Para İşlemleri -->
+    <string name="ui_base_notify_coin_back">Para iadesi yapılıyor</string>
+    <string name="ui_base_notify_coinback_success">Para iadesi başarılı</string>
+    <string name="ui_base_notify_coinback_fail">Para iadesi başarısız</string>
+    
+    <!-- Ürün İşlemleri -->
+    <string name="ui_base_notify_slot">Ürün Yolu: </string>
+    <string name="ui_base_notify_not_open">Henüz açılmadı</string>
+    <string name="ui_base_notify_loading">Yükleniyor</string>
+    <string name="ui_base_notify_load_fail">Yükleme başarısız</string>
+    <string name="ui_base_notify_invalid_slot">Geçersiz ürün yolu</string>
+    <string name="ui_base_notify_sys_busy">Sistem meşgul</string>
+    <string name="ui_base_notify_slot_faultSlot">Hatalı ürün yolu</string>
+    <string name="ui_base_notify_slot_fault">Hatalı ürün yolu: </string>
+    <string name="ui_base_notify_slot_code">Hata kodu: </string>
+    <string name="ui_base_notify_slot_err">Hata: </string>
+    <string name="ui_base_notify_sold_out">Bu ürün tükendi, lütfen başka bir ürün seçin!</string>
+    <string name="ui_base_notify_select_other">Lütfen başka bir ürün seçin!</string>
+    <string name="ui_base_aisle_name">Ürün Yolu No</string>
+    
+    <!-- Satış İşlemleri -->
+    <string name="ui_base_notify_shipping">Ürün çıkarılıyor</string>
+    <string name="ui_base_notify_shipment_fail">Ürün çıkarma başarısız</string>
+    <string name="ui_base_notify_fail_contact">Ürün çıkarma başarısız, lütfen satıcı ile iletişime geçin!</string>
+    <string name="ui_base_notify_shipment_success">Ürün çıkarma başarılı</string>
+    <string name="ui_base_notify_receive_goods">Lütfen ürününüzü alın</string>
+    <string name="ui_base_notify_shipsuc_rec_notify">Ürün çıkarma başarılı, lütfen ürününüzü alın!</string>
+    <string name="ui_base_notify_receive_goods_first">Lütfen ürünü alın</string>
+    
+    <!-- Asansör Kontrolü -->
+    <string name="background_lift_ship_check">Ürün Çıkarma Kontrolü</string>
+    <string name="background_lift_check_light">Işık Kontrolü</string>
+    <string name="background_lift_back_home">Başlangıç Noktasına Dön</string>
+    <string name="background_aisle_state">Ürün Yolu Durumu</string>
+    <string name="background_check_light">Fotoelektrik Kontrol</string>
+    <string name="background_lift_up">Yukarı</string>
+    <string name="background_lift_cargo_door_control">Ürün Alma Kapısı Kontrolü</string>
+    <string name="background_lift_platform_control">Ürün Çıkarma Platformu Kontrolü</string>
+    <string name="background_lift_open">Aç</string>
+    <string name="background_lift_up_hefan">Yukarı Çek</string>
+    <string name="background_lift_close">Kapat</string>
+    <string name="background_lift_down_hefan">Aşağı Bas</string>
+    <string name="background_lift_clapboard_control">Bölme Anahtarı</string>
+    <string name="background_lift_micoven_control">Mikrodalga Fırın Kontrolü</string>
+    <string name="background_lift_stop_micoven">Durdur</string>
+    <string name="background_lift_heat_30s">30 saniye ısıt</string>
+    <string name="background_lift_temper_control">Sıcaklık Kontrolü</string>
+    
+    <!-- Parametre Yönetimi -->
+    <string name="background_lift_query_params">Parametreleri Sorgula</string>
+    <string name="background_lift_set_params">Parametreleri Ayarla (Dikkatli değiştirin!)</string>
+    <string name="background_lift_restore_factory_value">Parametreleri Fabrika Değerlerine Geri Döndür</string>
+    <string name="background_lift_restore_factory">Geri Döndür</string>
+    <string name="background_lift_set_id">Asansör Sürücü Kartı Grup Numarasını Ayarla</string>
+    <string name="background_lift_set_light_steps">Asansör Yüksek Işık Kontrol Adımlarını Ayarla</string>
+    
+    <!-- Genel İpuçları -->
+    <string name="background_tip_wait_amoment">Lütfen bekleyin</string>
+    <string name="background_tip_select_sure">Lütfen onay seçin</string>
+    <string name="background_lift_tips_select_check_direction">Lütfen kontrol yönünü seçin!</string>
+    <string name="background_lift_tips_select_cabinetno_floor">Lütfen kat numarası ve ışık kontrol yönünü seçin!</string>
+    <string name="background_lift_tips_select_floor_no">Lütfen kat numarasını seçin!</string>
+    <string name="background_lift_tips_select_group_no">Lütfen grup numarasını seçin!</string>
+    
+    <!-- Test ve Durum -->
+    <string name="background_drive_slot_testing">Ürün yolu test ediliyor</string>
+    <string name="background_notify_sys_busy">Sistem meşgul</string>
+    <string name="background_notify_slot_fault">Hatalı ürün yolu: </string>
+    <string name="background_notify_slot_code">Hata kodu: </string>
+    <string name="background_snake_slotno_err">Ürün yolu hatası</string>
+    <string name="background_snake_have_no_goods">Ürün yok</string>
+    <string name="background_snake_have_goods">Ürün var</string>
+    <string name="background_drive_check_seriport">Lütfen seri port iletişimini kontrol edin</string>
+    <string name="background_drive_success">Başarılı</string>
+    
+    <!-- Butonlar -->
+    <string name="ui_base_menu_save">Kaydet</string>
+    <string name="ui_base_begin">Başla</string>
+    <string name="ui_base_backgroound_ensure">Onayla</string>
+    <string name="ui_base_backgroound_cancel">İptal</string>
+    <string name="ui_base_end">Bitir</string>
+    <string name="ui_base_saving">Kaydediliyor</string>
+    
+    <!-- Isıtma İşlemleri -->
+    <string name="ui_base_tip_heat_ready">Isıtma hazırlanıyor</string>
+    <string name="ui_base_tip_heating">Isıtılıyor</string>
+    <string name="ui_base_tip_heat_rem_time">Kalan süre</string>
+    <string name="ui_base_tip_take_away_box">Lütfen yemeğinizi alın</string>
+    
+    <!-- Telemetri Sistemi -->
+    <string name="telemetry_status">Telemetri Durumu</string>
+    <string name="telemetry_enabled">Telemetri Aktif</string>
+    <string name="telemetry_disabled">Telemetri Pasif</string>
+    <string name="telemetry_connection">Bağlantı Durumu</string>
+    <string name="telemetry_connected">Bağlı</string>
+    <string name="telemetry_disconnected">Bağlantı Yok</string>
+    <string name="telemetry_data_sent">Veri Gönderildi</string>
+    <string name="telemetry_data_failed">Veri Gönderimi Başarısız</string>
+    
+    <!-- Doğuş Otomat Özel -->
+    <string name="brand_name">Dogi Soft Ice Cream</string>
+    <string name="machine_model">DGS-DIC-S</string>
+    <string name="iot_number">IoT Numarası</string>
+    <string name="serial_number">Seri Numarası</string>
+    <string name="machine_ip">Makine IP Adresi</string>
+    <string name="machine_port">Makine Port</string>
+    <string name="machine_config">Makine Konfigürasyonu</string>
+    <string name="currency_tl">₺</string>
+    <string name="payment_methods">Ödeme Yöntemleri</string>
+    <string name="payment_cash">Nakit</string>
+    <string name="payment_card">Kart</string>
+    <string name="payment_mobile">Mobil Ödeme</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_english">İngilizce</string>
+    <string name="settings_language">Dil Ayarları</string>
+    <string name="settings_currency">Para Birimi</string>
+    <string name="settings_timezone">Saat Dilimi</string>
+    <string name="timezone_turkey">Türkiye (UTC+3)</string>
+</resources>

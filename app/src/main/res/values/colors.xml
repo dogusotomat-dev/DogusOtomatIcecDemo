@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ana Renkler - Pastel Tonlar -->
+    <color name="dogus_primary">#7B9E87</color>          <!-- Pastel Yeşil -->
+    <color name="dogus_secondary">#A8C5D6</color>        <!-- Pastel Mavi -->
+    <color name="dogus_accent">#E8B4CB</color>           <!-- Pastel Pembe -->
+    
+    <!-- Arka Plan Renkleri - Yumuşak Tonlar -->
+    <color name="dogus_background_light">#F8F9FA</color> <!-- Çok Açık Gri -->
+    <color name="dogus_background_card">#FFFFFF</color>   <!-- Beyaz -->
+    <color name="dogus_background_dark">#E9ECEF</color>   <!-- Açık Gri -->
+    
+    <!-- Metin Renkleri - Okunabilir Tonlar -->
+    <color name="dogus_text_primary">#495057</color>      <!-- Koyu Gri -->
+    <color name="dogus_text_secondary">#6C757D</color>    <!-- Orta Gri -->
+    <color name="dogus_text_white">#FFFFFF</color>        <!-- Beyaz -->
+    
+    <!-- Buton Renkleri - Pastel Tonlar -->
+    <color name="dogus_button_primary">#7B9E87</color>   <!-- Pastel Yeşil -->
+    <color name="dogus_button_success">#95D5B2</color>   <!-- Pastel Yeşil -->
+    <color name="dogus_button_warning">#F4A261</color>   <!-- Pastel Turuncu -->
+    <color name="dogus_button_info">#A8C5D6</color>      <!-- Pastel Mavi -->
+    <color name="dogus_button_back">#DDA0DD</color>      <!-- Pastel Mor -->
+    
+    <!-- Durum Renkleri - Yumuşak Tonlar -->
+    <color name="dogus_success">#95D5B2</color>          <!-- Pastel Yeşil -->
+    <color name="dogus_warning">#F4A261</color>          <!-- Pastel Turuncu -->
+    <color name="dogus_error">#E9967A</color>             <!-- Pastel Kırmızı -->
+    <color name="dogus_info">#A8C5D6</color>             <!-- Pastel Mavi -->
+    
+    <!-- Vurgu Renkleri - Minimal -->
+    <color name="dogus_highlight">#E8F4F8</color>        <!-- Çok Açık Mavi -->
+    <color name="dogus_border">#DEE2E6</color>            <!-- Açık Gri -->
+    
+    <!-- Sistem Renkleri -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    
+    <!-- Eski Drawable'lar için Gerekli Renkler -->
+    <color name="dogus_accent_peach">#FFB347</color>
+    <color name="dogus_accent_gold">#FFD700</color>
+    <color name="dogus_button_custom">#9C27B0</color>
+    <color name="dogus_danger">#E9967A</color>
+    <color name="dogus_strawberry">#FF69B4</color>
+    <color name="dogus_border_light">#E9ECEF</color>
+    <color name="dogus_light_pink">#FFB6C1</color>
+    <color name="dogus_primary_pink">#FF69B4</color>
+    <color name="dogus_dark_pink">#C71585</color>
+    <color name="dogus_button_sales">#FF6B35</color>
+    <color name="dogus_chocolate">#8B4513</color>
+    <color name="dogus_soft_pink">#FFC0CB</color>
+    
+    <!-- Layout Dosyaları için Gerekli Renkler -->
+    <color name="dogus_text_dark">#202124</color>
+    <color name="dogus_vanilla">#FFF8DC</color>
+    <color name="ui_base_transparent">#00000000</color>
+    
+    <!-- UI Base Layout Dosyaları için Gerekli Renkler -->
+    <color name="app_steelblue">#4682B4</color>
+    <color name="app_text_color_blue">#4fc1e9</color>
+    <color name="ui_base_whitesmoke">#F5F5F5</color>
+    <color name="blue">#ff0000ff</color>
+    <color name="ui_base_text_color_black">#000000</color>
+    <color name="ui_base_text_background">#9f9f9f</color>
+
+    <!-- Accent Colors for Machine Parameters -->
+    <color name="dogus_accent_blue">#4A90E2</color>
+    <color name="dogus_accent_orange">#F5A623</color>
+    <color name="dogus_accent_green">#7ED321</color>
+    <color name="dogus_accent_red">#DC3545</color>
+    <color name="dogus_accent_purple">#9013FE</color>
+
+    <!-- Background Colors -->
+    <color name="dogus_background">#F8F9FA</color>
+</resources>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background"
+    android:padding="20dp">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔌 Serial Port Ayarları (SDK)"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
+
+    <!-- Port Ayarları -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🔧 Port Konfigürasyonu"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_primary"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Port Adı (örn: /dev/ttyS1):"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etPortName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="/dev/ttyS1"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Baud Rate:"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/etBaudRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="19200"
+                android:inputType="number"
+                android:background="@drawable/dogus_input_field"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Port Tipi:"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="5dp" />
+
+            <Spinner
+                android:id="@+id/spnPortType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dogus_input_field"
+                android:padding="12dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Bilgi Kartı -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/dogus_accent_blue">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ℹ️ SDK Serial Port Yapısı"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Ana Board: Ana kontrol kartı"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Server Board: Sunucu kartı"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• Third/Fourth Board: Ek kartlar"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="• MDB Board: Para kabul kartı"
+                android:textSize="14sp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Action Buttons -->
+    <Button
+        android:id="@+id/btnScanPorts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🔍 Portları Tara"
+        android:textColor="@color/white"
+        android:background="@color/dogus_accent_blue"
+        android:layout_marginBottom="15dp"
+        android:padding="15dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnTestConnection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🧪 Bağlantıyı Test Et"
+        android:textColor="@color/white"
+        android:background="@color/dogus_accent_orange"
+        android:layout_marginBottom="15dp"
+        android:padding="15dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnSaveSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💾 Ayarları Kaydet"
+        android:textColor="@color/white"
+        android:background="@color/dogus_accent_green"
+        android:layout_marginBottom="15dp"
+        android:padding="15dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="← Geri Dön"
+        android:textColor="@color/white"
+        android:background="@color/dogus_accent_purple"
+        android:padding="15dp"
+        android:textSize="16sp" />
+
+</LinearLayout>

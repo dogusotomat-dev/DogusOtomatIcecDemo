@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="48dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@android:drawable/ic_menu_manage"
+            android:tint="@color/dogus_primary"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yönetici Girişi"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_text_dark"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lütfen giriş türünü seçin"
+            android:textSize="16sp"
+            android:textColor="@color/dogus_text_secondary"/>
+    </LinearLayout>
+
+    <!-- Giriş Seçenekleri -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="32dp">
+
+        <!-- Yetkili Giriş -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/dogus_card_background"
+            android:padding="24dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔐 Yetkili Girişi"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Tüm makine ayarları\n• Fiyat değişiklikleri\n• Sistem parametreleri\n• Telemetri ayarları"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/et_admin_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Şifre girin"
+                android:inputType="textPassword"
+                android:background="@drawable/dogus_input_field"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_admin_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="YETKİLİ GİRİŞİ"
+                android:textSize="16sp"
+                android:background="@drawable/dogus_button_primary"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- Dolum Giriş -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/dogus_card_background"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔄 Dolum Girişi"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Malzeme dolumu\n• Basit bakım işlemleri\n• Fiyat değişikliği yok\n• Sınırlı erişim"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/et_dolum_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Şifre girin"
+                android:inputType="textPassword"
+                android:background="@drawable/dogus_input_field"
+                android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_dolum_login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="DOLUM GİRİŞİ"
+                android:textSize="16sp"
+                android:background="@drawable/dogus_button_success"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Geri Dön Butonu -->
+    <Button
+        android:id="@+id/btn_back_to_sales"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="← Satış Ekranına Dön"
+        android:textSize="16sp"
+        android:background="@drawable/dogus_button_back"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

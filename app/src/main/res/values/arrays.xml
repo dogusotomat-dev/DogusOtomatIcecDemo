@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Çalışma Modları -->
+    <string-array name="work_modes">
+        <item>Normal Mod</item>
+        <item>Test Modu</item>
+        <item>Bakım Modu</item>
+        <item>Enerji Tasarrufu</item>
+    </string-array>
+
+    <!-- Dispense Modları -->
+    <string-array name="dispense_modes">
+        <item>Otomatik</item>
+        <item>Manuel</item>
+        <item>Zamanlı</item>
+        <item>Miktar Bazlı</item>
+    </string-array>
+
+    <!-- Port Tipleri -->
+    <string-array name="port_types">
+        <item>RS-232</item>
+        <item>RS-485</item>
+        <item>USB Serial</item>
+        <item>Bluetooth</item>
+    </string-array>
+
+    <!-- Flow Control -->
+    <string-array name="flow_control">
+        <item>None</item>
+        <item>Hardware</item>
+        <item>Software</item>
+    </string-array>
+</resources>

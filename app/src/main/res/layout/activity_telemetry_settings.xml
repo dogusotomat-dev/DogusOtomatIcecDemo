@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📡 Telemetri Ayarları"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Telemetri Ayarları -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/dogus_background_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bağlantı Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_primary"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/etTelemetryIP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telemetri IP Adresi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/etTelemetryPort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telemetri Port"
+                android:inputType="number"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btnSaveTelemetry"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="💾 Ayarları Kaydet"
+                android:textSize="16sp"
+                android:background="@drawable/dogus_button_success"
+                android:textColor="@color/dogus_text_white"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Geri Dön -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="← Geri Dön"
+        android:textSize="16sp"
+        android:background="@drawable/dogus_button_back"
+        android:textColor="@color/dogus_text_white"/>
+
+</LinearLayout>

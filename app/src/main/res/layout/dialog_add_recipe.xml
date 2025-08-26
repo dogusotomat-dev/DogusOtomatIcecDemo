@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Tarif Adı -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🍦 Tarif Adı"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etRecipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Örn: Çikolata Fındık Dondurma"
+        android:inputType="text"
+        android:background="@drawable/dogus_input_field"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Fiyat -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💰 Fiyat (₺)"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etRecipePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:background="@drawable/dogus_input_field"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- İçerikler -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📝 İçerikler (Opsiyonel)"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/etRecipeIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Örn: Dondurma + Çikolata Sos + Fındık"
+        android:inputType="textMultiLine"
+        android:minLines="2"
+        android:maxLines="4"
+        android:background="@drawable/dogus_input_field"
+        android:padding="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💡 İçerikler otomatik olarak slot numarasına göre hesaplanır"
+        android:textSize="12sp"
+        android:textColor="@color/dogus_text_secondary"
+        android:gravity="center"/>
+
+</LinearLayout>

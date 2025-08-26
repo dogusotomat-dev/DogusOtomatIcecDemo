@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🍦 Sos ve Süsleme İsimleri"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <!-- Sos İsimleri -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/dogus_background_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sos İsimleri"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_primary"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/etSauce1Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="1. Sos İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etSauce2Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="2. Sos İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etSauce3Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="3. Sos İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Süsleme İsimleri -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/dogus_background_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Süsleme İsimleri"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_primary"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/etTopping1Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="1. Süsleme İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etTopping2Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="2. Süsleme İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etTopping3Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="3. Süsleme İsmi"
+                android:inputType="text"
+                android:background="@drawable/dogus_input_field"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btnSaveNames"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="💾 İsimleri Kaydet"
+                android:textSize="16sp"
+                android:background="@drawable/dogus_button_primary"
+                android:textColor="@color/dogus_text_white"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Geri Dön -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="← Geri Dön"
+        android:textSize="16sp"
+        android:background="@drawable/dogus_button_back"
+        android:textColor="@color/dogus_text_white"/>
+
+</LinearLayout>

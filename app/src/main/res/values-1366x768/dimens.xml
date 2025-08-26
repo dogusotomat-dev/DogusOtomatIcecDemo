@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="ui_base_activity_horizontal_margin">16dp</dimen>
+    <dimen name="ui_base_activity_vertical_margin">16dp</dimen>
+
+    <dimen name="ui_base_loading_goods_text_size">45sp</dimen>
+
+    <!-- Default title bar info margins and text size-->
+    <dimen name="ui_base_title_bar_text_size">18sp</dimen>
+    <dimen name="ui_base_title_bar_balance_margin">250px</dimen>
+    <dimen name="ui_base_title_bar_temperature_margin">370px</dimen>
+    <dimen name="ui_base_title_bar_time_margin">55px</dimen>
+    <dimen name="ui_base_title_bar_signal_w_h">45px</dimen>
+
+    <dimen name="ui_base_btn_layout_lrmargin_left">80dp</dimen>
+    <dimen name="ui_base_btn_layout_lrmargin_right">80dp</dimen>
+
+    <dimen name="ui_base_btn_edit_name_text_size">26sp</dimen>
+    <dimen name="ui_base_btn_edit_select_text_size">25sp</dimen>
+    <dimen name="ui_base_btn_edit_query_text_size">20sp</dimen>
+    <dimen name="ui_base_btn_edit_display_text_size">20sp</dimen>
+    <dimen name="ui_base_btn_edit_text_size">22sp</dimen>
+
+    <dimen name="ui_base_btn_bkg_mg_tz">24sp</dimen>
+    <dimen name="ui_base_btn_bkg_menu_tz">23sp</dimen>
+    <dimen name="ui_base_btn_bkg_menu_tz_20">20sp</dimen>
+    <dimen name="ui_base_tv_bkg_menu_tz">30sp</dimen>
+    <dimen name="ui_base_main_menu_grid_mtop">100px</dimen>
+    <dimen name="ui_base_main_menu_vspan">50px</dimen>
+    <dimen name="ui_base_main_menu_item_img">150px</dimen>
+    <dimen name="ui_base_main_menu_item_tv_mtop">20px</dimen>
+    <dimen name="ui_base_main_menu_item_tz">26sp</dimen>
+
+    <dimen name="ui_base_aisle_text_tz">30sp</dimen>
+    <dimen name="ui_base_aisle_edit_text_tz">25sp</dimen>
+
+    <dimen name="ui_base_bk_error_tz">20sp</dimen>
+
+    <dimen name="ui_base_lrmarginson3">120px</dimen>
+    <dimen name="ui_base_lrmarginson">40px</dimen>
+    <dimen name="ui_base_lrmarginss">10px</dimen>
+    <dimen name="ui_base_lrmarginson1">80px</dimen>
+    <dimen name="ui_base_lrmarginson2">80px</dimen>
+
+    <dimen name="ui_base_keyboard_enter">50sp</dimen>
+    <dimen name="ui_base_keyboard_input">70sp</dimen>
+
+    <dimen name="ui_base_bk_layout_height">100px</dimen>
+
+    <dimen name="ui_base_aisle_tk_tz">25sp</dimen>
+    <dimen name="ui_base_aisle_mlr">80px</dimen>
+    <dimen name="ui_base_aisle_edt_height">54px</dimen>
+    <dimen name="ui_base_aisle_grd_lrm">20px</dimen>
+    <dimen name="ui_base_aisle_grd_mtop">50px</dimen>
+
+    <dimen name="ui_base_goods_item_price">14sp</dimen>
+
+    <dimen name="ui_base_btn_batch_25">25sp</dimen>
+    <dimen name="ui_base_btn_batch_20">20sp</dimen>
+
+    <dimen name="ui_base_layout_px_50">50px</dimen>
+
+    <dimen name="ui_base_bk_tz_26">26sp</dimen>
+
+    <dimen name="ui_base_temp_title_tz">18sp</dimen>
+
+    <dimen name="ui_base_btn_tz">16sp</dimen>
+</resources>

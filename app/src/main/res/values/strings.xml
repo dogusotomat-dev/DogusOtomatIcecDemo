@@ -1,0 +1,212 @@
+<resources>
+    <string name="app_name">TcnVendFDZPSDKDemo</string>
+    <string name="ui_base_back">返回</string>
+    <string name="ui_base_exit">退出系统</string>
+    <string name="background_menu_settings">菜单设置</string>
+    <string name="background_menu_set_tool">设置工具</string>
+    <string name="background_menu_func_set">功能设置</string>
+    <string name="background_menu_drop_sensor_whole">整机掉货检测</string>
+    <string name="background_menu_enable_bill_escrow">纸币可以退回</string>
+    <string name="background_menu_enable_change">硬币可以找零</string>
+    <string name="background_serial_port_setup">串口设置</string>
+    <string name="serial_port_motherboard_serial">主板串口</string>
+    <string name="serial_port_motherboard_baud_rate">主板波特率</string>
+    <string name="serial_port_server_serial">副柜串口</string>
+
+    <string name="background_menu_give_change_direct">直接找零</string>
+    <string name="background_menu_glass_demist_enable">玻璃除雾</string>
+
+    <string name="background_drive_spring_set">弹簧机设置</string>
+    <string name="background_drive_lift_set">升降机设置</string>
+    <string name="background_drive_lattice_set">格子机设置</string>
+    <string name="background_drive_coff_set">咖啡机设置</string>
+    <string name="background_drive_snake_set">蛇形机设置</string>
+    <string name="background_drive_light_set">灯条设置</string>
+    <string name="background_drive_setting">设置中</string>
+    <string name="background_drive_tips_input_slotno">请输入货道号！</string>
+    <string name="background_drive_tips_select_cabinetno">请选择柜号</string>
+    <string name="background_drive_modify_ask">确定修改？</string>
+    <string name="background_drive_set">设置</string>
+    <string name="background_drive_query">查询</string>
+    <string name="background_drive_clean">清除</string>
+    <string name="background_drive_clean_fault">清除驱动板故障</string>
+    <string name="background_drive_query_slot">查询货道</string>
+    <string name="background_drive_query_fault">查询驱动板故障</string>
+    <string name="background_spring_self_check">自检</string>
+    <string name="background_spring_reset">复位</string>
+    <string name="background_spring_set_heat_cool">打开或关闭制冷（加热）</string>
+    <string name="background_spring_set_temp">制冷（加热）的目标温度</string>
+    <string name="background_spring_glass_heat_open">玻璃加热打开</string>
+    <string name="background_spring_glass_heat_close">玻璃加热关闭</string>
+    <string name="background_spring_led_open">打开LED灯条</string>
+    <string name="background_spring_led_close">关闭LED灯条</string>
+    <string name="background_spring_buzzer_open">打开蜂鸣器</string>
+    <string name="background_spring_buzzer_close">关闭蜂鸣器</string>
+    <string name="background_spring_double_ask">确定与下一个货道合并为一个货道？</string>
+    <string name="background_spring_set_slot_spring">设置为弹簧货道(慎改！)</string>
+    <string name="background_spring_set_slot_belts">设置为皮带货道(慎改！)</string>
+    <string name="background_spring_set_slot_spring_all">全部设置为弹簧货道(慎改！)</string>
+    <string name="background_spring_set_slot_belts_all">全部设置为皮带货道(慎改！)</string>
+    <string name="background_spring_set_single_slot">拆分为单货道(慎改！)</string>
+    <string name="background_spring_set_single">拆分</string>
+    <string name="background_spring_set_double_slot">与下一货道合并(慎改！)</string>
+    <string name="background_spring_set_double">合并</string>
+    <string name="background_spring_set_single_slot_all">全部设置为单货道(慎改！)</string>
+    <string name="background_spring_test_mode">测试模式(断电才能停止)</string>
+
+    <string name="background_backgroound_ensure">确定</string>
+    <string name="background_backgroound_cancel">取消</string>
+
+    <string name="background_lift_tips_select_control_action">请选择控制动作！</string>
+    <string name="background_lift_tips_select_query_parameters">请选择查询参数！</string>
+    <string name="background_lift_tips_select_set_parameters">请选择要设置的参数！</string>
+    <string name="background_lift_tips_set_value_canont_empty">设置的值不能为空！</string>
+
+    <string name="background_notify_contact_merchant">请联系商家</string>
+    <string name="background_drive_tips_clean_fault_success">清除故障成功</string>
+    <string name="background_drive_tips_no_fault">无故障</string>
+    <string name="background_drive_tips_have_fault">有故障</string>
+    <string name="ui_base_notify_coin_back">正在退币</string>
+    <string name="ui_base_notify_coinback_success">退币成功</string>
+    <string name="ui_base_notify_coinback_fail">退币失败</string>
+
+    <string name="ui_base_notify_slot">货道: </string>
+    <string name="ui_base_notify_not_open">暂未开通</string>
+    <string name="ui_base_notify_loading">正在加载</string>
+    <string name="ui_base_notify_load_fail">加载失败</string>
+    <string name="ui_base_notify_invalid_slot">无效货道</string>
+    <string name="ui_base_notify_sys_busy">系统忙</string>
+    <string name="ui_base_notify_slot_faultSlot">故障货道</string>
+    <string name="ui_base_notify_slot_fault">故障货道: </string>
+    <string name="ui_base_notify_slot_code">故障代码: </string>
+    <string name="ui_base_notify_slot_err">故障: </string>
+    <string name="ui_base_notify_sold_out">该商品售空,请选择其他商品！</string>
+    <string name="ui_base_notify_select_other">请选择其他商品！</string>
+    <string name="ui_base_aisle_name">货道号</string>
+    <string name="ui_base_notify_shipping">正在出货</string>
+    <string name="ui_base_notify_shipment_fail">出货失败</string>
+    <string name="ui_base_notify_contact_merchant">请联系商家</string>
+    <string name="ui_base_notify_fail_contact">出货失败，请联系商家！</string>
+    <string name="ui_base_notify_shipment_success">出货成功</string>
+    <string name="ui_base_notify_receive_goods">请领取您的商品</string>
+    <string name="ui_base_notify_shipsuc_rec_notify">出货成功，请领取您的商品！</string>
+    <string name="ui_base_notify_receive_goods_first">请取走商品</string>
+
+    <string name="background_func_coin_open_set">设置接收硬币类型(填满16位,1表示接收,0表示禁止)</string>
+    <string name="background_func_paper_open_set">设置接收纸币类型(填满16位,1表示接收,0表示禁止)</string>
+    <string name="background_func_paper_coin_open_tips">只能填1或者0，请填满16个</string>
+    <string name="background_func_coin_prestorage">钱币预存</string>
+    <string name="background_menu_preparemoney_please">请预装钱币</string>
+    <string name="background_menu_preparemoney_end">预装结束</string>
+    <string name="model_name">Dondurma Otomatı v2.0</string>
+    <string name="background_bill_type_enable_all">接收全部纸币币种</string>
+    <string name="background_bill_type_disable_all">禁止全部纸币币种</string>
+    <string name="background_coin_type_enable_all">接收全部硬币币种</string>
+    <string name="background_coin_type_disable_all">禁止全部硬币币种</string>
+    <string name="background_menu_preparemoney_clean">预装清零</string>
+    <string name="backgroound_clear_fault">清除故障</string>
+    <string name="backgroound_query_fault">查询故障</string>
+    <string name="background_lift_check_light">检测光检</string>
+    <string name="background_lift_back_home">回原点</string>
+    <string name="background_aisle_state">货道状态</string>
+    <string name="background_check_light">光电检测</string>
+    <string name="background_lift_cargo_door_control">取货口门控制</string>
+    <string name="background_lift_platform_control">出货平台控制</string>
+    <string name="background_lift_open">开</string>
+    <string name="background_lift_up_hefan">弹上来</string>
+    <string name="background_lift_close">关</string>
+    <string name="background_lift_down_hefan">压下去</string>
+    <string name="background_lift_clapboard_control">隔板开关</string>
+    <string name="background_lift_micoven_control">微波炉控制</string>
+    <string name="background_lift_stop_micoven">停</string>
+    <string name="background_lift_heat_30s">加热30秒</string>
+    <string name="background_lift_temper_control">温度控制</string>
+    <string name="background_lift_query_params">查询参数</string>
+    <string name="background_lift_set_params">设置参数(慎改！)</string>
+    <string name="background_lift_restore_factory_value">参数恢复出厂值</string>
+    <string name="background_lift_restore_factory">恢复</string>
+    <string name="background_lift_set_id">设置升降机驱动板组号</string>
+    <string name="background_lift_set_light_steps">设置升降机高出光检步数</string>
+    <string name="background_tip_wait_amoment">请稍候</string>
+    <string name="background_tip_select_sure">请选择确定</string>
+    <string name="background_lift_tips_select_check_direction">请选择检测方向！</string>
+    <string name="background_lift_tips_select_cabinetno_floor">请选择层号和光检方向！</string>
+    <string name="background_lift_tips_select_floor_no">请选择层号！</string>
+    <string name="background_lift_tips_select_group_no">请选择组号！</string>
+    <string name="background_drive_slot_testing">货道测试中</string>
+    <string name="background_notify_sys_busy">系统忙</string>
+    <string name="background_notify_slot_fault">故障货道: </string>
+    <string name="background_notify_slot_code">故障代码: </string>
+    <string name="background_snake_slotno_err">货道错误</string>
+    <string name="background_snake_have_no_goods">无货</string>
+    <string name="background_snake_have_goods">有货</string>
+    <string name="background_notify_shipment_success">出货成功</string>
+    <string name="background_notify_receive_goods">请领取您的商品</string>
+    <string name="background_drive_check_seriport">请检查串口通讯</string>
+    <string name="background_drive_success">成功</string>
+    <string name="ui_base_menu_save">保存</string>
+    <string name="ui_base_begin">开始</string>
+    <string name="ui_base_backgroound_ensure">确认</string>
+    <string name="ui_base_backgroound_cancel">取消</string>
+    <string name="ui_base_end">结束</string>
+    <string name="ui_base_saving">保存</string>
+
+
+    <string name="ui_base_tip_heat_ready">准备加热</string>
+    <string name="ui_base_tip_heating">正在加热</string>
+    <string name="ui_base_tip_heat_rem_time">剩余</string>
+    <string name="ui_base_tip_take_away_box">请取走您的盒饭</string>
+    
+    <!-- Lift control strings -->
+    <string name="background_lift_query_drive_fault">查询升降机驱动板故障</string>
+    <string name="background_lift_clear_drive_fault">清除升降机驱动板故障</string>
+    <string name="background_lift_ship_slot">升降机出货</string>
+    <string name="background_lift_ship_slot_test">升降机出货测试</string>
+    <string name="background_lift_reqselect">升降机请求选择</string>
+    <string name="background_lift_ship_check">升降机出货检测</string>
+    <string name="background_lift_up">升降机上升</string>
+    <string name="background_lift_cargo_door_open">升降机取货口门开</string>
+    <string name="background_lift_cargo_door_close">升降机取货口门关</string>
+    <string name="background_lift_clapboard_open">升降机隔板开</string>
+    <string name="background_lift_clapboard_close">升降机隔板关</string>
+    <string name="background_lift_light_steps">升降机光检步数</string>
+    <string name="background_lift_query_param">升降机查询参数</string>
+    <string name="background_lift_set_param_select">升降机设置参数选择</string>
+    
+    <!-- Payment method strings -->
+    <string name="payment_methods">支付方式</string>
+    <string name="payment_cash">现金支付</string>
+    <string name="payment_card">刷卡支付</string>
+    <string name="payment_mobile">移动支付</string>
+    
+    <!-- Machine config strings -->
+    <string name="machine_config">机器配置</string>
+    <string name="machine_ip">机器IP</string>
+    <string name="machine_port">机器端口</string>
+    <string name="machine_model">机器型号</string>
+    <string name="serial_number">序列号</string>
+    
+    <!-- Settings strings -->
+    <string name="settings_currency">货币设置</string>
+    <string name="settings_language">语言设置</string>
+    <string name="settings_timezone">时区设置</string>
+    <string name="currency_tl">土耳其里拉</string>
+    <string name="language_turkish">土耳其语</string>
+    <string name="language_english">英语</string>
+    <string name="timezone_turkey">土耳其时区</string>
+    
+    <!-- Telemetry strings -->
+    <string name="telemetry_status">遥测状态</string>
+    <string name="telemetry_connection">遥测连接</string>
+    <string name="telemetry_connected">已连接</string>
+    <string name="telemetry_disconnected">已断开</string>
+    <string name="telemetry_enabled">已启用</string>
+    <string name="telemetry_disabled">已禁用</string>
+    <string name="telemetry_data_sent">数据已发送</string>
+    <string name="telemetry_data_failed">数据发送失败</string>
+    
+    <!-- Brand and IoT strings -->
+    <string name="brand_name">品牌名称</string>
+    <string name="iot_number">物联网编号</string>
+    
+</resources>

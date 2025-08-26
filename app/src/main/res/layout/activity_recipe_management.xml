@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="📋 Tarif Yönetimi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/dogus_primary"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Bilgi Kartı -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/dogus_info_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 Tarif Yönetimi Hakkında"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_secondary"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="✅ Sınırsız tarif ekleyebilirsiniz\n✅ Her tarif otomatik slot numarası alır\n✅ Fiyat ve içerik bilgilerini düzenleyebilirsiniz\n✅ Test etme ve silme işlemleri yapabilirsiniz"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Tarif Ekle Butonu -->
+    <Button
+        android:id="@+id/btnAddRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="➕ Yeni Tarif Ekle"
+        android:textSize="16sp"
+        android:background="@drawable/dogus_button_primary"
+        android:textColor="@color/dogus_text_white"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Tarifler Container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/recipeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+    </ScrollView>
+
+    <!-- Geri Dön Butonu -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="← Geri Dön"
+        android:textSize="16sp"
+        android:background="@drawable/dogus_button_back"
+        android:textColor="@color/dogus_text_white"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

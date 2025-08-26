@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion rootProject.compileVersion
+    defaultConfig {
+        applicationId "com.dogus.otomat.icecdemo"
+        minSdkVersion rootProject.minVersion
+        targetSdkVersion rootProject.targetVersion
+        versionCode 1
+        versionName "1.0.0428"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "DogusOtomatIcecDemo-${defaultConfig.versionName}.apk"
+                }
+            }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+            aidl.srcDirs = ['src/main/aidl']
+        }
+    }
+    
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'   // aar目录
+    }
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    implementation "com.google.code.gson:gson:2.8.5"
+    implementation project(':tcn_icecboard')
+    
+    // Firebase bağımlılıkları
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-analytics'
+    
+//    implementation(name: 'tcn_icecboard-release', ext: 'aar')
+}

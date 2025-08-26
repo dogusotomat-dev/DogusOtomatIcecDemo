@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android" android:title="Serial port setup">
+    <ListPreference android:key="MAINDEVICE" android:title="@string/serial_port_motherboard_serial" android:persistent="true"></ListPreference>
+    <ListPreference android:entries="@array/baudrates_name" android:entryValues="@array/baudrates_value"
+                    android:key="MAINBAUDRATE" android:persistent="true" android:title="@string/serial_port_motherboard_baud_rate"></ListPreference>
+    <ListPreference android:key="SERVERDEVICE" android:title="@string/serial_port_server_serial" android:persistent="true"></ListPreference>
+
+--></PreferenceScreen>

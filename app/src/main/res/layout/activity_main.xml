@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🍦 Dondurma Otomatı"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_text_dark"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_admin_login"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="⚙️"
+            android:textSize="20sp"
+            android:background="@drawable/dogus_button_admin"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <!-- Ana Dondurma Görseli -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
+
+        <!-- Sol Soslar -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soslar"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_sauce_chocolate"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="🍫 Çikolata Sos\n+₺2.00"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_sauce"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_sauce_caramel"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="🍯 Karamel Sos\n+₺2.50"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_sauce"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_sauce_strawberry"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="🍓 Çilek Sos\n+₺2.00"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_sauce"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <!-- Ortada Dondurma -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/dogus_ice_cream_center"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:tint="@color/dogus_vanilla"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dondurmanızı\nÖzelleştirin"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_dark"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_base_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temel Fiyat: ₺8.00"
+                android:textSize="16sp"
+                android:textColor="@color/dogus_primary"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+
+        <!-- Sağ Süslemeler -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Süslemeler"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_dark"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_decor_nuts"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="🥜 Fındık\n+₺1.50"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_decor"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_decor_sprinkles"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="✨ Renkli Şeker\n+₺1.00"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_decor"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/btn_decor_whipped_cream"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="💨 Krem Şanti\n+₺1.50"
+                android:textSize="14sp"
+                android:background="@drawable/dogus_button_decor"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Sepet ve Ödeme -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dogus_card_background"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sepetiniz"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_text_dark"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_cart_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Henüz ürün seçilmedi"
+            android:textSize="16sp"
+            android:textColor="@color/dogus_text_secondary"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Toplam: ₺0.00"
+            android:textSize="20sp"
+            android:textColor="@color/dogus_primary"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_clear_cart"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="SEPETİ TEMİZLE"
+                android:textSize="16sp"
+                android:background="@drawable/dogus_button_secondary"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="ÖDEME YAP"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/dogus_button_sales"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

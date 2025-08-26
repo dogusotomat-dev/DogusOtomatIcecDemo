@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dogus_background_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dolum Panel"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_primary"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Malzeme Seviyeleri -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Malzeme Seviyeleri"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dondurma"
+                            android:textSize="14sp"
+                            android:textColor="@color/dogus_text_secondary"
+                            android:layout_marginBottom="4dp"/>
+
+                        <EditText
+                            android:id="@+id/etIceCreamLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Seviye (%)"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field"
+                            android:padding="8dp"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Sos"
+                            android:textSize="14sp"
+                            android:textColor="@color/dogus_text_secondary"
+                            android:layout_marginBottom="4dp"/>
+
+                        <EditText
+                            android:id="@+id/etSauceLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Seviye (%)"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field"
+                            android:padding="8dp"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Süsleme"
+                            android:textSize="14sp"
+                            android:textColor="@color/dogus_text_secondary"
+                            android:layout_marginBottom="4dp"/>
+
+                        <EditText
+                            android:id="@+id/etToppingLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Seviye (%)"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field"
+                            android:padding="8dp"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Su"
+                            android:textSize="14sp"
+                            android:textColor="@color/dogus_text_secondary"
+                            android:layout_marginBottom="4dp"/>
+
+                        <EditText
+                            android:id="@+id/etWaterLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Seviye (%)"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field"
+                            android:padding="8dp"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnCheckLevels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Seviyeleri Kontrol Et"
+                    android:background="@drawable/dogus_button_info"
+                    android:textColor="@color/dogus_text_white"
+                    android:padding="12dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Dolum Butonları -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Malzeme Dolumu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <Button
+                        android:id="@+id/btnRefillIceCream"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dondurma Doldur"
+                        android:background="@drawable/dogus_button_success"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="4dp"/>
+
+                    <Button
+                        android:id="@+id/btnRefillSauce"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sos Doldur"
+                        android:background="@drawable/dogus_button_success"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btnRefillTopping"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Süsleme Doldur"
+                        android:background="@drawable/dogus_button_success"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="4dp"/>
+
+                    <Button
+                        android:id="@+id/btnRefillWater"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Su Doldur"
+                        android:background="@drawable/dogus_button_success"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Bakım Notları -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bakım Notları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <EditText
+                    android:id="@+id/etMaintenanceNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bakım notlarını buraya yazın..."
+                    android:inputType="textMultiLine"
+                    android:background="@drawable/dogus_input_field"
+                    android:padding="12dp"
+                    android:minHeight="80dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnSaveMaintenance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bakım Notlarını Kaydet"
+                    android:background="@drawable/dogus_button_info"
+                    android:textColor="@color/dogus_text_white"
+                    android:padding="12dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Acil Durum Kontrolleri -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Acil Durum Kontrolleri"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btnEmergencyStop"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Acil Durdur"
+                        android:background="@drawable/dogus_button_danger"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnResetMachine"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Makineyi Sıfırla"
+                        android:background="@drawable/dogus_button_warning"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Mevcut Seviyeler -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mevcut Seviyeler"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:id="@+id/tvCurrentLevels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Seviyeler yükleniyor..."
+                    android:textSize="14sp"
+                    android:textColor="@color/dogus_text_secondary"
+                    android:background="@drawable/dogus_input_field"
+                    android:padding="12dp"
+                    android:minHeight="80dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Bakım Durumu -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_background_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bakım Durumu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:id="@+id/tvMaintenanceStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bakım durumu yükleniyor..."
+                    android:textSize="14sp"
+                    android:textColor="@color/dogus_text_secondary"
+                    android:background="@drawable/dogus_input_field"
+                    android:padding="12dp"
+                    android:minHeight="80dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Alt Buton -->
+        <Button
+            android:id="@+id/btnBackToSales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Satış Ekranına Dön"
+            android:background="@drawable/dogus_button_back"
+            android:textColor="@color/dogus_text_white"
+            android:padding="16dp"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</ScrollView>
