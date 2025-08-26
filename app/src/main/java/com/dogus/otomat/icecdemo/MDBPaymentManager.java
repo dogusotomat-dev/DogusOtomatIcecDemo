@@ -17,7 +17,7 @@ import com.dogus.otomat.icecdemo.TelemetryManager;
 
 /**
  * MDB Level 3 Ödeme Sistemi Yöneticisi
- * Doğuş Otomat DGS-DIC-S için özel MDB entegrasyonu
+ * Dogi Soft Ice Cream DGS-DIC-S için özel MDB entegrasyonu
  * TCN SDK ile entegre çalışır
  */
 public class MDBPaymentManager {
@@ -87,6 +87,28 @@ public class MDBPaymentManager {
             instance = new MDBPaymentManager(context);
         }
         return instance;
+    }
+
+    /**
+     * MDB konfigürasyonunu yükler
+     */
+    private void loadMDBConfig() {
+        try {
+            mdbEnabled = prefs.getBoolean("mdb_enabled", true);
+            mdbTimeout = prefs.getInt("mdb_timeout", 30000);
+            mdbDeviceId = prefs.getInt("mdb_device_id", 0x01);
+            isLevel3Enabled = prefs.getBoolean("mdb_level3_enabled", false);
+            enableContactless = prefs.getBoolean("mdb_contactless_enabled", true);
+            enableChipCard = prefs.getBoolean("mdb_chipcard_enabled", true);
+            enableMagneticStripe = prefs.getBoolean("mdb_magnetic_enabled", true);
+            contactlessLimit = prefs.getInt("mdb_contactless_limit", 50);
+            chipCardLimit = prefs.getInt("mdb_chipcard_limit", 1000);
+            magneticStripeLimit = prefs.getInt("mdb_magnetic_limit", 500);
+
+            Log.i(TAG, "MDB konfigürasyonu yüklendi");
+        } catch (Exception e) {
+            Log.e(TAG, "MDB konfigürasyon yükleme hatası: " + e.getMessage());
+        }
     }
 
     /**
@@ -229,7 +251,6 @@ public class MDBPaymentManager {
                 statusData.put("level3_status", level3Status);
                 statusData.put("timestamp", System.currentTimeMillis());
                 telemetryManager.sendDataAsync("mdb_status", statusData);
-
             }
         } catch (Exception e) {
             Log.e(TAG, "MDB durum yanıtı işleme hatası: " + e.getMessage());
@@ -333,6 +354,11 @@ public class MDBPaymentManager {
                 // Satış verilerini gönder
                 telemetryManager.sendSalesData(1, "Ice Cream", currentAmount, currentPaymentMethod, true);
 
+                // Level 3 işlem detaylarını kaydet
+                if (isLevel3Enabled) {
+                    saveMDBLevel3Transaction();
+                }
+
                 return true;
             } else {
                 currentPaymentStatus = PAYMENT_STATUS_DECLINED;
@@ -359,7 +385,7 @@ public class MDBPaymentManager {
             currentPaymentStatus = PAYMENT_STATUS_CANCELLED;
 
             // MDB iptal komutu gönder
-            byte[] response = sendMDBCommand(new byte[] { 0x04, 0x00 });
+            byte[] response = sendMDBCommand(new byte[] { 0x03, 0x00 });
 
             if (response[0] == MDB_ACK) {
                 Log.i(TAG, "Ödeme iptal edildi: " + currentAmount + " TL");
@@ -378,9 +404,30 @@ public class MDBPaymentManager {
                 return false;
             }
         } catch (Exception e) {
-            Log.e(TAG, "Ödeme iptal etme hatası: " + e.getMessage());
+            Log.e(TAG, "Ödeme iptal hatası: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Mevcut ödeme durumunu döndürür
+     */
+    public int getCurrentPaymentStatus() {
+        return currentPaymentStatus;
+    }
+
+    /**
+     * Mevcut ödeme tutarını döndürür
+     */
+    public double getCurrentAmount() {
+        return currentAmount;
+    }
+
+    /**
+     * Mevcut ödeme yöntemini döndürür
+     */
+    public String getCurrentPaymentMethod() {
+        return currentPaymentMethod;
     }
 
     /**
@@ -390,107 +437,6 @@ public class MDBPaymentManager {
         currentPaymentStatus = PAYMENT_STATUS_IDLE;
         currentAmount = 0.0;
         currentPaymentMethod = "";
-        Log.i(TAG, "Ödeme durumu sıfırlandı");
-    }
-
-    /**
-     * MDB yapılandırmasını günceller
-     */
-    public void updateMDBConfig(boolean enabled, int timeout) {
-        this.mdbEnabled = enabled;
-        this.mdbTimeout = timeout;
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("mdb_enabled", enabled);
-        editor.putInt("mdb_timeout", timeout);
-        editor.apply();
-
-        Log.i(TAG, "MDB yapılandırması güncellendi: enabled=" + enabled + ", timeout=" + timeout);
-    }
-
-    /**
-     * MDB sistemini etkinleştirir/devre dışı bırakır
-     */
-    public void setEnabled(boolean enabled) {
-        this.mdbEnabled = enabled;
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("mdb_enabled", enabled);
-        editor.apply();
-
-        Log.i(TAG, "MDB sistemi " + (enabled ? "etkinleştirildi" : "devre dışı bırakıldı"));
-    }
-
-    /**
-     * MDB bağlantısını test eder
-     */
-    public boolean testMDBConnection() {
-        try {
-            byte[] response = sendMDBCommand(new byte[] { 0x00, 0x00 }); // Test command
-            boolean success = response[0] == MDB_ACK;
-
-            // Telemetri olayını gönder
-            Map<String, Object> eventData = new HashMap<>();
-            eventData.put("event_type", "mdb_connection_test");
-            eventData.put("success", success);
-            eventData.put("timestamp", System.currentTimeMillis());
-            telemetryManager.sendDataAsync("mdb_event", eventData);
-
-            return success;
-        } catch (Exception e) {
-            Log.e(TAG, "MDB bağlantı testi başarısız: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * MDB konfigürasyonunu yükler
-     */
-    private void loadMDBConfig() {
-        try {
-            mdbEnabled = prefs.getBoolean("mdb_enabled", true);
-            mdbTimeout = prefs.getInt("mdb_timeout", 30000);
-            isLevel3Enabled = prefs.getBoolean("mdb_level3_enabled", false);
-            enableContactless = prefs.getBoolean("mdb_contactless_enabled", true);
-            enableChipCard = prefs.getBoolean("mdb_chipcard_enabled", true);
-            enableMagneticStripe = prefs.getBoolean("mdb_magnetic_enabled", true);
-            contactlessLimit = prefs.getInt("mdb_contactless_limit", 50);
-            chipCardLimit = prefs.getInt("mdb_chipcard_limit", 1000);
-            magneticStripeLimit = prefs.getInt("mdb_magnetic_limit", 500);
-
-            Log.i(TAG, "MDB konfigürasyonu yüklendi - Level 3: " + isLevel3Enabled);
-
-        } catch (Exception e) {
-            Log.e(TAG, "MDB konfigürasyon yükleme hatası: " + e.getMessage());
-        }
-    }
-
-    // Getter metodları
-    public int getCurrentPaymentStatus() {
-        return currentPaymentStatus;
-    }
-
-    public double getCurrentAmount() {
-        return currentAmount;
-    }
-
-    public String getCurrentPaymentMethod() {
-        return currentPaymentMethod;
-    }
-
-    public boolean isMdbEnabled() {
-        return mdbEnabled;
-    }
-
-    public int getMdbTimeout() {
-        return mdbTimeout;
-    }
-
-    /**
-     * MDB Level 3 durumunu döndürür
-     */
-    public boolean isLevel3Enabled() {
-        return isLevel3Enabled;
     }
 
     /**
@@ -593,5 +539,36 @@ public class MDBPaymentManager {
         features.put("magnetic", enableMagneticStripe);
         features.put("level3_enabled", isLevel3Enabled);
         return features;
+    }
+
+    /**
+     * MDB sisteminin etkin olup olmadığını kontrol eder
+     */
+    public boolean isMdbEnabled() {
+        return mdbEnabled;
+    }
+
+    /**
+     * MDB Level 3'ün etkin olup olmadığını kontrol eder
+     */
+    public boolean isLevel3Enabled() {
+        return isLevel3Enabled;
+    }
+
+    /**
+     * MDB timeout değerini döndürür
+     */
+    public int getMdbTimeout() {
+        return mdbTimeout;
+    }
+
+    /**
+     * MDB timeout değerini ayarlar
+     */
+    public void setMdbTimeout(int timeout) {
+        this.mdbTimeout = timeout;
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("mdb_timeout", timeout);
+        editor.apply();
     }
 }

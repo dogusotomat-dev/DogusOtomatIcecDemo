@@ -108,6 +108,28 @@
             android:textSize="18sp"
             android:background="@drawable/dogus_button_info"
             android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Dosya Yönetimi -->
+        <Button
+            android:id="@+id/btnFileManagement"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="📁 Dosya Yönetimi"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_primary_modern"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Log Sistemi -->
+        <Button
+            android:id="@+id/btnLogSystem"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="📝 Log Sistemi"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_success_modern"
+            android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="32dp"/>
 
         <!-- Geri Dön -->

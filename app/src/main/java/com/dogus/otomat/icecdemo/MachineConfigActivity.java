@@ -12,7 +12,7 @@ import android.widget.Toast;
 import android.widget.LinearLayout;
 
 /**
- * Doğuş Otomat Makine Konfigürasyonu Aktivitesi
+ * Dogi Soft Ice Cream Makine Konfigürasyonu Aktivitesi
  * IoT numarası, seri numarası, IP ve port bilgilerini yapılandırır
  */
 public class MachineConfigActivity extends Activity {
@@ -58,7 +58,7 @@ public class MachineConfigActivity extends Activity {
 
         // Başlık
         TextView tvTitle = new TextView(this);
-        tvTitle.setText("Doğuş Otomat Makine Konfigürasyonu");
+        tvTitle.setText("Dogi Soft Ice Cream Makine Konfigürasyonu");
         tvTitle.setTextSize(24);
         tvTitle.setPadding(0, 0, 0, 30);
         mainLayout.addView(tvTitle);

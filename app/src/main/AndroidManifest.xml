@@ -125,6 +125,18 @@
             android:label="Satış Verileri"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
+
+        <activity
+            android:name=".FileManagementActivity"
+            android:label="DOGİ Dosya Yönetimi"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+
+        <activity
+            android:name=".LogSystemActivity"
+            android:label="DOGİ Log Sistemi"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
         <receiver android:name="controller.BootBroadcastReceiver"
             android:exported="true">
             <intent-filter android:priority="999">

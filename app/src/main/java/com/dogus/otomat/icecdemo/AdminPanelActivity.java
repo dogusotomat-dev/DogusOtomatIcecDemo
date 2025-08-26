@@ -17,6 +17,8 @@ public class AdminPanelActivity extends AppCompatActivity {
     private Button btnRecipeManagement;
     private Button btnSauceToppingNames;
     private Button btnSalesData;
+    private Button btnFileManagement;
+    private Button btnLogSystem;
     private Button btnBackToSales;
 
     private SharedPreferences sharedPreferences;
@@ -40,6 +42,8 @@ public class AdminPanelActivity extends AppCompatActivity {
         btnRecipeManagement = findViewById(R.id.btnRecipeManagement);
         btnSauceToppingNames = findViewById(R.id.btnSauceToppingNames);
         btnSalesData = findViewById(R.id.btnSalesData);
+        btnFileManagement = findViewById(R.id.btnFileManagement);
+        btnLogSystem = findViewById(R.id.btnLogSystem);
         btnBackToSales = findViewById(R.id.btnBackToSales);
     }
 
@@ -52,6 +56,8 @@ public class AdminPanelActivity extends AppCompatActivity {
         btnRecipeManagement.setOnClickListener(v -> openRecipeManagement());
         btnSauceToppingNames.setOnClickListener(v -> openSauceToppingNames());
         btnSalesData.setOnClickListener(v -> openSalesData());
+        btnFileManagement.setOnClickListener(v -> openFileManagement());
+        btnLogSystem.setOnClickListener(v -> openLogSystem());
         btnBackToSales.setOnClickListener(v -> finish());
     }
 
@@ -97,6 +103,16 @@ public class AdminPanelActivity extends AppCompatActivity {
 
     private void openSalesData() {
         Intent intent = new Intent(this, SalesDataActivity.class);
+        startActivity(intent);
+    }
+
+    private void openFileManagement() {
+        Intent intent = new Intent(this, FileManagementActivity.class);
+        startActivity(intent);
+    }
+
+    private void openLogSystem() {
+        Intent intent = new Intent(this, LogSystemActivity.class);
         startActivity(intent);
     }
 }

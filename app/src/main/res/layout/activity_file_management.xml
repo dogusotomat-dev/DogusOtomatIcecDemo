@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dogus_background_light"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Modern Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/dogus_header_background"
+            android:padding="32dp"
+            android:elevation="8dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@android:drawable/ic_menu_upload"
+                android:tint="@color/dogus_text_white"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/dogus_icon_background"
+                android:padding="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📁 Dosya Yönetim Sistemi"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/dogus_text_white"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ürün görselleri, reklamlar ve ekran koruyucuları yönetin"
+                android:textSize="16sp"
+                android:textColor="@color/dogus_text_white"
+                android:alpha="0.9"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <!-- Status Display -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_card_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊 Sistem Durumu"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Durum yükleniyor..."
+                    android:textSize="16sp"
+                    android:textColor="@color/dogus_text_dark"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Upload Buttons -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_card_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📤 Dosya Yükleme"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="20dp"/>
+
+                <Button
+                    android:id="@+id/btn_upload_product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="🖼️ Ürün Görseli Yükle"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/dogus_button_primary_modern"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="12dp"
+                    android:elevation="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_upload_advertisement"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="📢 Reklam Görseli Yükle"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/dogus_button_success_modern"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="12dp"
+                    android:elevation="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_upload_screensaver"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="🖥️ Ekran Koruyucu Yükle"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/dogus_button_secondary_modern"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="12dp"
+                    android:elevation="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_upload_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="🎥 Video Yükle"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/dogus_button_sales_modern"
+                    android:textColor="@android:color/white"
+                    android:elevation="4dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Management Buttons -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_card_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚙️ Sistem Yönetimi"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Button
+                        android:id="@+id/btn_generate_report"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="📋 Rapor Oluştur"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/dogus_button_admin_modern"
+                        android:textColor="@android:color/white"
+                        android:layout_marginEnd="6dp"
+                        android:elevation="4dp"/>
+
+                    <Button
+                        android:id="@+id/btn_cleanup"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:text="🧹 Temizlik"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/dogus_button_decor_modern"
+                        android:textColor="@android:color/white"
+                        android:layout_marginStart="6dp"
+                        android:elevation="4dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- File Lists -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/dogus_card_background">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📁 Dosya Listeleri"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_primary"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ürün Görselleri:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_product_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/dogus_cart_empty_background"
+                    android:orientation="vertical"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reklamlar:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_advertisements"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/dogus_cart_empty_background"
+                    android:orientation="vertical"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ekran Koruyucular:"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_screensavers"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/dogus_cart_empty_background"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="⬅️ Geri Dön"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/dogus_button_back_modern"
+            android:textColor="@android:color/white"
+            android:elevation="4dp"/>
+
+        <!-- Footer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="32dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔒 Güvenli Dosya Yönetimi"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📱 Dinamik Güncelleme"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"
+                android:layout_marginEnd="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚡ Hızlı Erişim"
+                android:textSize="14sp"
+                android:textColor="@color/dogus_text_secondary"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

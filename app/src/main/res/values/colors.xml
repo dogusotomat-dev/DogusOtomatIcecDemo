@@ -72,4 +72,7 @@
 
     <!-- Background Colors -->
     <color name="dogus_background">#F8F9FA</color>
+    
+    <!-- Card Background Color -->
+    <color name="dogus_card_background">#FFFFFF</color>
 </resources>

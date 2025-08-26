@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Doğuş Otomat Dondurma</string>
+    <string name="app_name">Dogi Soft Ice Cream</string>
     
     <!-- Ana Menü -->
     <string name="ui_base_back">Geri</string>
@@ -140,7 +140,7 @@
     <string name="telemetry_data_sent">Veri Gönderildi</string>
     <string name="telemetry_data_failed">Veri Gönderimi Başarısız</string>
     
-    <!-- Doğuş Otomat Özel -->
+    <!-- Dogi Soft Ice Cream Özel -->
     <string name="brand_name">Dogi Soft Ice Cream</string>
     <string name="machine_model">DGS-DIC-S</string>
     <string name="iot_number">IoT Numarası</string>

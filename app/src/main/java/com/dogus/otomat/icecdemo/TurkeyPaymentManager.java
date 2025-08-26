@@ -218,7 +218,7 @@ public class TurkeyPaymentManager {
      */
     public String generateReceipt(double amount, String paymentMethod, String productName) {
         StringBuilder receipt = new StringBuilder();
-        receipt.append("=== DOĞUŞ OTOMAT DONDURMA ===\n");
+        receipt.append("=== DOGİ SOFT ICE CREAM ===\n");
         receipt.append("Marka: Dogi Soft Ice Cream\n");
         receipt.append("Model: DGS-DIC-S\n");
         receipt.append("Ürün: ").append(productName).append("\n");
