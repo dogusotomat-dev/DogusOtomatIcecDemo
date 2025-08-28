@@ -130,6 +130,39 @@
             android:textSize="18sp"
             android:background="@drawable/dogus_button_success_modern"
             android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Reklam Ayarları -->
+        <Button
+            android:id="@+id/btnAdvertisementSettings"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="📺 Reklam Ayarları"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_primary"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Ürün Görsel Atama -->
+        <Button
+            android:id="@+id/btnProductImageAssignment"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="🖼️ Ürün Görsel Atama"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_info"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Gelişmiş Loglama -->
+        <Button
+            android:id="@+id/btnAdvancedLogging"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="🔍 Gelişmiş Loglama"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_warning"
+            android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="32dp"/>
 
         <!-- Geri Dön -->

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_advertisement"
+            android:contentDescription="Reklam İkonu"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reklam Ayarları"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <!-- Reklam Süresi Ayarı -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reklam Gösterim Süresi"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reklamların ekranda ne kadar süre gösterileceğini ayarlayın"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:layout_marginBottom="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 saniye"
+                android:textSize="14sp"
+                android:textColor="@color/gray" />
+
+            <SeekBar
+                android:id="@+id/seekbar_ad_duration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:progressTint="@color/primary"
+                android:thumbTint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60 saniye"
+                android:textSize="14sp"
+                android:textColor="@color/gray" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_duration_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="15 saniye"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:background="@drawable/duration_display_background"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Diğer Reklam Ayarları -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diğer Ayarlar"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Reklam Otomatik Başlatma -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Otomatik Reklam Başlatma"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <Switch
+                android:id="@+id/switch_auto_ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+        </LinearLayout>
+
+        <!-- Reklam Geçiş Süresi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reklam Geçiş Süresi"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_transition_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 saniye"
+                android:textSize="16sp"
+                android:textColor="@color/primary"
+                android:background="@drawable/small_button_background"
+                android:padding="8dp"
+                android:minWidth="80dp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Reklam Kalitesi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reklam Kalitesi"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <Spinner
+                android:id="@+id/spinner_ad_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="120dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Butonlar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_test_advertisement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Test Reklamı"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btn_reset_to_default"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Varsayılan"
+            android:textSize="16sp"
+            android:background="@drawable/button_secondary_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+    <!-- Kaydet Butonu -->
+    <Button
+        android:id="@+id/btn_save_ad_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ayarları Kaydet"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/button_primary_background"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:padding="16dp" />
+
+</LinearLayout>

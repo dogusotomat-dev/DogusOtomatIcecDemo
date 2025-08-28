@@ -24,7 +24,7 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
     private Spinner spnPortType;
     private Button btnSaveSettings, btnBack, btnTestConnection, btnScanPorts;
     private SharedPreferences sharedPreferences;
-    
+
     // SDK Serial Port Controller
     private SerialPortController serialPortController;
     private SerialPortFinder serialPortFinder;
@@ -35,11 +35,11 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_serial_port_settings);
 
         sharedPreferences = getSharedPreferences("SerialPortPrefs", MODE_PRIVATE);
-        
+
         // Initialize SDK Serial Port components
         serialPortController = SerialPortController.getInstance();
         serialPortFinder = new SerialPortFinder();
-        
+
         initializeViews();
         loadCurrentSettings();
         setupClickListeners();
@@ -49,19 +49,20 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
         // Port Ayarları
         etPortName = findViewById(R.id.etPortName);
         etBaudRate = findViewById(R.id.etBaudRate);
-        
+
         // Port Tipi
         spnPortType = findViewById(R.id.spnPortType);
-        
+
         // Butonlar
         btnSaveSettings = findViewById(R.id.btnSaveSettings);
         btnBack = findViewById(R.id.btnBack);
         btnTestConnection = findViewById(R.id.btnTestConnection);
         btnScanPorts = findViewById(R.id.btnScanPorts);
-        
+
         // Port tipi seçeneklerini ayarla
-        String[] portTypes = {"Ana Board", "Server Board", "Third Board", "Fourth Board", "MDB Board"};
-        ArrayAdapter<String> portTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, portTypes);
+        String[] portTypes = { "Ana Board", "Server Board", "Third Board", "Fourth Board", "MDB Board" };
+        ArrayAdapter<String> portTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                portTypes);
         portTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnPortType.setAdapter(portTypeAdapter);
     }
@@ -78,7 +79,7 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
         String portName = sharedPreferences.getString("port_name", "/dev/ttyS1");
         int baudRate = sharedPreferences.getInt("baud_rate", 19200);
         int portType = sharedPreferences.getInt("port_type", 0);
-        
+
         // UI'ya yükle
         etPortName.setText(portName);
         etBaudRate.setText(String.valueOf(baudRate));
@@ -91,7 +92,7 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
             String portName = etPortName.getText().toString();
             int baudRate = Integer.parseInt(etBaudRate.getText().toString());
             int portType = spnPortType.getSelectedItemPosition();
-            
+
             // Değerleri doğrula
             if (portName.isEmpty()) {
                 showToast("Port adı boş olamaz!");
@@ -101,16 +102,16 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
                 showToast("Baud rate pozitif olmalı!");
                 return;
             }
-            
+
             // SharedPreferences'a kaydet
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("port_name", portName);
             editor.putInt("baud_rate", baudRate);
             editor.putInt("port_type", portType);
             editor.apply();
-            
+
             showToast("Serial port ayarları kaydedildi!");
-            
+
         } catch (NumberFormatException e) {
             showToast("Lütfen geçerli sayısal değerler girin!");
         }
@@ -120,35 +121,78 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
         try {
             String portName = etPortName.getText().toString();
             int baudRate = Integer.parseInt(etBaudRate.getText().toString());
-            
-            if (serialPortController != null) {
-                // SDK ile serial port bağlantısını test et
+
+            if (portName.isEmpty()) {
+                showToast("Port adı boş olamaz!");
+                return;
+            }
+
+            // TCN SDK üzerinden bağlantıyı test et
+            SDKIntegrationHelper sdkHelper = SDKIntegrationHelper.getInstance(this);
+            if (sdkHelper != null) {
+                boolean connected = false;
+                String portTypeName = "";
+
                 switch (spnPortType.getSelectedItemPosition()) {
-                    case 0: // Ana Board
-                        serialPortController.openSerialPort(portName, baudRate);
+                    case 0: // Ana Board (TCN)
+                        portTypeName = "TCN Ana Board";
+                        connected = sdkHelper.isSDKConnected();
+                        if (!connected) {
+                            connected = sdkHelper.initializeSDK();
+                        }
                         break;
                     case 1: // Server Board
-                        serialPortController.openSerialPortNew(portName, baudRate);
+                        portTypeName = "Server Board";
+                        if (serialPortController != null) {
+                            connected = serialPortController.openSerialPortNew(portName, baudRate);
+                        }
                         break;
-                    case 2: // Third Board
-                        serialPortController.openSerialPortThird(portName, baudRate);
+                    case 2: // Third Board (Dondurma Kontrol)
+                        portTypeName = "Dondurma Kontrol Board";
+                        if (serialPortController != null) {
+                            connected = serialPortController.openSerialPortThird(portName, baudRate);
+                        }
                         break;
                     case 3: // Fourth Board
-                        serialPortController.openSerialPortFourth(portName, baudRate);
+                        portTypeName = "Fourth Board";
+                        if (serialPortController != null) {
+                            connected = serialPortController.openSerialPortFourth(portName, baudRate);
+                        }
                         break;
                     case 4: // MDB Board
-                        serialPortController.openSerialPortMDB(portName, baudRate);
+                        portTypeName = "MDB Board";
+                        connected = sdkHelper.initializeMDB(portName, baudRate);
                         break;
                 }
-                
-                showToast("Serial port bağlantısı test ediliyor...");
-                
+
+                if (connected) {
+                    showToast(portTypeName + " bağlantısı başarılı!");
+                    Log.i("SerialPortSettings",
+                            portTypeName + " bağlantı testi başarılı: " + portName + "@" + baudRate);
+
+                    // Ayarları kaydet
+                    saveSettings();
+                } else {
+                    showToast(portTypeName + " bağlantısı başarısız! Port ayarlarını kontrol edin.");
+                    Log.e("SerialPortSettings", portTypeName + " bağlantı testi başarısız");
+                }
+
             } else {
-                showToast("SDK Serial Port Controller bulunamadı!");
+                showToast("SDK bağlantısı yok - Test modunda çalışıyor");
+
+                // Test modunda simüle et
+                String[] portTypes = { "TCN Ana Board", "Server Board", "Dondurma Kontrol Board", "Fourth Board",
+                        "MDB Board" };
+                String portTypeName = portTypes[spnPortType.getSelectedItemPosition()];
+                showToast("Test modu: " + portTypeName + " bağlantısı simüle edildi");
+                saveSettings();
             }
-            
+
+        } catch (NumberFormatException e) {
+            showToast("Geçersiz baud rate değeri!");
         } catch (Exception e) {
-            showToast("Bağlantı testi başarısız: " + e.getMessage());
+            Log.e("SerialPortSettings", "Bağlantı testi hatası: " + e.getMessage());
+            showToast("Bağlantı testi hatası: " + e.getMessage());
         }
     }
 
@@ -158,7 +202,7 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
                 // Mevcut portları tara
                 String[] devices = serialPortFinder.getAllDevices();
                 String[] devicePaths = serialPortFinder.getAllDevicesPath();
-                
+
                 if (devices != null && devices.length > 0) {
                     StringBuilder portList = new StringBuilder("Bulunan Portlar:\n");
                     for (int i = 0; i < devices.length; i++) {
@@ -168,7 +212,7 @@ public class SerialPortSettingsActivity extends AppCompatActivity {
                 } else {
                     showToast("Hiç port bulunamadı!");
                 }
-                
+
             } catch (Exception e) {
                 showToast("Port tarama hatası: " + e.getMessage());
             }

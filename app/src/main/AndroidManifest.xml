@@ -99,6 +99,21 @@
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
         <activity
+            android:name=".AdvertisementSettingsActivity"
+            android:label="Reklam Ayarları"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        <activity
+            android:name=".ProductImageAssignmentActivity"
+            android:label="Ürün Görsel Atama"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        <activity
+            android:name=".AdvancedLoggingActivity"
+            android:label="Gelişmiş Loglama"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        <activity
             android:name=".SerialPortSettingsActivity"
             android:label="Serial Port Ayarları"
             android:configChanges="locale|keyboardHidden|orientation">

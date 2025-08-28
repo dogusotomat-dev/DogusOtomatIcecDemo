@@ -232,31 +232,216 @@ public class SDKIntegrationHelper {
     }
 
     /**
-     * Çalışma modunu ayarlar
+     * Makine çalışma modunu ayarlar
      */
-    public boolean setWorkMode(int workMode) {
+    public boolean setWorkMode(int leftMode, int rightMode) {
         if (tcnVendIF != null && isSDKConnected) {
             try {
-                tcnVendIF.reqSetWorkMode(workMode, workMode);
+                // DriveIcec sınıfı üzerinden çalışma modunu ayarla
+                DriveIcec driveIcec = DriveIcec.getInstance();
+                if (driveIcec != null) {
+                    driveIcec.reqSetWorkMode(leftMode, rightMode);
 
-                Log.i(TAG, "Çalışma modu ayarlandı: " + workMode);
+                    Log.i(TAG, "Çalışma modu ayarlandı: Sol=" + leftMode + ", Sağ=" + rightMode);
 
-                if (callback != null) {
-                    uiHandler.post(() -> callback.onStatusUpdate("Çalışma modu ayarlandı: " + workMode));
+                    if (callback != null) {
+                        uiHandler.post(() -> callback.onStatusUpdate("Çalışma modu ayarlandı"));
+                    }
+
+                    return true;
+                } else {
+                    Log.e(TAG, "DriveIcec örneği alınamadı");
+                    return false;
                 }
-
-                return true;
             } catch (Exception e) {
                 Log.e(TAG, "Çalışma modu ayarlama hatası: " + e.getMessage());
 
                 if (callback != null) {
-                    uiHandler.post(() -> callback.onError("Çalışma modu ayarlama hatası: " + e.getMessage()));
+                    uiHandler.post(() -> callback.onError("Çalışma modu hatası: " + e.getMessage()));
                 }
 
                 return false;
             }
         } else {
             Log.w(TAG, "SDK bağlantısı yok, çalışma modu ayarlanamıyor");
+            return false;
+        }
+    }
+
+    /**
+     * MDB sistemini başlatır
+     */
+    public boolean initializeMDB(String portPath, int baudRate) {
+        if (tcnVendIF != null && isSDKConnected) {
+            try {
+                // MDB için serial port ayarlarını yapılandır
+                SerialPortController serialController = SerialPortController.getInstance();
+                if (serialController != null) {
+                    boolean portOpened = serialController.openSerialPort(portPath, baudRate);
+
+                    if (portOpened) {
+                        Log.i(TAG, "MDB serial port açıldı: " + portPath + "@" + baudRate);
+
+                        // MDB başlatma komutunu gönder
+                        boolean mdbStarted = tcnVendIF.reqStartMDB();
+
+                        if (mdbStarted) {
+                            Log.i(TAG, "MDB sistemi başlatıldı");
+
+                            if (callback != null) {
+                                uiHandler.post(() -> callback.onStatusUpdate("MDB sistemi başlatıldı"));
+                            }
+
+                            return true;
+                        } else {
+                            Log.e(TAG, "MDB başlatma komutu başarısız");
+                            return false;
+                        }
+                    } else {
+                        Log.e(TAG, "MDB serial port açılamadı");
+                        return false;
+                    }
+                } else {
+                    Log.e(TAG, "Serial port controller alınamadı");
+                    return false;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "MDB başlatma hatası: " + e.getMessage());
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onError("MDB hatası: " + e.getMessage()));
+                }
+
+                return false;
+            }
+        } else {
+            Log.w(TAG, "SDK bağlantısı yok, MDB başlatılamıyor");
+            return false;
+        }
+    }
+
+    /**
+     * Ödeme işlemini başlatır
+     */
+    public boolean startPayment(double amount, String paymentMethod) {
+        if (tcnVendIF != null && isSDKConnected) {
+            try {
+                // Ödeme miktarını cent cinsine çevir
+                int amountInCents = (int) (amount * 100);
+
+                // Ödeme türüne göre komut gönder
+                boolean paymentStarted = false;
+
+                switch (paymentMethod.toLowerCase()) {
+                    case "cash":
+                    case "nakit":
+                        paymentStarted = tcnVendIF.reqStartCashPayment(amountInCents);
+                        break;
+                    case "card":
+                    case "kart":
+                        paymentStarted = tcnVendIF.reqStartCardPayment(amountInCents);
+                        break;
+                    default:
+                        paymentStarted = tcnVendIF.reqStartCashPayment(amountInCents);
+                        break;
+                }
+
+                if (paymentStarted) {
+                    Log.i(TAG, "Ödeme başlatıldı: " + amount + " TL, Yöntem: " + paymentMethod);
+
+                    if (callback != null) {
+                        uiHandler.post(() -> callback.onStatusUpdate("Ödeme başlatıldı"));
+                    }
+
+                    return true;
+                } else {
+                    Log.e(TAG, "Ödeme başlatılamadı");
+                    return false;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Ödeme başlatma hatası: " + e.getMessage());
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onError("Ödeme hatası: " + e.getMessage()));
+                }
+
+                return false;
+            }
+        } else {
+            Log.w(TAG, "SDK bağlantısı yok, ödeme başlatılamıyor");
+            return false;
+        }
+    }
+
+    /**
+     * Dondurma üretimini başlatır
+     */
+    public boolean startIceCreamProduction(int leftQuantity, int rightQuantity) {
+        if (tcnVendIF != null && isSDKConnected) {
+            try {
+                DriveIcec driveIcec = DriveIcec.getInstance();
+                if (driveIcec != null) {
+                    // Dondurma üretim komutunu gönder
+                    driveIcec.reqStartIceMake(leftQuantity, rightQuantity);
+
+                    Log.i(TAG, "Dondurma üretimi başlatıldı: Sol=" + leftQuantity + ", Sağ=" + rightQuantity);
+
+                    if (callback != null) {
+                        uiHandler.post(() -> callback.onStatusUpdate("Dondurma üretimi başlatıldı"));
+                    }
+
+                    return true;
+                } else {
+                    Log.e(TAG, "DriveIcec örneği alınamadı");
+                    return false;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Dondurma üretim hatası: " + e.getMessage());
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onError("Üretim hatası: " + e.getMessage()));
+                }
+
+                return false;
+            }
+        } else {
+            Log.w(TAG, "SDK bağlantısı yok, üretim başlatılamıyor");
+            return false;
+        }
+    }
+
+    /**
+     * Sos/süsleme çıkarma işlemi
+     */
+    public boolean dispenseSauceOrTopping(int slotNumber, int quantity) {
+        if (tcnVendIF != null && isSDKConnected) {
+            try {
+                // Slot numarasına göre çıkarma işlemi
+                boolean dispensed = tcnVendIF.reqVendProduct(slotNumber, quantity);
+
+                if (dispensed) {
+                    Log.i(TAG, "Ürün çıkarma başlatıldı: Slot=" + slotNumber + ", Miktar=" + quantity);
+
+                    if (callback != null) {
+                        uiHandler.post(() -> callback.onStatusUpdate("Ürün çıkarılıyor"));
+                    }
+
+                    return true;
+                } else {
+                    Log.e(TAG, "Ürün çıkarma başarısız");
+                    return false;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Ürün çıkarma hatası: " + e.getMessage());
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onError("Çıkarma hatası: " + e.getMessage()));
+                }
+
+                return false;
+            }
+        } else {
+            Log.w(TAG, "SDK bağlantısı yok, ürün çıkarılamıyor");
             return false;
         }
     }
@@ -360,4 +545,3 @@ public class SDKIntegrationHelper {
         }
     }
 }
-

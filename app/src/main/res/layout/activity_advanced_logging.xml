@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_logs"
+            android:contentDescription="Log İkonu"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gelişmiş Loglama"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <!-- Log Filtreleme -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log Filtreleme"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Log Seviyesi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Seviyesi:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="12dp"
+                android:minWidth="120dp" />
+
+            <Spinner
+                android:id="@+id/spinner_log_level"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Log Kategorisi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Kategorisi:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="12dp"
+                android:minWidth="120dp" />
+
+            <Spinner
+                android:id="@+id/spinner_log_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Log Zamanı -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Zamanı:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="12dp"
+                android:minWidth="120dp" />
+
+            <Spinner
+                android:id="@+id/spinner_log_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Log Kontrolleri -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_refresh_logs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Yenile"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginEnd="4dp"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btn_export_logs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Dışa Aktar"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btn_clear_logs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Temizle"
+            android:textSize="14sp"
+            android:background="@drawable/button_secondary_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="4dp"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Test ve Sistem Log Butonları -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_test_logging"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Test Log"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btn_view_system_logs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sistem Logları"
+            android:textSize="14sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Log İçeriği -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log İçeriği"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/log_content_background">
+
+            <TextView
+                android:id="@+id/tv_log_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loglar yükleniyor..."
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:fontFamily="monospace"
+                android:padding="12dp"
+                android:lineSpacingExtra="2dp" />
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

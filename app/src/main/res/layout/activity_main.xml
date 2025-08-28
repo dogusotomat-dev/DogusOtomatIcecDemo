@@ -349,4 +349,31 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- Reklam ve Ekran Koruyucu Overlay -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Reklam ImageView -->
+        <ImageView
+            android:id="@+id/advertisement_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:background="@android:color/black"
+            android:alpha="0.9" />
+
+        <!-- Ekran Koruyucu ImageView -->
+        <ImageView
+            android:id="@+id/screensaver_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:scaleType="centerCrop"
+            android:background="@android:color/black" />
+
+    </FrameLayout>
+
 </ScrollView>

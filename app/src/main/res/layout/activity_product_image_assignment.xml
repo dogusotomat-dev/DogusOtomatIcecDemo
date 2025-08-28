@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_image"
+            android:contentDescription="Görsel İkonu"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ürün Görsel Atama"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <!-- Ürün Seçimi -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ürün Seçimi"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Ürün Türü -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ürün Türü:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="12dp"
+                android:minWidth="100dp" />
+
+            <Spinner
+                android:id="@+id/spinner_product_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Ürün -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ürün:"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="12dp"
+                android:minWidth="100dp" />
+
+            <Spinner
+                android:id="@+id/spinner_product_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Seçili Ürün Bilgisi -->
+    <TextView
+        android:id="@+id/tv_product_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seçili Ürün: Yok"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:gravity="center"
+        android:background="@drawable/info_display_background"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Görsel Önizleme -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/settings_card_background"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Görsel Önizleme"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <ImageView
+            android:id="@+id/imageview_product_preview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_gallery"
+            android:scaleType="centerCrop"
+            android:background="@drawable/image_preview_background"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_current_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mevcut Görsel: Atanmamış"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- Görsel Kontrolleri -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_select_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Görsel Seç"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btn_remove_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Görsel Kaldır"
+            android:textSize="16sp"
+            android:background="@drawable/button_secondary_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+    <!-- Test ve Kaydet Butonları -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <Button
+            android:id="@+id/btn_test_display"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Test Görseli"
+            android:textSize="16sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btn_save_assignment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Atamayı Kaydet"
+            android:textSize="16sp"
+            android:background="@drawable/button_primary_background"
+            android:textColor="@color/white"
+            android:layout_marginStart="8dp"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+    <!-- Bilgi Metni -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not: Atanan görseller ana ekranda ürün butonlarında gösterilecektir. Görsel boyutu 200x200 piksel olarak optimize edilmiştir."
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:gravity="center"
+        android:background="@drawable/info_display_background"
+        android:padding="12dp" />
+
+</LinearLayout>

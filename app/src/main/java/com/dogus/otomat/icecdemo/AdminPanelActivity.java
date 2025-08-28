@@ -19,6 +19,9 @@ public class AdminPanelActivity extends AppCompatActivity {
     private Button btnSalesData;
     private Button btnFileManagement;
     private Button btnLogSystem;
+    private Button btnAdvertisementSettings;
+    private Button btnProductImageAssignment;
+    private Button btnAdvancedLogging;
     private Button btnBackToSales;
 
     private SharedPreferences sharedPreferences;
@@ -36,7 +39,7 @@ public class AdminPanelActivity extends AppCompatActivity {
     private void initializeViews() {
         btnPasswordSettings = findViewById(R.id.btnPasswordSettings);
         btnPriceSettings = findViewById(R.id.btnPriceSettings);
-        btnMachineSettings = findViewById(R.id.btnMachineSettings);
+        btnMachineSettings = findViewById(R.id.btnPasswordSettings);
         btnTelemetrySettings = findViewById(R.id.btnTelemetrySettings);
         btnSerialPortSettings = findViewById(R.id.btnSerialPortSettings);
         btnRecipeManagement = findViewById(R.id.btnRecipeManagement);
@@ -44,6 +47,9 @@ public class AdminPanelActivity extends AppCompatActivity {
         btnSalesData = findViewById(R.id.btnSalesData);
         btnFileManagement = findViewById(R.id.btnFileManagement);
         btnLogSystem = findViewById(R.id.btnLogSystem);
+        btnAdvertisementSettings = findViewById(R.id.btnAdvertisementSettings);
+        btnProductImageAssignment = findViewById(R.id.btnProductImageAssignment);
+        btnAdvancedLogging = findViewById(R.id.btnAdvancedLogging);
         btnBackToSales = findViewById(R.id.btnBackToSales);
     }
 
@@ -58,6 +64,9 @@ public class AdminPanelActivity extends AppCompatActivity {
         btnSalesData.setOnClickListener(v -> openSalesData());
         btnFileManagement.setOnClickListener(v -> openFileManagement());
         btnLogSystem.setOnClickListener(v -> openLogSystem());
+        btnAdvertisementSettings.setOnClickListener(v -> openAdvertisementSettings());
+        btnProductImageAssignment.setOnClickListener(v -> openProductImageAssignment());
+        btnAdvancedLogging.setOnClickListener(v -> openAdvancedLogging());
         btnBackToSales.setOnClickListener(v -> finish());
     }
 
@@ -113,6 +122,21 @@ public class AdminPanelActivity extends AppCompatActivity {
 
     private void openLogSystem() {
         Intent intent = new Intent(this, LogSystemActivity.class);
+        startActivity(intent);
+    }
+
+    private void openAdvertisementSettings() {
+        Intent intent = new Intent(this, AdvertisementSettingsActivity.class);
+        startActivity(intent);
+    }
+
+    private void openProductImageAssignment() {
+        Intent intent = new Intent(this, ProductImageAssignmentActivity.class);
+        startActivity(intent);
+    }
+
+    private void openAdvancedLogging() {
+        Intent intent = new Intent(this, AdvancedLoggingActivity.class);
         startActivity(intent);
     }
 }

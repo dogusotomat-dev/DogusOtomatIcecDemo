@@ -101,22 +101,47 @@ public class MachineSettingsActivity extends AppCompatActivity {
 
     private void changeMachineMode(int mode) {
         try {
-            // SDK'daki gerçek makine kontrolü
-            DriveIcec.getInstance().reqSetWorkMode(mode, mode);
+            // TCN SDK'ya erişim sağla
+            SDKIntegrationHelper sdkHelper = SDKIntegrationHelper.getInstance(this);
 
-            // Şimdilik SharedPreferences'a kaydet
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("machine_mode", "Mod " + mode);
-            editor.putInt("work_mode_left", mode);
-            editor.putInt("work_mode_right", mode);
-            editor.apply();
+            if (sdkHelper != null && sdkHelper.isSDKConnected()) {
+                // Gerçek makine kontrolü
+                boolean modeChanged = sdkHelper.setWorkMode(mode, mode);
 
-            tvCurrentMode.setText("Mevcut Mod: Mod " + mode);
-            showToast("Makine modu değiştirildi: " + mode);
+                if (modeChanged) {
+                    // Şimdilik SharedPreferences'a kaydet
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("machine_mode", "Mod " + mode);
+                    editor.putInt("work_mode_left", mode);
+                    editor.putInt("work_mode_right", mode);
+                    editor.apply();
 
-            // Telemetri verisi gönder
-            if (telemetryManager != null) {
-                telemetryManager.sendMachineStatus("Mode Change", "Makine modu " + mode + " olarak değiştirildi");
+                    tvCurrentMode.setText("Mevcut Mod: Mod " + mode);
+                    showToast("Makine modu değiştirildi: " + mode);
+
+                    // Telemetri verisi gönder
+                    if (telemetryManager != null) {
+                        telemetryManager.sendMachineStatus("Mode Change",
+                                "Makine modu " + mode + " olarak değiştirildi");
+                    }
+
+                    Log.i("MachineSettings", "Makine modu başarıyla değiştirildi: " + mode);
+                } else {
+                    showToast("Makine modu değiştirilemedi - SDK hatası");
+                    Log.e("MachineSettings", "SDK makine modu değiştirme başarısız");
+                }
+            } else {
+                // SDK bağlantısı yoksa simüle et
+                Log.w("MachineSettings", "SDK bağlantısı yok - Mod değişikliği simüle ediliyor");
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("machine_mode", "Mod " + mode + " (Simülasyon)");
+                editor.putInt("work_mode_left", mode);
+                editor.putInt("work_mode_right", mode);
+                editor.apply();
+
+                tvCurrentMode.setText("Mevcut Mod: Mod " + mode + " (Simülasyon)");
+                showToast("Makine modu simüle edildi: " + mode);
             }
 
         } catch (Exception e) {
@@ -313,5 +338,93 @@ public class MachineSettingsActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showDoorControlDialog() {
+        String[] doorOptions = { "Kapıyı Aç", "Kapıyı Kapat", "Kapı Durumunu Kontrol Et" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Kapı Kontrolü");
+        builder.setItems(doorOptions, (dialog, which) -> {
+            switch (which) {
+                case 0: // Kapıyı Aç
+                    controlMachineDoor(true);
+                    break;
+                case 1: // Kapıyı Kapat
+                    controlMachineDoor(false);
+                    break;
+                case 2: // Durum Kontrol
+                    checkDoorStatus();
+                    break;
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * Makine kapısını kontrol eder
+     */
+    private void controlMachineDoor(boolean open) {
+        try {
+            SDKIntegrationHelper sdkHelper = SDKIntegrationHelper.getInstance(this);
+
+            if (sdkHelper != null && sdkHelper.isSDKConnected()) {
+                // Gerçek kapı kontrolü
+                boolean doorControlled = sdkHelper.controlDoor(1, open); // Grup ID: 1
+
+                String action = open ? "açıldı" : "kapatıldı";
+
+                if (doorControlled) {
+                    showToast("Kapı başarıyla " + action);
+                    Log.i("MachineSettings", "Kapı " + action + ": Grup 1");
+
+                    // Telemetri verisi gönder
+                    if (telemetryManager != null) {
+                        telemetryManager.sendMachineStatus("Door Control", "Kapı " + action);
+                    }
+                } else {
+                    showToast("Kapı kontrol edilemedi - SDK hatası");
+                    Log.e("MachineSettings", "Kapı kontrol hatası");
+                }
+            } else {
+                // SDK bağlantısı yoksa simüle et
+                String action = open ? "açıldı" : "kapatıldı";
+                showToast("Kapı " + action + " (Simülasyon)");
+                Log.w("MachineSettings", "SDK bağlantısı yok - Kapı kontrolü simüle ediliyor");
+            }
+
+        } catch (Exception e) {
+            Log.e("MachineSettings", "Kapı kontrol hatası: " + e.getMessage());
+            showToast("Kapı kontrol hatası: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Kapı durumunu kontrol eder
+     */
+    private void checkDoorStatus() {
+        try {
+            SDKIntegrationHelper sdkHelper = SDKIntegrationHelper.getInstance(this);
+
+            if (sdkHelper != null && sdkHelper.isSDKConnected()) {
+                // Makine durumunu sorgula
+                boolean statusQueried = sdkHelper.queryMachineStatus();
+
+                if (statusQueried) {
+                    showToast("Kapı durumu sorgulanıyor...");
+                    Log.i("MachineSettings", "Kapı durum sorgusu gönderildi");
+                } else {
+                    showToast("Kapı durumu sorgulanamadı");
+                    Log.e("MachineSettings", "Kapı durum sorgulama hatası");
+                }
+            } else {
+                showToast("Kapı durumu kontrol edilemiyor - SDK bağlantısı yok");
+                Log.w("MachineSettings", "SDK bağlantısı yok");
+            }
+
+        } catch (Exception e) {
+            Log.e("MachineSettings", "Kapı durum kontrolü hatası: " + e.getMessage());
+            showToast("Kapı durum kontrolü hatası: " + e.getMessage());
+        }
     }
 }

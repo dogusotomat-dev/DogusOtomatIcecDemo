@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView; // Added for advertisementImageView
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,6 +76,11 @@ public class MainAct extends AppCompatActivity {
 
     // Fiyatlar artık SharedPreferences'dan yükleniyor
 
+    // Reklam görseli için ImageView
+    private ImageView advertisementImageView;
+    // Reklam süresi (varsayılan 10 saniye)
+    private long advertisementDuration = 10000; // 10 saniye
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +101,12 @@ public class MainAct extends AppCompatActivity {
 
         // Dosya yönetim sistemini başlat
         initializeFileManagement();
+
+        // Reklam görseli için ImageView'ı bul
+        advertisementImageView = findViewById(R.id.advertisement_image);
+        if (advertisementImageView != null) {
+            advertisementImageView.setVisibility(View.GONE); // Varsayılan olarak gizli
+        }
     }
 
     /**
@@ -227,6 +239,9 @@ public class MainAct extends AppCompatActivity {
         topping1Price = sharedPreferences.getFloat("topping1_price", 1.5f);
         topping2Price = sharedPreferences.getFloat("topping2_price", 1.0f);
         topping3Price = sharedPreferences.getFloat("topping3_price", 1.5f);
+
+        // Reklam süresini yükle
+        advertisementDuration = sharedPreferences.getLong("advertisement_duration", 10000);
     }
 
     private void initView() {
@@ -770,7 +785,8 @@ public class MainAct extends AppCompatActivity {
                 // Log olayını kaydet
                 if (advancedLoggingSystem != null) {
                     advancedLoggingSystem.logUserAction("product_images_updated",
-                            "product_update", "Seçilen ürünler: " + selectedSauces.size() + " sos, " + selectedToppings.size()
+                            "product_update",
+                            "Seçilen ürünler: " + selectedSauces.size() + " sos, " + selectedToppings.size()
                                     + " süsleme");
                 }
             }
@@ -1018,17 +1034,57 @@ public class MainAct extends AppCompatActivity {
         try {
             if (fileManagementSystem != null) {
                 Bitmap adImage = fileManagementSystem.getAdvertisement(adName);
-                if (adImage != null) {
-                    // Reklam görselini UI'da göster (örneğin bir ImageView'da)
-                    Log.i(TAG, "Reklam gösteriliyor: " + adName);
+                if (adImage != null && advertisementImageView != null) {
+                    // Reklam görselini UI'da göster
+                    advertisementImageView.setImageBitmap(adImage);
+                    advertisementImageView.setVisibility(View.VISIBLE);
 
-                    // Burada reklam görselini UI'da gösterebilirsiniz
-                    // Örnek: advertisementImageView.setImageBitmap(adImage);
+                    // Ayarlanabilir süre sonra reklamı gizle
+                    new Handler().postDelayed(() -> {
+                        if (advertisementImageView != null) {
+                            advertisementImageView.setVisibility(View.GONE);
+                        }
+                    }, advertisementDuration);
+
+                    Log.i(TAG,
+                            "Rklam gösteriliyor: " + adName + " - Süre: " + (advertisementDuration / 1000) + " saniye");
                 }
             }
         } catch (Exception e) {
             Log.e(TAG, "Reklam gösterme hatası: " + e.getMessage());
         }
+    }
+
+    /**
+     * Reklam süresini ayarlar
+     */
+    public void setAdvertisementDuration(long durationMs) {
+        try {
+            // Minimum 5 saniye, maksimum 60 saniye
+            if (durationMs < 5000)
+                durationMs = 5000;
+            if (durationMs > 60000)
+                durationMs = 60000;
+
+            advertisementDuration = durationMs;
+
+            // Ayarlara kaydet
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("advertisement_duration", advertisementDuration);
+            editor.apply();
+
+            Log.i(TAG, "Reklam süresi ayarlandı: " + (advertisementDuration / 1000) + " saniye");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Reklam süresi ayarlama hatası: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Mevcut reklam süresini döndürür
+     */
+    public long getAdvertisementDuration() {
+        return advertisementDuration;
     }
 
     private void prepareScreensaver(String screensavers) {
