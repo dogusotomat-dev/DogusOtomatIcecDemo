@@ -21,7 +21,7 @@
 - **Telemetri**: Uzaktan izleme ve veri toplama
 
 ### 🔧 Teknik Özellikler
-- **TCN SDK Entegrasyonu**: Donanım kontrolü
+- **SDK Entegrasyonu**: Donanım kontrolü
 - **Firebase Telemetri**: Gerçek zamanlı veri
 - **MDB Ödeme Sistemi**: Level 3 entegrasyon
 - **Android 10+ Uyumlu**: Modern cihaz desteği
@@ -81,18 +81,18 @@ Uygulama, aşağıdaki verileri toplar ve Firebase'e gönderir:
 ### Kod Standartları
 - Java naming conventions
 - Android best practices
-- TCN SDK guidelines
+- SDK guidelines
 - Firebase security rules
 
 ## 📞 Destek
 
-- **Teknik Destek**: development@dogisoft.com
-- **Müşteri Hizmetleri**: support@dogisoft.com
-- **Satış**: sales@dogisoft.com
+- **Teknik Destek**: teknik@dogusotomat.com
+- **Müşteri Hizmetleri**: info@dogusotomat.com
+- **Satış**: sales@dogusotomat.com
 
 ## 📄 Lisans
 
-Bu proje Dogi Soft Ice Cream şirketine aittir. Tüm hakları saklıdır.
+Bu proje DDoğuş Otomat Teknolojileri şirketine aittir. Tüm hakları saklıdır.
 
 ## 🔄 Güncellemeler
 
@@ -100,7 +100,7 @@ Bu proje Dogi Soft Ice Cream şirketine aittir. Tüm hakları saklıdır.
 - ✅ Marka adı "Dogi Soft Ice Cream" olarak güncellendi
 - ✅ Dosya yönetimi sistemi eklendi
 - ✅ Log sistemi entegrasyonu
-- ✅ TCN SDK entegrasyonu
+- ✅ SDK entegrasyonu
 - ✅ Modern UI tasarımı
 - ✅ Çoklu ödeme sistemi
 - ✅ Telemetri sistemi
@@ -108,3 +108,4 @@ Bu proje Dogi Soft Ice Cream şirketine aittir. Tüm hakları saklıdır.
 ---
 
 **Dogi Soft Ice Cream** - Premium dondurma deneyimi için geliştirildi 🍦✨
+
