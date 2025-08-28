@@ -8,6 +8,11 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Switch;
+import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,17 +23,28 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AdvertisementSettingsActivity extends AppCompatActivity {
     private static final String TAG = "AdvertisementSettings";
 
-    private SeekBar seekBarDuration;
-    private TextView tvDurationValue;
-    private Button btnSaveSettings;
-    private Button btnTestAdvertisement;
-    private Button btnResetToDefault;
+    // SeekBars
+    private SeekBar seekBarPhotoDuration, seekBarVideoDuration, seekBarTransitionDuration, seekBarCycleDelay;
+    
+    // TextViews
+    private TextView tvPhotoDuration, tvVideoDuration, tvTransitionDuration, tvCycleDelay;
+    
+    // Buttons
+    private Button btnSaveSettings, btnTestAdvertisement, btnResetToDefault;
+    private Button btnAddPhoto, btnAddVideo, btnStartAds, btnStopAds;
+    
+    // Switches
+    private Switch switchAutoPlay, switchPhotoAds, switchVideoAds;
+    
+    // Spinners
+    private Spinner spinnerPhotoQuality, spinnerVideoQuality;
+    
+    // List and Preview
+    private ListView listViewAdvertisements;
+    private ImageView ivPreview;
+    private VideoView vvPreview;
 
     private SharedPreferences sharedPreferences;
-    private long currentDuration;
-    private static final long MIN_DURATION = 5000; // 5 saniye
-    private static final long MAX_DURATION = 60000; // 60 saniye
-    private static final long DEFAULT_DURATION = 15000; // 15 saniye
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,103 +59,164 @@ public class AdvertisementSettingsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        seekBarDuration = findViewById(R.id.seekbar_ad_duration);
-        tvDurationValue = findViewById(R.id.tv_duration_value);
-        btnSaveSettings = findViewById(R.id.btn_save_ad_settings);
-        btnTestAdvertisement = findViewById(R.id.btn_test_advertisement);
-        btnResetToDefault = findViewById(R.id.btn_reset_to_default);
-
-        // SeekBar ayarları
-        int maxProgress = (int) ((MAX_DURATION - MIN_DURATION) / 1000);
-        seekBarDuration.setMax(maxProgress);
+        seekBarPhotoDuration = findViewById(R.id.seekBarPhotoDuration);
+        seekBarVideoDuration = findViewById(R.id.seekBarVideoDuration);
+        seekBarTransitionDuration = findViewById(R.id.seekBarTransitionDuration);
+        seekBarCycleDelay = findViewById(R.id.seekBarCycleDelay);
+        
+        tvPhotoDuration = findViewById(R.id.tvPhotoDuration);
+        tvVideoDuration = findViewById(R.id.tvVideoDuration);
+        tvTransitionDuration = findViewById(R.id.tvTransitionDuration);
+        tvCycleDelay = findViewById(R.id.tvCycleDelay);
+        
+        btnSaveSettings = findViewById(R.id.btnSaveSettings);
+        btnTestAdvertisement = findViewById(R.id.btnTestAdvertisement);
+        btnResetToDefault = findViewById(R.id.btnResetToDefault);
+        
+        btnAddPhoto = findViewById(R.id.btnAddPhoto);
+        btnAddVideo = findViewById(R.id.btnAddVideo);
+        btnStartAds = findViewById(R.id.btnStartAds);
+        btnStopAds = findViewById(R.id.btnStopAds);
+        
+        switchAutoPlay = findViewById(R.id.switchAutoPlay);
+        switchPhotoAds = findViewById(R.id.switchPhotoAds);
+        switchVideoAds = findViewById(R.id.switchVideoAds);
+        
+        spinnerPhotoQuality = findViewById(R.id.spinnerPhotoQuality);
+        spinnerVideoQuality = findViewById(R.id.spinnerVideoQuality);
+        
+        listViewAdvertisements = findViewById(R.id.listViewAdvertisements);
+        ivPreview = findViewById(R.id.ivPreview);
+        vvPreview = findViewById(R.id.vvPreview);
     }
 
     private void loadCurrentSettings() {
         try {
-            // Mevcut reklam süresini yükle
-            currentDuration = sharedPreferences.getLong("advertisement_duration", DEFAULT_DURATION);
-
-            // SeekBar'ı güncelle
-            updateSeekBarFromDuration(currentDuration);
-
-            // Süre değerini göster
-            updateDurationDisplay(currentDuration);
-
-            Log.i(TAG, "Reklam ayarları yüklendi: " + (currentDuration / 1000) + " saniye");
+            // Mevcut reklam ayarlarını yükle
+            int photoDuration = sharedPreferences.getInt("photo_duration", 10);
+            int videoDuration = sharedPreferences.getInt("video_duration", 30);
+            int transitionDuration = sharedPreferences.getInt("transition_duration", 2);
+            int cycleDelay = sharedPreferences.getInt("cycle_delay", 5);
+            
+            boolean autoPlay = sharedPreferences.getBoolean("auto_play", true);
+            boolean photoAds = sharedPreferences.getBoolean("photo_ads", true);
+            boolean videoAds = sharedPreferences.getBoolean("video_ads", true);
+            
+            // SeekBar'ları güncelle
+            seekBarPhotoDuration.setProgress(photoDuration);
+            seekBarVideoDuration.setProgress(videoDuration);
+            seekBarTransitionDuration.setProgress(transitionDuration);
+            seekBarCycleDelay.setProgress(cycleDelay);
+            
+            // TextView'ları güncelle
+            tvPhotoDuration.setText(photoDuration + " saniye");
+            tvVideoDuration.setText(videoDuration + " saniye");
+            tvTransitionDuration.setText(transitionDuration + " saniye");
+            tvCycleDelay.setText(cycleDelay + " saniye");
+            
+            // Switch'leri güncelle
+            switchAutoPlay.setChecked(autoPlay);
+            switchPhotoAds.setChecked(photoAds);
+            switchVideoAds.setChecked(videoAds);
+            
+            Log.i(TAG, "Reklam ayarları yüklendi");
 
         } catch (Exception e) {
             Log.e(TAG, "Reklam ayarları yükleme hatası: " + e.getMessage());
-            currentDuration = DEFAULT_DURATION;
         }
     }
 
     private void setupListeners() {
-        // SeekBar listener
-        seekBarDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        // SeekBar listeners
+        seekBarPhotoDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    // Progress'i süreye çevir
-                    long newDuration = MIN_DURATION + (progress * 1000);
-                    updateDurationDisplay(newDuration);
+                    tvPhotoDuration.setText(progress + " saniye");
                 }
             }
-
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // Gerekli değil
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // Gerekli değil
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        
+        seekBarVideoDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    tvVideoDuration.setText(progress + " saniye");
+                }
             }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        
+        seekBarTransitionDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    tvTransitionDuration.setText(progress + " saniye");
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        
+        seekBarCycleDelay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    tvCycleDelay.setText(progress + " saniye");
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // Kaydet butonu
+        // Buton listeners
         btnSaveSettings.setOnClickListener(v -> saveAdvertisementSettings());
-
-        // Test butonu
         btnTestAdvertisement.setOnClickListener(v -> testAdvertisement());
-
-        // Sıfırla butonu
         btnResetToDefault.setOnClickListener(v -> resetToDefault());
+        btnAddPhoto.setOnClickListener(v -> addPhoto());
+        btnAddVideo.setOnClickListener(v -> addVideo());
+        btnStartAds.setOnClickListener(v -> startAds());
+        btnStopAds.setOnClickListener(v -> stopAds());
     }
 
-    private void updateSeekBarFromDuration(long duration) {
-        try {
-            // Süreyi progress'e çevir
-            int progress = (int) ((duration - MIN_DURATION) / 1000);
-            seekBarDuration.setProgress(progress);
-        } catch (Exception e) {
-            Log.e(TAG, "SeekBar güncelleme hatası: " + e.getMessage());
-        }
-    }
 
-    private void updateDurationDisplay(long duration) {
-        try {
-            int seconds = (int) (duration / 1000);
-            tvDurationValue.setText(seconds + " saniye");
-        } catch (Exception e) {
-            Log.e(TAG, "Süre gösterimi güncelleme hatası: " + e.getMessage());
-        }
-    }
 
     private void saveAdvertisementSettings() {
         try {
-            // Mevcut progress'i süreye çevir
-            int progress = seekBarDuration.getProgress();
-            long newDuration = MIN_DURATION + (progress * 1000);
+            // Mevcut ayarları al
+            int photoDuration = seekBarPhotoDuration.getProgress();
+            int videoDuration = seekBarVideoDuration.getProgress();
+            int transitionDuration = seekBarTransitionDuration.getProgress();
+            int cycleDelay = seekBarCycleDelay.getProgress();
+            
+            boolean autoPlay = switchAutoPlay.isChecked();
+            boolean photoAds = switchPhotoAds.isChecked();
+            boolean videoAds = switchVideoAds.isChecked();
 
             // Ayarları kaydet
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("advertisement_duration", newDuration);
+            editor.putInt("photo_duration", photoDuration);
+            editor.putInt("video_duration", videoDuration);
+            editor.putInt("transition_duration", transitionDuration);
+            editor.putInt("cycle_delay", cycleDelay);
+            editor.putBoolean("auto_play", autoPlay);
+            editor.putBoolean("photo_ads", photoAds);
+            editor.putBoolean("video_ads", videoAds);
             editor.apply();
 
-            currentDuration = newDuration;
-
             Toast.makeText(this, "Reklam ayarları kaydedildi!", Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Reklam ayarları kaydedildi: " + (newDuration / 1000) + " saniye");
+            Log.i(TAG, "Reklam ayarları kaydedildi");
 
         } catch (Exception e) {
             Log.e(TAG, "Reklam ayarları kaydetme hatası: " + e.getMessage());
@@ -184,17 +261,60 @@ public class AdvertisementSettingsActivity extends AppCompatActivity {
             Log.e(TAG, "Test reklam görseli oluşturma hatası: " + e.getMessage());
         }
     }
+    
+    private void addPhoto() {
+        try {
+            Toast.makeText(this, "Fotoğraf ekleme özelliği yakında eklenecek", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Add photo clicked");
+        } catch (Exception e) {
+            Log.e(TAG, "Add photo error: " + e.getMessage());
+        }
+    }
+    
+    private void addVideo() {
+        try {
+            Toast.makeText(this, "Video ekleme özelliği yakında eklenecek", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Add video clicked");
+        } catch (Exception e) {
+            Log.e(TAG, "Add video error: " + e.getMessage());
+        }
+    }
+    
+    private void startAds() {
+        try {
+            Toast.makeText(this, "Reklamlar başlatıldı", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Ads started");
+        } catch (Exception e) {
+            Log.e(TAG, "Start ads error: " + e.getMessage());
+        }
+    }
+    
+    private void stopAds() {
+        try {
+            Toast.makeText(this, "Reklamlar durduruldu", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Ads stopped");
+        } catch (Exception e) {
+            Log.e(TAG, "Stop ads error: " + e.getMessage());
+        }
+    }
 
     private void resetToDefault() {
         try {
             // Varsayılan değerlere sıfırla
-            currentDuration = DEFAULT_DURATION;
-
-            // SeekBar'ı güncelle
-            updateSeekBarFromDuration(currentDuration);
-
-            // Süre değerini göster
-            updateDurationDisplay(currentDuration);
+            seekBarPhotoDuration.setProgress(10);
+            seekBarVideoDuration.setProgress(30);
+            seekBarTransitionDuration.setProgress(2);
+            seekBarCycleDelay.setProgress(5);
+            
+            switchAutoPlay.setChecked(true);
+            switchPhotoAds.setChecked(true);
+            switchVideoAds.setChecked(true);
+            
+            // TextView'ları güncelle
+            tvPhotoDuration.setText("10 saniye");
+            tvVideoDuration.setText("30 saniye");
+            tvTransitionDuration.setText("2 saniye");
+            tvCycleDelay.setText("5 saniye");
 
             Toast.makeText(this, "Varsayılan değerlere sıfırlandı!", Toast.LENGTH_SHORT).show();
             Log.i(TAG, "Reklam ayarları varsayılan değerlere sıfırlandı");

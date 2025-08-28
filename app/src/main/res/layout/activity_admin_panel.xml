@@ -33,12 +33,12 @@
             android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Fiyat Ayarları -->
+        <!-- Ürün Ayarları -->
         <Button
-            android:id="@+id/btnPriceSettings"
+            android:id="@+id/btnProductSettings"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="💰 Fiyat Ayarları"
+            android:text="🍦 Ürün Ayarları"
             android:textSize="18sp"
             android:background="@drawable/dogus_button_success"
             android:textColor="@color/dogus_text_white"
@@ -55,80 +55,14 @@
             android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Telemetri Ayarları -->
+        <!-- Sistem Ayarları -->
         <Button
-            android:id="@+id/btnTelemetrySettings"
+            android:id="@+id/btnSystemSettings"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="📡 Telemetri Ayarları"
+            android:text="🔧 Sistem Ayarları"
             android:textSize="18sp"
             android:background="@drawable/dogus_button_info"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Serial Port Ayarları -->
-        <Button
-            android:id="@+id/btnSerialPortSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🔌 Serial Port Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Tarif Yönetimi -->
-        <Button
-            android:id="@+id/btnRecipeManagement"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="📋 Tarif Yönetimi"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_info"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Sos ve Süsleme İsimleri -->
-        <Button
-            android:id="@+id/btnSauceToppingNames"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🍦 Sos ve Süsleme İsimleri"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_primary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Satış Verileri -->
-        <Button
-            android:id="@+id/btnSalesData"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="📊 Satış Verileri"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_info"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Dosya Yönetimi -->
-        <Button
-            android:id="@+id/btnFileManagement"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="📁 Dosya Yönetimi"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_primary_modern"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Log Sistemi -->
-        <Button
-            android:id="@+id/btnLogSystem"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="📝 Log Sistemi"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_success_modern"
             android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="16dp"/>
 
@@ -137,43 +71,22 @@
             android:id="@+id/btnAdvertisementSettings"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="📺 Reklam Ayarları"
+            android:text="🎬 Reklam Ayarları"
             android:textSize="18sp"
             android:background="@drawable/dogus_button_primary"
             android:textColor="@color/dogus_text_white"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Ürün Görsel Atama -->
-        <Button
-            android:id="@+id/btnProductImageAssignment"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🖼️ Ürün Görsel Atama"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_info"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Gelişmiş Loglama -->
-        <Button
-            android:id="@+id/btnAdvancedLogging"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🔍 Gelişmiş Loglama"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="32dp"/>
-
         <!-- Geri Dön -->
         <Button
             android:id="@+id/btnBackToSales"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="← Satış Ekranına Dön"
-            android:textSize="16sp"
-            android:background="@drawable/dogus_button_back"
-            android:textColor="@color/dogus_text_white"/>
+            android:layout_height="80dp"
+            android:text="🔙 Ana Ekrana Dön"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_secondary"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>

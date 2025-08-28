@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="24sp"
+            android:background="@drawable/dogus_button_secondary"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚙️ Gelişmiş Sistem Ayarları"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_text_dark"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnResetToDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔄"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_warning_modern"
+            android:textColor="@color/dogus_text_white"
+            android:padding="12dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Machine Parameters Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔧 Makine Parametreleri"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etMachineId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Makine ID"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etBoardType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Board Tipi"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etMaxProducts"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Maksimum Ürün"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etTemperature"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Sıcaklık (°C)"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <!-- Temperature SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sıcaklık: 25°C"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarTemperature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="20"
+                        android:progress="10"/>
+
+                </LinearLayout>
+
+                <!-- Humidity SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nem: 55%"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarHumidity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="50"
+                        android:progress="25"/>
+
+                </LinearLayout>
+
+                <!-- Power Consumption SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvPowerConsumption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Güç Tüketimi: 300W"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarPowerConsumption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="400"
+                        android:progress="200"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Serial Port Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔌 Seri Port Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Spinner
+                        android:id="@+id/spMainDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spMainBaudRate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etConnectionTimeout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Bağlantı Zaman Aşımı (ms)"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etRetryCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Yeniden Deneme Sayısı"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Switch
+                        android:id="@+id/switchAutoConnect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otomatik Bağlantı"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchServerMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunucu Modu"
+                        android:textColor="@color/dogus_text_dark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTestConnection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bağlantıyı Test Et"
+                        android:background="@drawable/dogus_button_info_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnSaveSerialPort"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Seri Port Kaydet"
+                        android:background="@drawable/dogus_button_primary_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Logging Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📝 Logging Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etLogLevel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Log Seviyesi"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spLogFormat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Switch
+                        android:id="@+id/switchAutoLogging"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otomatik Logging"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchRemoteLogging"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Uzak Logging"
+                        android:textColor="@color/dogus_text_dark"/>
+
+                </LinearLayout>
+
+                <!-- Log Retention SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvLogRetention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Saklama: 30 gün"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarLogRetention"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="83"
+                        android:progress="30"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTestLogging"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Logging Test Et"
+                        android:background="@drawable/dogus_button_info_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnClearLogs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Logları Temizle"
+                        android:background="@drawable/dogus_button_danger_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Network Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🌐 Ağ Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etServerIP"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Sunucu IP"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etServerPort"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Port"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etApiKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="API Anahtarı"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Switch
+                        android:id="@+id/switchNetworkEnabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ağ Etkin"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchAutoSync"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otomatik Senkronizasyon"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchSecureConnection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Güvenli Bağlantı"
+                        android:textColor="@color/dogus_text_dark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTestNetwork"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ağ Test Et"
+                        android:background="@drawable/dogus_button_info_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnSaveNetwork"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ağ Kaydet"
+                        android:background="@drawable/dogus_button_primary_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Performance Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🚀 Performans Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- CPU Limit SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvCpuLimit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CPU Limiti: 80%"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarCpuLimit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="80"/>
+
+                </LinearLayout>
+
+                <!-- Memory Limit SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvMemoryLimit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bellek Limiti: 70%"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarMemoryLimit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="70"/>
+
+                </LinearLayout>
+
+                <!-- Battery Optimization SeekBar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvBatteryOptimization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pil Optimizasyonu: 60%"
+                        android:textColor="@color/dogus_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <SeekBar
+                        android:id="@+id/seekBarBatteryOptimization"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="60"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Switch
+                        android:id="@+id/switchPerformanceMode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Performans Modu"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchBatterySaver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pil Tasarrufu"
+                        android:textColor="@color/dogus_text_dark"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Security Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔒 Güvenlik Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etAdminPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Admin Şifresi"
+                        android:inputType="textPassword"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <EditText
+                        android:id="@+id/etUserPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Kullanıcı Şifresi"
+                        android:inputType="textPassword"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etSessionTimeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Oturum Zaman Aşımı (dakika)"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Switch
+                        android:id="@+id/switchPasswordRequired"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Şifre Gerekli"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchAutoLock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Otomatik Kilit"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_marginEnd="16dp"/>
+
+                    <Switch
+                        android:id="@+id/switchAuditLog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Denetim Logu"
+                        android:textColor="@color/dogus_text_dark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnChangePassword"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Şifre Değiştir"
+                        android:background="@drawable/dogus_button_warning_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnSaveSecurity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Güvenlik Kaydet"
+                        android:background="@drawable/dogus_button_primary_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnExportSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📤 Ayarları Dışa Aktar"
+            android:background="@drawable/dogus_button_info_modern"
+            android:textColor="@color/dogus_text_white"
+            android:padding="16dp"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btnImportSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📥 Ayarları İçe Aktar"
+            android:background="@drawable/dogus_button_info_modern"
+            android:textColor="@color/dogus_text_white"
+            android:padding="16dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💾 Tüm Ayarları Kaydet"
+        android:background="@drawable/dogus_button_success_modern"
+        android:textColor="@color/dogus_text_white"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

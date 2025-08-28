@@ -435,7 +435,7 @@ public class MachineParametersActivity extends AppCompatActivity {
         if (sdkHelper != null && sdkHelper.isSDKConnected()) {
             try {
                 // SDK Integration Helper ile çalışma modunu ayarla
-                if (sdkHelper.setWorkMode(workMode)) {
+                if (sdkHelper.setWorkMode(workMode, workMode)) { // Sol ve sağ aynı mod
                     // SharedPreferences'a kaydet
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("work_mode", workMode);

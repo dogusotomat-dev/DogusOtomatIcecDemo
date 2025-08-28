@@ -76,12 +76,17 @@ public class MDBPaymentManager {
     private double lastPaymentAmount = 0.0;
     private String lastPaymentMethod = "";
 
+    // SDKIntegrationHelper ve PaymentListener
+    private SDKIntegrationHelper sdkHelper;
+    private OnPaymentListener paymentListener;
+
     private MDBPaymentManager(Context context) {
         this.context = context;
         this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.databaseRef = FirebaseDatabase.getInstance().getReference();
         this.telemetryManager = TelemetryManager.getInstance(context);
         this.executorService = Executors.newSingleThreadExecutor();
+        this.sdkHelper = SDKIntegrationHelper.getInstance(context);
 
         loadMDBConfig();
         initializeMDB();
@@ -92,6 +97,26 @@ public class MDBPaymentManager {
             instance = new MDBPaymentManager(context);
         }
         return instance;
+    }
+
+    /**
+     * Ödeme event listener interface
+     */
+    public interface OnPaymentListener {
+        void onPaymentStarted(double amount, String paymentMethod);
+
+        void onPaymentCompleted(double amount, String paymentMethod, String transactionId);
+
+        void onPaymentFailed(String error);
+
+        void onPaymentCancelled();
+    }
+
+    /**
+     * Payment listener'ı ayarla
+     */
+    public void setPaymentListener(OnPaymentListener listener) {
+        this.paymentListener = listener;
     }
 
     /**
@@ -322,7 +347,7 @@ public class MDBPaymentManager {
     /**
      * Ödeme işlemini başlatır
      */
-    public void startPayment(double amount, String paymentMethod) {
+    public boolean startPayment(double amount, String paymentMethod) {
         try {
             if (isMDBConnected && sdkHelper != null) {
                 // Gerçek MDB ödeme işlemi
@@ -340,17 +365,20 @@ public class MDBPaymentManager {
                     if (paymentListener != null) {
                         paymentListener.onPaymentStarted(amount, paymentMethod);
                     }
+                    return true;
                 } else {
                     Log.e(TAG, "MDB ödeme işlemi başlatılamadı");
                     if (paymentListener != null) {
                         paymentListener.onPaymentFailed("MDB ödeme başlatılamadı");
                     }
+                    return false;
                 }
 
             } else {
                 // Test modu - Ödemeyi simüle et
                 Log.i(TAG, "Test modu: Ödeme simüle ediliyor - " + amount + " TL");
                 simulatePayment(amount, paymentMethod);
+                return true;
             }
 
         } catch (Exception e) {
@@ -358,6 +386,7 @@ public class MDBPaymentManager {
             if (paymentListener != null) {
                 paymentListener.onPaymentFailed("Ödeme hatası: " + e.getMessage());
             }
+            return false;
         }
     }
 

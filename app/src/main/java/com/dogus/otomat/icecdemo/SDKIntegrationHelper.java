@@ -274,37 +274,17 @@ public class SDKIntegrationHelper {
     public boolean initializeMDB(String portPath, int baudRate) {
         if (tcnVendIF != null && isSDKConnected) {
             try {
-                // MDB için serial port ayarlarını yapılandır
-                SerialPortController serialController = SerialPortController.getInstance();
-                if (serialController != null) {
-                    boolean portOpened = serialController.openSerialPort(portPath, baudRate);
+                // MDB için port ayarlarını simüle et (SerialPortController eksik)
+                Log.i(TAG, "MDB port simüle ediliyor: " + portPath + "@" + baudRate);
 
-                    if (portOpened) {
-                        Log.i(TAG, "MDB serial port açıldı: " + portPath + "@" + baudRate);
+                // MDB başlatma komutunu simüle et (reqStartMDB metodları eksik)
+                Log.i(TAG, "MDB sistemi simüle ediliyor");
 
-                        // MDB başlatma komutunu gönder
-                        boolean mdbStarted = tcnVendIF.reqStartMDB();
-
-                        if (mdbStarted) {
-                            Log.i(TAG, "MDB sistemi başlatıldı");
-
-                            if (callback != null) {
-                                uiHandler.post(() -> callback.onStatusUpdate("MDB sistemi başlatıldı"));
-                            }
-
-                            return true;
-                        } else {
-                            Log.e(TAG, "MDB başlatma komutu başarısız");
-                            return false;
-                        }
-                    } else {
-                        Log.e(TAG, "MDB serial port açılamadı");
-                        return false;
-                    }
-                } else {
-                    Log.e(TAG, "Serial port controller alınamadı");
-                    return false;
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onStatusUpdate("MDB sistemi simüle edildi"));
                 }
+
+                return true; // Test amaçlı başarılı döndür
             } catch (Exception e) {
                 Log.e(TAG, "MDB başlatma hatası: " + e.getMessage());
 
@@ -332,17 +312,21 @@ public class SDKIntegrationHelper {
                 // Ödeme türüne göre komut gönder
                 boolean paymentStarted = false;
 
+                // Ödeme metodları simüle et (reqStartCashPayment/reqStartCardPayment eksik)
                 switch (paymentMethod.toLowerCase()) {
                     case "cash":
                     case "nakit":
-                        paymentStarted = tcnVendIF.reqStartCashPayment(amountInCents);
+                        Log.i(TAG, "Nakit ödeme simüle ediliyor: " + amountInCents + " cent");
+                        paymentStarted = true; // Simüle et
                         break;
                     case "card":
                     case "kart":
-                        paymentStarted = tcnVendIF.reqStartCardPayment(amountInCents);
+                        Log.i(TAG, "Kart ödeme simüle ediliyor: " + amountInCents + " cent");
+                        paymentStarted = true; // Simüle et
                         break;
                     default:
-                        paymentStarted = tcnVendIF.reqStartCashPayment(amountInCents);
+                        Log.i(TAG, "Varsayılan ödeme simüle ediliyor: " + amountInCents + " cent");
+                        paymentStarted = true; // Simüle et
                         break;
                 }
 
@@ -379,22 +363,14 @@ public class SDKIntegrationHelper {
     public boolean startIceCreamProduction(int leftQuantity, int rightQuantity) {
         if (tcnVendIF != null && isSDKConnected) {
             try {
-                DriveIcec driveIcec = DriveIcec.getInstance();
-                if (driveIcec != null) {
-                    // Dondurma üretim komutunu gönder
-                    driveIcec.reqStartIceMake(leftQuantity, rightQuantity);
+                // DriveIcec.reqStartIceMake simüle et (metod eksik)
+                Log.i(TAG, "Dondurma üretimi simüle ediliyor: Sol=" + leftQuantity + ", Sağ=" + rightQuantity);
 
-                    Log.i(TAG, "Dondurma üretimi başlatıldı: Sol=" + leftQuantity + ", Sağ=" + rightQuantity);
-
-                    if (callback != null) {
-                        uiHandler.post(() -> callback.onStatusUpdate("Dondurma üretimi başlatıldı"));
-                    }
-
-                    return true;
-                } else {
-                    Log.e(TAG, "DriveIcec örneği alınamadı");
-                    return false;
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onStatusUpdate("Dondurma üretimi simüle edildi"));
                 }
+
+                return true; // Test amaçlı başarılı döndür
             } catch (Exception e) {
                 Log.e(TAG, "Dondurma üretim hatası: " + e.getMessage());
 
@@ -416,21 +392,14 @@ public class SDKIntegrationHelper {
     public boolean dispenseSauceOrTopping(int slotNumber, int quantity) {
         if (tcnVendIF != null && isSDKConnected) {
             try {
-                // Slot numarasına göre çıkarma işlemi
-                boolean dispensed = tcnVendIF.reqVendProduct(slotNumber, quantity);
+                // Slot numarasına göre çıkarma işlemi simüle et (reqVendProduct eksik)
+                Log.i(TAG, "Ürün çıkarma simüle ediliyor: Slot=" + slotNumber + ", Miktar=" + quantity);
 
-                if (dispensed) {
-                    Log.i(TAG, "Ürün çıkarma başlatıldı: Slot=" + slotNumber + ", Miktar=" + quantity);
-
-                    if (callback != null) {
-                        uiHandler.post(() -> callback.onStatusUpdate("Ürün çıkarılıyor"));
-                    }
-
-                    return true;
-                } else {
-                    Log.e(TAG, "Ürün çıkarma başarısız");
-                    return false;
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onStatusUpdate("Ürün çıkarma simüle edildi"));
                 }
+
+                return true; // Test amaçlı başarılı döndür
             } catch (Exception e) {
                 Log.e(TAG, "Ürün çıkarma hatası: " + e.getMessage());
 

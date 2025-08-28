@@ -8,6 +8,7 @@
     <!-- Arka Plan Renkleri - Yumuşak Tonlar -->
     <color name="dogus_background_light">#F8F9FA</color> <!-- Çok Açık Gri -->
     <color name="dogus_background_card">#FFFFFF</color>   <!-- Beyaz -->
+    <color name="dogus_background_white">#FFFFFF</color>  <!-- Beyaz -->
     <color name="dogus_background_dark">#E9ECEF</color>   <!-- Açık Gri -->
     
     <!-- Metin Renkleri - Okunabilir Tonlar -->
@@ -75,4 +76,8 @@
     
     <!-- Card Background Color -->
     <color name="dogus_card_background">#FFFFFF</color>
+    
+    <!-- Yeni Layout Dosyaları için Eksik Renkler -->
+    <color name="primary">#7B9E87</color>
+    <color name="gray">#6C757D</color>
 </resources>

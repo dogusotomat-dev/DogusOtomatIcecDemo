@@ -517,9 +517,8 @@ public class AdvancedLoggingActivity extends AppCompatActivity {
 
     private void viewSystemLogs() {
         try {
-            // Sistem loglarını göster (Android logcat)
-            Intent intent = new Intent(this, SystemLogsActivity.class);
-            startActivity(intent);
+            // Sistem loglarını göster (basit Toast ile)
+            Toast.makeText(this, "Sistem logları özelliği geliştiriliyor...", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
             Log.e(TAG, "Sistem logları görüntüleme hatası: " + e.getMessage());

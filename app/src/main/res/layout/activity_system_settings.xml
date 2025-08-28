@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dogus_background_light"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:text="←"
+            android:textSize="24sp"
+            android:background="@drawable/dogus_button_secondary"
+            android:textColor="@color/dogus_text_white"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="⚙️ Sistem Ayarları"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dogus_text_dark"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/btnResetToDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔄"
+            android:textSize="18sp"
+            android:background="@drawable/dogus_button_warning_modern"
+            android:textColor="@color/dogus_text_white"
+            android:padding="12dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Connection Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔌 Bağlantı Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <EditText
+                    android:id="@+id/etConnectionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bağlantı Tipi"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etConnectionRetention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bağlantı Saklama Süresi (gün)"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etLogDirectory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Dosya Dizini"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etConnectionRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bağlantı Hızı"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etConnectionTimeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Bağlantı Zaman Aşımı (ms)"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnTest"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="✏️ Test Et"
+                        android:background="@drawable/dogus_button_info_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnClear"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🗑️ Temizle"
+                        android:background="@drawable/dogus_button_danger_modern"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Logging Settings Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📝 Logging Ayarları"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <EditText
+                    android:id="@+id/etLogLevel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Seviyesi"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etLogRetention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Saklama Süresi (gün)"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etLogPath"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Dosya Yolu"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etLogFormat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Formatı"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etLogRotation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Log Rotasyonu"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnSaveLogging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="💾 Logging Ayarlarını Kaydet"
+                    android:background="@drawable/dogus_button_primary_modern"
+                    android:textColor="@color/dogus_text_white"
+                    android:padding="12dp"/>
+
+            </LinearLayout>
+
+            <!-- Parameters Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dogus_card_background_modern"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔧 Sistem Parametreleri"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dogus_text_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <EditText
+                    android:id="@+id/etMachineId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Makine ID"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etBoardType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Board Tipi"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etMaxProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Maksimum Ürün Sayısı"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etTemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Sıcaklık (°C)"
+                    android:inputType="numberDecimal"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etHumidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nem (%)"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+                <EditText
+                    android:id="@+id/etPowerConsumption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Güç Tüketimi (W)"
+                    android:inputType="number"
+                    android:background="@drawable/dogus_input_field_modern"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnSaveParameters"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="💾 Parametreleri Kaydet"
+                    android:background="@drawable/dogus_button_primary_modern"
+                    android:textColor="@color/dogus_text_white"
+                    android:padding="12dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Save All Button -->
+    <Button
+        android:id="@+id/btnSaveAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💾 Tüm Ayarları Kaydet"
+        android:background="@drawable/dogus_button_success_modern"
+        android:textColor="@color/dogus_text_white"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

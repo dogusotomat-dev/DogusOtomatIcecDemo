@@ -4,1101 +4,941 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView; // Added for advertisementImageView
+import android.widget.VideoView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Set;
 
-import com.tcn.icecboard.control.VendEventInfo;
-
-/**
- * Dogi Soft Ice Cream DGS-DIC-S Ana Aktivite
- * Dondurma otomatı satış ekranı
- */
 public class MainAct extends AppCompatActivity {
-
     private static final String TAG = "MainAct";
 
-    // UI bileşenleri
+    // UI Elements
+    private TextView tvCartItems;
+    private TextView tvTotalPrice;
+    private TextView tvBasePrice;
+    private TextView tvMachineInfo;
+    private Button btnSauceChocolate;
+    private Button btnSauceCaramel;
+    private Button btnSauceStrawberry;
+    private Button btnDecorNuts;
+    private Button btnDecorSprinkles;
+    private Button btnDecorWhippedCream;
+    private Button btnClearCart;
+    private Button btnCheckout;
     private Button btnAdminLogin;
-    private TextView tvCartItems, tvTotalPrice, tvBasePrice;
-
-    // Sos butonları (sadece 3 tane)
-    private Button btnSauceChocolate, btnSauceCaramel, btnSauceStrawberry;
-
-    // Süsleme butonları (sadece 3 tane)
-    private Button btnDecorNuts, btnDecorSprinkles, btnDecorWhippedCream;
-
-    // Sepet ve ödeme butonları
-    private Button btnClearCart, btnCheckout;
-    private Button btnPlainIceCream;
-
-    // Sepet bilgileri
-    private List<CartItem> cartItems;
-    private double basePrice = 8.00;
-    private double totalPrice = 0.0;
-
-    // Fiyatlar
-    private double sauce1Price, sauce2Price, sauce3Price;
-    private double topping1Price, topping2Price, topping3Price;
-
-    private SharedPreferences sharedPreferences;
-
-    // TCN Entegrasyon Yöneticisi
-    private TCNIntegrationManager tcnIntegrationManager;
-
-    // Dosya Yönetim Sistemi
-    private FileManagementSystem fileManagementSystem;
-
-    // Gelişmiş Log Sistemi
-    private AdvancedLoggingSystem advancedLoggingSystem;
-
-    // Seçim sınırları - Artık esnek
-    private static final int MAX_SAUCES = 10; // Çoklu seçim için yüksek limit
-    private static final int MAX_TOPPINGS = 10; // Çoklu seçim için yüksek limit
-
-    // Seçili sos ve süslemeler
-    private List<String> selectedSauces = new ArrayList<>();
-    private List<String> selectedToppings = new ArrayList<>();
-
-    // Fiyatlar artık SharedPreferences'dan yükleniyor
-
-    // Reklam görseli için ImageView
     private ImageView advertisementImageView;
-    // Reklam süresi (varsayılan 10 saniye)
-    private long advertisementDuration = 10000; // 10 saniye
+    private ImageView screensaverImageView;
+    private VideoView advertisementVideoView;
+
+    // Data
+    private List<CartItem> cartItems;
+    private Set<String> selectedSauces;
+    private Set<String> selectedToppings;
+    private double totalPrice;
+    private double basePrice = 8.0;
+    private long advertisementDuration = 15000; // 15 saniye
+    private long screensaverDelay = 60000; // 1 dakika
+
+    // Machine Identity - Sadece seri numarası gösterilecek
+    private String machineSerialNumber = "";
+    private boolean isMachineIdentified = false;
+
+    // Managers - Sadece gerekli olanlar
+    private SharedPreferences sharedPreferences;
+    private MDBPaymentManager mdbManager;
+
+    // Advertisement and Screensaver
+    private Handler mainHandler;
+    private Runnable advertisementRunnable;
+    private Runnable screensaverRunnable;
+    private boolean isAdvertisementActive = false;
+    private boolean isScreensaverActive = false;
+    private boolean isUserInteracting = false;
+
+    // Product Images
+    private Map<String, String> productImagePaths = new HashMap<>();
+    private String advertisementImagePath = "";
+    private String advertisementVideoPath = "";
+    private String screensaverImagePath = "";
+
+    // Activity Result Launchers
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private ActivityResultLauncher<Intent> videoPickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Force portrait orientation
+        setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
-        loadPrices();
+        Log.i(TAG, "MainAct onCreate started");
+        
+        try {
+            // Initialize all systems
+            initializeData();
         initView();
         setupClickListeners();
-        initializeCart();
-        updateDisplay();
-
-        // MDB ödeme sistemini başlat
+            setupActivityResultLaunchers();
+            loadMachineIdentity();
+            loadAdvertisementSettings();
+            loadProductImages();
         initializePaymentSystem();
-
-        // TCN entegrasyonunu başlat
-        initializeTCNIntegration();
-
-        // Dosya yönetim sistemini başlat
-        initializeFileManagement();
-
-        // Reklam görseli için ImageView'ı bul
-        advertisementImageView = findViewById(R.id.advertisement_image);
-        if (advertisementImageView != null) {
-            advertisementImageView.setVisibility(View.GONE); // Varsayılan olarak gizli
-        }
-    }
-
-    /**
-     * TCN entegrasyonunu başlatır
-     */
-    private void initializeTCNIntegration() {
-        try {
-            Log.i(TAG, "TCN entegrasyonu başlatılıyor...");
-
-            // TCN entegrasyon yöneticisini başlat
-            tcnIntegrationManager = TCNIntegrationManager.getInstance(this);
-
-            // Event listener'ları ayarla
-            setupTCNEventListeners();
-
-            // Cihaz durumunu sorgula
-            tcnIntegrationManager.queryDeviceStatus();
-
-            Log.i(TAG, "TCN entegrasyonu başarıyla başlatıldı");
-
+            initializeAdvertisementSystem();
+            initializeScreensaverSystem();
+            startUserInteractionTimer();
+            
+            Log.i(TAG, "MainAct onCreate completed successfully");
+            
         } catch (Exception e) {
-            Log.e(TAG, "TCN entegrasyonu başlatma hatası: " + e.getMessage());
+            Log.e(TAG, "onCreate error: " + e.getMessage(), e);
+            showErrorDialog("Başlatma Hatası", "Uygulama başlatılırken hata oluştu: " + e.getMessage());
         }
     }
 
-    private void initializeFileManagement() {
+    private void initializeData() {
         try {
-            Log.i(TAG, "Dosya yönetim sistemi başlatılıyor...");
-            fileManagementSystem = FileManagementSystem.getInstance(this);
-            advancedLoggingSystem = AdvancedLoggingSystem.getInstance(this);
-
-            // Sistem raporu oluştur
-            fileManagementSystem.generateSystemReport();
-            advancedLoggingSystem.generateLogSystemReport();
-
-            Log.i(TAG, "Dosya yönetim sistemi başarıyla başlatıldı");
+            sharedPreferences = getSharedPreferences("MachineSettings", MODE_PRIVATE);
+            cartItems = new ArrayList<>();
+            selectedSauces = new HashSet<>();
+            selectedToppings = new HashSet<>();
+            totalPrice = basePrice;
+            
+            mainHandler = new Handler(Looper.getMainLooper());
+            
+            Log.d(TAG, "Data initialized successfully");
         } catch (Exception e) {
-            Log.e(TAG, "Dosya yönetim sistemi başlatma hatası: " + e.getMessage());
+            Log.e(TAG, "Data initialization error: " + e.getMessage(), e);
         }
-    }
-
-    /**
-     * TCN event listener'larını ayarlar
-     */
-    private void setupTCNEventListeners() {
-        if (tcnIntegrationManager != null) {
-            // Satış event listener'ı
-            tcnIntegrationManager.setVendEventListener(new TCNIntegrationManager.OnVendEventListener() {
-                @Override
-                public void onVendEventStarted(VendEventInfo event) {
-                    Log.i(TAG, "Satış başladı: Slot " + event.GetlParam1() + ", Miktar " + event.GetlParam2());
-                    showToast("Dondurma hazırlanıyor...");
-                }
-
-                @Override
-                public void onVendEventCompleted(VendEventInfo event) {
-                    Log.i(TAG, "Satış tamamlandı: Slot " + event.GetlParam1() + ", Miktar " + event.GetlParam2());
-                    showToast("Dondurmanız hazır! Afiyet olsun! 🍦");
-                }
-
-                @Override
-                public void onVendEventFailed(VendEventInfo event, String error) {
-                    Log.e(TAG, "Satış başarısız: " + error);
-                    showToast("Satış hatası: " + error);
-                }
-
-                @Override
-                public void onVendEventError(String error) {
-                    Log.e(TAG, "Satış event hatası: " + error);
-                    showToast("Sistem hatası: " + error);
-                }
-            });
-
-            // Cihaz durum listener'ı
-            tcnIntegrationManager.setDeviceStatusListener(new TCNIntegrationManager.OnDeviceStatusListener() {
-                @Override
-                public void onConnectionStatusChanged(boolean connected) {
-                    Log.i(TAG, "TCN bağlantı durumu: " + (connected ? "Bağlı" : "Bağlı değil"));
-                    if (!connected) {
-                        showToast("TCN cihazı bağlantısı kesildi!");
-                    }
-                }
-
-                @Override
-                public void onDeviceStatusReceived(Map<String, Object> status) {
-                    Log.i(TAG, "Cihaz durumu alındı: " + status.toString());
-                    // Cihaz durumunu UI'da gösterebiliriz
-                }
-            });
-        }
-    }
-
-    /**
-     * Ödeme sistemini başlatır
-     */
-    private void initializePaymentSystem() {
-        try {
-            // MDB Payment Manager'ı başlat
-            MDBPaymentManager mdbManager = MDBPaymentManager.getInstance(this);
-
-            if (mdbManager.initializeMDB()) {
-                Log.i(TAG, "MDB ödeme sistemi başarıyla başlatıldı");
-
-                // MDB Level 3 durumunu kontrol et
-                if (mdbManager.isLevel3Enabled()) {
-                    Log.i(TAG, "MDB Level 3 aktif - Gelişmiş ödeme özellikleri kullanılabilir");
-                } else {
-                    Log.w(TAG, "MDB Level 3 devre dışı - Temel ödeme özellikleri kullanılıyor");
-                }
-
-            } else {
-                Log.e(TAG, "MDB ödeme sistemi başlatılamadı");
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, "Ödeme sistemi başlatma hatası: " + e.getMessage());
-        }
-    }
-
-    private void loadPrices() {
-        // Temel fiyatı yükle
-        basePrice = sharedPreferences.getFloat("base_price", 8.0f);
-
-        // Sos fiyatlarını yükle
-        sauce1Price = sharedPreferences.getFloat("sauce1_price", 2.0f);
-        sauce2Price = sharedPreferences.getFloat("sauce2_price", 2.5f);
-        sauce3Price = sharedPreferences.getFloat("sauce3_price", 2.0f);
-
-        // Süsleme fiyatlarını yükle
-        topping1Price = sharedPreferences.getFloat("topping1_price", 1.5f);
-        topping2Price = sharedPreferences.getFloat("topping2_price", 1.0f);
-        topping3Price = sharedPreferences.getFloat("topping3_price", 1.5f);
-
-        // Reklam süresini yükle
-        advertisementDuration = sharedPreferences.getLong("advertisement_duration", 10000);
     }
 
     private void initView() {
-        // Admin giriş butonu
-        btnAdminLogin = findViewById(R.id.btn_admin_login);
+        try {
+            // UI Elements
+            tvCartItems = findViewById(R.id.tv_cart_items);
+            tvTotalPrice = findViewById(R.id.tv_total_price);
+            tvBasePrice = findViewById(R.id.tv_base_price);
+            tvMachineInfo = findViewById(R.id.tv_machine_info);
+            
+            // Sauce Buttons
+            btnSauceChocolate = findViewById(R.id.btn_sauce_chocolate);
+            btnSauceCaramel = findViewById(R.id.btn_sauce_caramel);
+            btnSauceStrawberry = findViewById(R.id.btn_sauce_strawberry);
+            
+            // Topping Buttons
+            btnDecorNuts = findViewById(R.id.btn_decor_nuts);
+            btnDecorSprinkles = findViewById(R.id.btn_decor_sprinkles);
+            btnDecorWhippedCream = findViewById(R.id.btn_decor_whipped_cream);
+            
+            // Action Buttons
+            btnClearCart = findViewById(R.id.btn_clear_cart);
+            btnCheckout = findViewById(R.id.btn_checkout);
+            btnAdminLogin = findViewById(R.id.btn_admin_login);
 
-        // Sepet bileşenleri
-        tvCartItems = findViewById(R.id.tv_cart_items);
-        tvTotalPrice = findViewById(R.id.tv_total_price);
-        tvBasePrice = findViewById(R.id.tv_base_price);
+            
+            // Advertisement and Screensaver
+            advertisementImageView = findViewById(R.id.advertisement_image);
+            screensaverImageView = findViewById(R.id.screensaver_image);
+            advertisementVideoView = findViewById(R.id.advertisement_video);
 
-        // Sos butonları (sadece 3 tane)
-        btnSauceChocolate = findViewById(R.id.btn_sauce_chocolate);
-        btnSauceCaramel = findViewById(R.id.btn_sauce_caramel);
-        btnSauceStrawberry = findViewById(R.id.btn_sauce_strawberry);
-
-        // Süsleme butonları (sadece 3 tane)
-        btnDecorNuts = findViewById(R.id.btn_decor_nuts);
-        btnDecorSprinkles = findViewById(R.id.btn_decor_sprinkles);
-        btnDecorWhippedCream = findViewById(R.id.btn_decor_whipped_cream);
-
-        // Sepet ve ödeme butonları
-        btnClearCart = findViewById(R.id.btn_clear_cart);
-        btnCheckout = findViewById(R.id.btn_checkout);
-        btnPlainIceCream = findViewById(R.id.btn_plain_ice_cream);
+            updateDisplay();
+            updateProductImages();
+            
+            Log.d(TAG, "View initialized successfully");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "View initialization error: " + e.getMessage(), e);
+        }
     }
 
     private void setupClickListeners() {
-        // Admin giriş
-        btnAdminLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAdminLogin();
-            }
-        });
-
-        // Sos butonları
-        btnSauceChocolate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleSauce("🍫 Çikolata Sos", sauce1Price, btnSauceChocolate);
-            }
-        });
-
-        btnSauceCaramel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleSauce("🍯 Karamel Sos", sauce2Price, btnSauceCaramel);
-            }
-        });
-
-        btnSauceStrawberry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleSauce("🍓 Çilek Sos", sauce3Price, btnSauceStrawberry);
-            }
-        });
-
-        // Süsleme butonları
-        btnDecorNuts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleTopping("🥜 Fındık", topping1Price, btnDecorNuts);
-            }
-        });
-
-        btnDecorSprinkles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleTopping("✨ Renkli Şeker", topping2Price, btnDecorSprinkles);
-            }
-        });
-
-        btnDecorWhippedCream.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleTopping("💨 Krem Şanti", topping3Price, btnDecorWhippedCream);
-            }
-        });
-
-        // Sade dondurma butonu
-        btnPlainIceCream.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderPlainIceCream();
-            }
-        });
-
-        // Sepet işlemleri
-        btnClearCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearCart();
-            }
-        });
-
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkout();
-            }
-        });
-    }
-
-    private void initializeCart() {
-        cartItems = new ArrayList<>();
-        totalPrice = basePrice;
-    }
-
-    private void addToCart(String itemName, double price) {
-        addToCart(itemName, price, "base");
-    }
-
-    private void addToCart(String itemName, double price, String type) {
-        // Aynı ürün zaten sepette var mı kontrol et
-        for (CartItem item : cartItems) {
-            if (item.getName().equals(itemName) && item.getType().equals(type)) {
-                item.incrementQuantity();
-                updateDisplay();
-                showToast(itemName + " miktarı artırıldı!");
-                return;
-            }
-        }
-
-        // Yeni ürün ekle
-        CartItem newItem = new CartItem(itemName, price, type);
-        cartItems.add(newItem);
-        totalPrice += price;
-        updateDisplay();
-        showToast(itemName + " sepete eklendi!");
-    }
-
-    private void clearCart() {
-        if (cartItems.isEmpty()) {
-            showToast("Sepet zaten boş!");
-            return;
-        }
-
-        new AlertDialog.Builder(this)
-                .setTitle("Sepeti Temizle")
-                .setMessage("Sepetteki tüm ürünleri kaldırmak istediğinizden emin misiniz?")
-                .setPositiveButton("EVET", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        cartItems.clear();
-                        totalPrice = basePrice;
-                        selectedSauces.clear();
-                        selectedToppings.clear();
-                        resetButtonAppearance();
-                        updateDisplay();
-                        updateSlotInfo();
-                        showToast("Sepet temizlendi!");
-                    }
-                })
-                .setNegativeButton("HAYIR", null)
-                .show();
-    }
-
-    private void checkout() {
-        // Sade dondurma da alınabilir (sos ve süsleme zorunlu değil)
-        if (totalPrice < basePrice) {
-            totalPrice = basePrice; // Minimum fiyat garantisi
-        }
-
         try {
-            // MDB ödeme sistemini kullan
-            MDBPaymentManager mdbManager = MDBPaymentManager.getInstance(this);
-
-            if (mdbManager.isMdbEnabled()) {
-                // Ödeme işlemini başlat
-                if (mdbManager.startPayment(totalPrice, "Credit Card")) {
-                    // Ödeme başarıyla başlatıldı
-                    showPaymentDialog();
-                } else {
-                    showToast("Ödeme başlatılamadı!");
-                }
-            } else {
-                // MDB devre dışı, manuel ödeme
-                showManualPaymentDialog();
+            // Sauce buttons
+            if (btnSauceChocolate != null) {
+                btnSauceChocolate.setOnClickListener(v -> toggleSauce("🍫 Çikolata Sos", 2.0, btnSauceChocolate));
+            }
+            if (btnSauceCaramel != null) {
+                btnSauceCaramel.setOnClickListener(v -> toggleSauce("🍯 Karamel Sos", 2.5, btnSauceCaramel));
+            }
+            if (btnSauceStrawberry != null) {
+                btnSauceStrawberry.setOnClickListener(v -> toggleSauce("🍓 Çilek Sos", 2.0, btnSauceStrawberry));
+            }
+            
+            // Topping buttons
+            if (btnDecorNuts != null) {
+                btnDecorNuts.setOnClickListener(v -> toggleTopping("🥜 Fındık", 1.5, btnDecorNuts));
+            }
+            if (btnDecorSprinkles != null) {
+                btnDecorSprinkles.setOnClickListener(v -> toggleTopping("🌈 Renkli Şeker", 1.0, btnDecorSprinkles));
+            }
+            if (btnDecorWhippedCream != null) {
+                btnDecorWhippedCream.setOnClickListener(v -> toggleTopping("💨 Krem Şanti", 1.5, btnDecorWhippedCream));
+            }
+            
+            // Action buttons
+            if (btnClearCart != null) {
+                btnClearCart.setOnClickListener(v -> clearCart());
+            }
+            if (btnCheckout != null) {
+                btnCheckout.setOnClickListener(v -> checkout());
+            }
+            if (btnAdminLogin != null) {
+                btnAdminLogin.setOnClickListener(v -> openAdminLogin());
             }
 
+            
+            Log.d(TAG, "Click listeners setup completed");
+            
         } catch (Exception e) {
-            Log.e(TAG, "Ödeme işlemi hatası: " + e.getMessage());
-            showToast("Ödeme hatası: " + e.getMessage());
+            Log.e(TAG, "Click listeners setup error: " + e.getMessage(), e);
         }
     }
 
-    /**
-     * Ödeme dialog'unu gösterir
-     */
-    private void showPaymentDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Ödeme İşlemi")
-                .setMessage("Ödeme işlemi devam ediyor...\nTutar: " + String.format("%.2f", totalPrice) + " TL")
-                .setPositiveButton("Onayla", (dialog, which) -> {
-                    // Ödemeyi onayla
-                    MDBPaymentManager mdbManager = MDBPaymentManager.getInstance(this);
-                    if (mdbManager.approvePayment()) {
-                        showToast("Ödeme onaylandı!");
-
-                        // Seçilen ürünlerin tam açıklamasını oluştur
-                        String productDetails = createProductDescription();
-
-                        // Telemetri verisi gönder
-                        TelemetryManager telemetryManager = TelemetryManager.getInstance(this);
-                        if (telemetryManager != null) {
-                            telemetryManager.sendSalesData(1, productDetails, totalPrice, "credit_card", true);
+    private void setupActivityResultLaunchers() {
+        try {
+            imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        if (selectedImageUri != null) {
+                            saveProductImage(selectedImageUri, "product");
                         }
-
-                        // TCN entegrasyonu ile satış işlemini başlat
-                        startTCNVending(productDetails);
-
-                        // Sepeti temizle ve sistemi sıfırla
-                        clearCart();
-                        resetPaymentSystem();
-                        updateDisplay();
-                    } else {
-                        showToast("Ödeme onaylanamadı!");
                     }
-                })
-                .setNegativeButton("İptal", (dialog, which) -> {
-                    // Ödemeyi iptal et
-                    MDBPaymentManager mdbManager = MDBPaymentManager.getInstance(this);
-                    mdbManager.cancelPayment();
-                    showToast("Ödeme iptal edildi!");
-                })
-                .setCancelable(false)
-                .show();
-    }
+                });
 
-    /**
-     * Manuel ödeme dialog'unu gösterir
-     */
-    private void showManualPaymentDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Manuel Ödeme")
-                .setMessage("MDB sistemi devre dışı.\nTutar: " + String.format("%.2f", totalPrice)
-                        + " TL\n\nLütfen manuel olarak ödeme alın.")
-                .setPositiveButton("Tamam", (dialog, which) -> {
-                    // Manuel ödeme tamamlandı olarak işaretle
-                    showToast("Manuel ödeme tamamlandı!");
-
-                    // Seçilen ürünlerin tam açıklamasını oluştur
-                    String productDetails = createProductDescription();
-
-                    // Telemetri verisi gönder
-                    TelemetryManager telemetryManager = TelemetryManager.getInstance(this);
-                    if (telemetryManager != null) {
-                        telemetryManager.sendSalesData(1, productDetails, totalPrice, "cash", true);
+            videoPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedVideoUri = result.getData().getData();
+                        if (selectedVideoUri != null) {
+                            saveAdvertisementVideo(selectedVideoUri);
+                        }
                     }
-
-                    // Sepeti temizle ve sistemi sıfırla
-                    clearCart();
-                    resetPaymentSystem();
-                    updateDisplay();
-                })
-                .setCancelable(false)
-                .show();
+                });
+        } catch (Exception e) {
+            Log.e(TAG, "Setup activity result launchers error: " + e.getMessage(), e);
+        }
     }
 
-    private String createProductDescription() {
-        StringBuilder description = new StringBuilder("Dondurma");
+    private void loadMachineIdentity() {
+        try {
+            String serialFromStorage = getMachineSerialFromStorage();
 
-        // Seçilen sosları ekle (dinamik isimlerden)
-        if (!selectedSauces.isEmpty()) {
-            description.append(" + ");
-            for (int i = 0; i < selectedSauces.size(); i++) {
-                if (i > 0)
-                    description.append(", ");
-                String sauce = selectedSauces.get(i);
-                String sauceName = getSauceNameFromSettings(sauce);
-                description.append(sauceName);
+            if (serialFromStorage != null && !serialFromStorage.isEmpty()) {
+                machineSerialNumber = serialFromStorage;
+                isMachineIdentified = true;
+                } else {
+                generateNewMachineIdentity();
             }
-        }
 
-        // Seçilen süslemeleri ekle (dinamik isimlerden)
-        if (!selectedToppings.isEmpty()) {
-            description.append(" + ");
-            for (int i = 0; i < selectedToppings.size(); i++) {
-                if (i > 0)
-                    description.append(", ");
-                String topping = selectedToppings.get(i);
-                String toppingName = getToppingNameFromSettings(topping);
-                description.append(toppingName);
+            updateMachineIdentityDisplay();
+            Log.d(TAG, "Machine identity loaded: " + machineSerialNumber);
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Machine identity loading error: " + e.getMessage(), e);
+        }
+    }
+
+    private void loadAdvertisementSettings() {
+        try {
+            advertisementDuration = sharedPreferences.getLong("advertisement_duration", 15000);
+            Log.d(TAG, "Advertisement duration loaded: " + advertisementDuration + "ms");
+        } catch (Exception e) {
+            Log.e(TAG, "Advertisement settings loading error: " + e.getMessage(), e);
+        }
+    }
+
+    private void loadProductImages() {
+        try {
+            // Load saved product image paths
+            for (String productType : new String[]{"ice_cream", "sauce_chocolate", "sauce_caramel", "sauce_strawberry", "decor_nuts", "decor_sprinkles", "decor_whipped_cream"}) {
+                String imagePath = sharedPreferences.getString("product_image_" + productType, "");
+                if (!imagePath.isEmpty()) {
+                    productImagePaths.put(productType, imagePath);
+                }
             }
+            
+            // Load advertisement and screensaver paths
+            advertisementImagePath = sharedPreferences.getString("advertisement_image", "");
+            advertisementVideoPath = sharedPreferences.getString("advertisement_video", "");
+            screensaverImagePath = sharedPreferences.getString("screensaver_image", "");
+            
+            Log.d(TAG, "Product images loaded successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "Load product images error: " + e.getMessage(), e);
         }
-
-        return description.toString();
     }
 
-    /**
-     * Ayarlardan sos ismini alır
-     */
-    private String getSauceNameFromSettings(String sauceKey) {
-        // Varsayılan isimler (fallback)
-        String defaultName = sauceKey;
-
-        // SharedPreferences'dan özel isimleri al
-        String customName = sharedPreferences.getString("sauce_name_" + sauceKey, "");
-        if (!customName.isEmpty()) {
-            return customName;
+    private void initializePaymentSystem() {
+        try {
+            this.mdbManager = MDBPaymentManager.getInstance(this);
+            Log.d(TAG, "Payment system initialized");
+        } catch (Exception e) {
+            Log.e(TAG, "Payment system initialization error: " + e.getMessage(), e);
         }
-
-        // Eğer özel isim yoksa, varsayılan isimleri kullan
-        if (sauceKey.contains("🍫"))
-            return "Çikolata Sos";
-        if (sauceKey.contains("🍯"))
-            return "Karamel Sos";
-        if (sauceKey.contains("🍓"))
-            return "Çilek Sos";
-
-        return defaultName;
     }
 
-    /**
-     * Ayarlardan süsleme ismini alır
-     */
-    private String getToppingNameFromSettings(String toppingKey) {
-        // Varsayılan isimler (fallback)
-        String defaultName = toppingKey;
-
-        // SharedPreferences'dan özel isimleri al
-        String customName = sharedPreferences.getString("topping_name_" + toppingKey, "");
-        if (!customName.isEmpty()) {
-            return customName;
+    private void initializeAdvertisementSystem() {
+        try {
+            startAdvertisementRotation();
+            Log.d(TAG, "Advertisement system initialized");
+        } catch (Exception e) {
+            Log.e(TAG, "Advertisement system initialization error: " + e.getMessage(), e);
         }
-
-        // Eğer özel isim yoksa, varsayılan isimleri kullan
-        if (toppingKey.contains("🥜"))
-            return "Fındık";
-        if (toppingKey.contains("🌈"))
-            return "Renkli Şeker";
-        if (toppingKey.contains("🍰"))
-            return "Krem Şanti";
-
-        return defaultName;
     }
 
-    /**
-     * Sos için dinamik slot numarası hesaplar
-     */
-    private int calculateSauceSlotNumber(String sauceName) {
-        // SharedPreferences'dan slot numarasını al
-        int slotNumber = sharedPreferences.getInt("sauce_slot_" + sauceName, 0);
-        if (slotNumber > 0) {
-            return slotNumber;
+    private void initializeScreensaverSystem() {
+        try {
+            startScreensaverTimer();
+            Log.d(TAG, "Screensaver system initialized");
+        } catch (Exception e) {
+            Log.e(TAG, "Screensaver system initialization error: " + e.getMessage(), e);
         }
-
-        // Varsayılan slot numaraları (kullanıcı değiştirebilir)
-        if (sauceName.contains("Çikolata") || sauceName.contains("Chocolate"))
-            return 1;
-        if (sauceName.contains("Karamel") || sauceName.contains("Caramel"))
-            return 2;
-        if (sauceName.contains("Çilek") || sauceName.contains("Strawberry"))
-            return 3;
-
-        return 1; // Varsayılan
     }
 
-    /**
-     * Süsleme için dinamik slot numarası hesaplar
-     */
-    private int calculateToppingSlotNumber(String toppingName) {
-        // SharedPreferences'dan slot numarasını al
-        int slotNumber = sharedPreferences.getInt("topping_slot_" + toppingName, 0);
-        if (slotNumber > 0) {
-            return slotNumber;
+    private void startUserInteractionTimer() {
+        try {
+            mainHandler.postDelayed(new Runnable() {
+            @Override
+                public void run() {
+                    if (!isUserInteracting) {
+                        showScreensaver();
+                    }
+                    mainHandler.postDelayed(this, screensaverDelay);
+                }
+            }, screensaverDelay);
+        } catch (Exception e) {
+            Log.e(TAG, "Start user interaction timer error: " + e.getMessage(), e);
         }
+    }
 
-        // Varsayılan slot numaraları (kullanıcı değiştirebilir)
-        if (toppingName.contains("Fındık") || toppingName.contains("Hazelnut"))
-            return 1;
-        if (toppingName.contains("Renkli Şeker") || toppingName.contains("Sprinkles"))
-            return 2;
-        if (toppingName.contains("Krem Şanti") || toppingName.contains("Whipped Cream"))
-            return 3;
+    private void startAdvertisementRotation() {
+        try {
+            advertisementRunnable = new Runnable() {
+            @Override
+                public void run() {
+                    if (!isScreensaverActive && !isUserInteracting) {
+                        showAdvertisement();
+                    }
+                    mainHandler.postDelayed(this, advertisementDuration);
+                }
+            };
+            mainHandler.post(advertisementRunnable);
+        } catch (Exception e) {
+            Log.e(TAG, "Start advertisement rotation error: " + e.getMessage(), e);
+        }
+    }
 
-        return 1; // Varsayılan
+    private void startScreensaverTimer() {
+        try {
+            screensaverRunnable = new Runnable() {
+            @Override
+                public void run() {
+                    if (!isAdvertisementActive && !isUserInteracting) {
+                        showScreensaver();
+                    }
+                    mainHandler.postDelayed(this, screensaverDelay);
+                }
+            };
+            mainHandler.post(screensaverRunnable);
+        } catch (Exception e) {
+            Log.e(TAG, "Start screensaver timer error: " + e.getMessage(), e);
+        }
+    }
+
+    private void showAdvertisement() {
+        try {
+            if (isAdvertisementActive) return;
+            
+            isAdvertisementActive = true;
+            
+            // Hide other views
+            if (advertisementImageView != null) advertisementImageView.setVisibility(View.GONE);
+            if (screensaverImageView != null) screensaverImageView.setVisibility(View.GONE);
+            
+            // Show advertisement (image or video)
+            if (!advertisementVideoPath.isEmpty() && advertisementVideoView != null) {
+                advertisementVideoView.setVideoPath(advertisementVideoPath);
+                advertisementVideoView.setVisibility(View.VISIBLE);
+                advertisementVideoView.start();
+            } else if (!advertisementImagePath.isEmpty() && advertisementImageView != null) {
+                advertisementImageView.setVisibility(View.VISIBLE);
+                loadImageFromPath(advertisementImageView, advertisementImagePath);
+            }
+            
+            // Hide advertisement after duration
+            mainHandler.postDelayed(() -> {
+                hideAdvertisement();
+            }, advertisementDuration);
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Show advertisement error: " + e.getMessage(), e);
+            hideAdvertisement();
+        }
+    }
+
+    private void hideAdvertisement() {
+        try {
+            isAdvertisementActive = false;
+            if (advertisementImageView != null) advertisementImageView.setVisibility(View.GONE);
+            if (advertisementVideoView != null) {
+                advertisementVideoView.stopPlayback();
+                advertisementVideoView.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Hide advertisement error: " + e.getMessage(), e);
+        }
+    }
+
+    private void showScreensaver() {
+        try {
+            if (isScreensaverActive) return;
+            
+            isScreensaverActive = true;
+            
+            // Hide other views
+            if (advertisementImageView != null) advertisementImageView.setVisibility(View.GONE);
+            if (advertisementVideoView != null) advertisementVideoView.setVisibility(View.GONE);
+            
+            // Show screensaver
+            if (!screensaverImagePath.isEmpty() && screensaverImageView != null) {
+                screensaverImageView.setVisibility(View.VISIBLE);
+                loadImageFromPath(screensaverImageView, screensaverImagePath);
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Show screensaver error: " + e.getMessage(), e);
+        }
+    }
+
+    private void hideScreensaver() {
+        try {
+            isScreensaverActive = false;
+            if (screensaverImageView != null) screensaverImageView.setVisibility(View.GONE);
+        } catch (Exception e) {
+            Log.e(TAG, "Hide screensaver error: " + e.getMessage(), e);
+        }
+    }
+
+    private void loadImageFromPath(ImageView imageView, String imagePath) {
+        try {
+            if (imageView == null || imagePath == null || imagePath.isEmpty()) return;
+            
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Load image from path error: " + e.getMessage(), e);
+        }
     }
 
     private void updateDisplay() {
-        // Sepet öğelerini göster
-        if (cartItems.isEmpty()) {
-            tvCartItems.setText("Henüz ürün seçilmedi");
-        } else {
-            StringBuilder cartText = new StringBuilder();
-            for (CartItem item : cartItems) {
-                cartText.append(item.getName()).append(" x").append(item.getQuantity()).append("\n");
+        try {
+            // Cart items
+            if (tvCartItems != null) {
+                StringBuilder cartText = new StringBuilder();
+                cartText.append("Sade Dondurma x1\n"); // Her zaman sade dondurma
+                
+                if (!cartItems.isEmpty()) {
+                    for (CartItem item : cartItems) {
+                        if (item != null && item.getName() != null) {
+                            cartText.append(item.getName()).append(" x").append(item.getQuantity()).append("\n");
+                        }
+                    }
+                }
+                
+                tvCartItems.setText(cartText.toString().trim());
             }
-            tvCartItems.setText(cartText.toString().trim());
-        }
 
-        // Toplam fiyatı göster
-        tvTotalPrice.setText("Toplam: " + String.format("%.2f", totalPrice) + " TL");
-
-        // Temel fiyatı göster
-        tvBasePrice.setText("Temel Fiyat: " + String.format("%.2f", basePrice) + " TL");
-    }
-
-    private void openAdminLogin() {
-        Intent intent = new Intent(this, AdminLoginActivity.class);
-        startActivity(intent);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showMessage(String title, String message) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("Tamam", null)
-                .show();
-    }
-
-    private void toggleSauce(String sauceName, double price, Button button) {
-        // Esnek seçim sistemi kontrolü
-        boolean flexibleSelection = sharedPreferences.getBoolean("flexible_selection", true);
-
-        if (selectedSauces.contains(sauceName)) {
-            // Sos zaten seçili, kaldır
-            selectedSauces.remove(sauceName);
-            removeFromCart(sauceName);
-            button.setAlpha(1.0f); // Normal görünüm
-            button.animate().scaleX(1.0f).scaleY(1.0f).setDuration(200);
-        } else {
-            // Yeni sos ekle
-            if (flexibleSelection || selectedSauces.size() < 3) {
-                selectedSauces.add(sauceName);
-                addToCart(sauceName, price, "sauce");
-                button.setAlpha(0.7f); // Seçili görünüm
-                button.animate().scaleX(1.1f).scaleY(1.1f).setDuration(200);
-            } else {
-                showToast("Esnek seçim kapalı! En fazla 3 sos seçebilirsiniz!");
-                return;
+            // Total price
+            if (tvTotalPrice != null) {
+                tvTotalPrice.setText("Toplam: " + String.format("%.2f", totalPrice) + " TL");
             }
-        }
-        updateDisplay();
-        updateSlotInfo();
-    }
 
-    private void toggleTopping(String toppingName, double price, Button button) {
-        // Esnek seçim sistemi kontrolü
-        boolean flexibleSelection = sharedPreferences.getBoolean("flexible_selection", true);
-
-        if (selectedToppings.contains(toppingName)) {
-            // Süsleme zaten seçili, kaldır
-            selectedToppings.remove(toppingName);
-            removeFromCart(toppingName);
-            button.setAlpha(1.0f); // Normal görünüm
-            button.animate().scaleX(1.0f).scaleY(1.1f).setDuration(200);
-        } else {
-            // Yeni süsleme ekle
-            if (flexibleSelection || selectedToppings.size() < 3) {
-                selectedToppings.add(toppingName);
-                addToCart(toppingName, price, "topping");
-                button.setAlpha(0.7f); // Seçili görünüm
-                button.animate().scaleX(1.1f).scaleY(1.1f).setDuration(200);
-            } else {
-                showToast("Esnek seçim kapalı! En fazla 3 süsleme seçebilirsinız!");
-                return;
+            // Base price
+            if (tvBasePrice != null) {
+                tvBasePrice.setText("Temel Fiyat: " + String.format("%.2f", basePrice) + " TL");
             }
-        }
-        updateDisplay();
-        updateSlotInfo();
-    }
-
-    private void updateSlotInfo() {
-        // Seçilen sos ve süslemelere göre slot numarasını hesapla
-        int[] selectedSauceNumbers = new int[selectedSauces.size()];
-        int[] selectedToppingNumbers = new int[selectedToppings.size()];
-
-        // Sos numaralarını belirle (dinamik isimlerden)
-        int sauceIndex = 0;
-        for (String sauce : selectedSauces) {
-            String sauceName = getSauceNameFromSettings(sauce);
-            // Dinamik slot numarası hesaplama
-            selectedSauceNumbers[sauceIndex++] = calculateSauceSlotNumber(sauceName);
-        }
-
-        // Süsleme numaralarını belirle (dinamik isimlerden)
-        int toppingIndex = 0;
-        for (String topping : selectedToppings) {
-            String toppingName = getToppingNameFromSettings(topping);
-            // Dinamik slot numarası hesaplama
-            selectedToppingNumbers[toppingIndex++] = calculateToppingSlotNumber(toppingName);
-        }
-
-        // Seçilen ürünlere göre ürün açıklamasını oluştur
-        StringBuilder productDescription = new StringBuilder("Dondurma");
-
-        // Ürün görsellerini güncelle
-        updateProductImages();
-
-        // Seçilen sosları ekle (dinamik isimlerden)
-        if (!selectedSauces.isEmpty()) {
-            productDescription.append(" + ");
-            for (int i = 0; i < selectedSauces.size(); i++) {
-                if (i > 0)
-                    productDescription.append(", ");
-                String sauce = selectedSauces.get(i);
-                String sauceName = getSauceNameFromSettings(sauce);
-                productDescription.append(sauceName);
-            }
-        }
-
-        // Seçilen süslemeleri ekle (dinamik isimlerden)
-        if (!selectedToppings.isEmpty()) {
-            productDescription.append(" + ");
-            for (int i = 0; i < selectedToppings.size(); i++) {
-                if (i > 0)
-                    productDescription.append(", ");
-                String topping = selectedToppings.get(i);
-                String toppingName = getToppingNameFromSettings(topping);
-                productDescription.append(toppingName);
-            }
-        }
-
-        // Ürün açıklamasını göster
-        if (tvBasePrice != null) {
-            tvBasePrice.setText(productDescription.toString());
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Display update error: " + e.getMessage(), e);
         }
     }
 
     private void updateProductImages() {
         try {
-            if (fileManagementSystem != null) {
-                // Seçilen sosların görsellerini güncelle
-                for (String sauce : selectedSauces) {
-                    String sauceName = getSauceNameFromSettings(sauce);
-                    updateButtonImage(sauce, sauceName, "sauce");
-                }
-
-                // Seçilen süslemelerin görsellerini güncelle
-                for (String topping : selectedToppings) {
-                    String toppingName = getToppingNameFromSettings(topping);
-                    updateButtonImage(topping, toppingName, "topping");
-                }
-
-                // Log olayını kaydet
-                if (advancedLoggingSystem != null) {
-                    advancedLoggingSystem.logUserAction("product_images_updated",
-                            "product_update",
-                            "Seçilen ürünler: " + selectedSauces.size() + " sos, " + selectedToppings.size()
-                                    + " süsleme");
-                }
-            }
+            // Update button images based on saved paths
+            updateButtonImage(btnSauceChocolate, "sauce_chocolate");
+            updateButtonImage(btnSauceCaramel, "sauce_caramel");
+            updateButtonImage(btnSauceStrawberry, "sauce_strawberry");
+            updateButtonImage(btnDecorNuts, "decor_nuts");
+            updateButtonImage(btnDecorSprinkles, "decor_sprinkles");
+            updateButtonImage(btnDecorWhippedCream, "decor_whipped_cream");
         } catch (Exception e) {
-            Log.e(TAG, "Ürün görselleri güncelleme hatası: " + e.getMessage());
+            Log.e(TAG, "Update product images error: " + e.getMessage(), e);
         }
     }
 
-    private void updateButtonImage(String productKey, String productName, String productType) {
+    private void updateButtonImage(Button button, String productType) {
         try {
-            if (fileManagementSystem != null) {
-                // Ürün görselini dosya sisteminden al
-                Bitmap productImage = fileManagementSystem.getProductImage(productName);
-
-                if (productImage != null) {
-                    // Buton görselini güncelle
-                    Button targetButton = getButtonForProduct(productKey, productType);
-                    if (targetButton != null) {
-                        targetButton.setBackground(new BitmapDrawable(getResources(), productImage));
-                        Log.i(TAG, "Ürün görseli güncellendi: " + productName);
+            if (button == null || productType == null) return;
+            
+            if (productImagePaths.containsKey(productType)) {
+                String imagePath = productImagePaths.get(productType);
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    File imageFile = new File(imagePath);
+                    if (imageFile.exists()) {
+                        // Button background images require more complex handling
+                        // For now, just log that image is available
+                        Log.d(TAG, "Product image available for " + productType + ": " + imagePath);
                     }
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "Buton görseli güncelleme hatası: " + e.getMessage());
+            Log.e(TAG, "Update button image error: " + e.getMessage(), e);
         }
     }
 
-    private Button getButtonForProduct(String productKey, String productType) {
-        if ("sauce".equals(productType)) {
-            if (productKey.contains("🍫"))
-                return btnSauceChocolate;
-            if (productKey.contains("🍯"))
-                return btnSauceCaramel;
-            if (productKey.contains("🍓"))
-                return btnSauceStrawberry;
-        } else if ("topping".equals(productType)) {
-            if (productKey.contains("🥜"))
-                return btnDecorNuts;
-            if (productKey.contains("✨"))
-                return btnDecorSprinkles;
-            if (productKey.contains("💨"))
-                return btnDecorWhippedCream;
+    private void clearCart() {
+        try {
+            cartItems.clear();
+            selectedSauces.clear();
+            selectedToppings.clear();
+            totalPrice = basePrice; // Sade dondurma fiyatına sıfırla
+            updateDisplay();
+            showToast("Sepet temizlendi!");
+            resetUserInteractionTimer();
+            
+            // Log the action
+            Log.i(TAG, "Sepet temizlendi - Cart cleared");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Clear cart error: " + e.getMessage(), e);
+            showToast("Sepet temizlenirken hata oluştu!");
+        }
+    }
+
+    private void checkout() {
+        try {
+            // Her zaman sade dondurma + seçilen sos ve süslemeler
+            totalPrice = basePrice;
+            
+            // Seçilen sosları ekle
+            for (String sauce : selectedSauces) {
+                if (sauce.contains("Karamel")) {
+                    totalPrice += 2.5;
+                } else {
+                    totalPrice += 2.0;
+                }
+            }
+            
+            // Seçilen süslemeleri ekle
+            for (String topping : selectedToppings) {
+                if (topping.contains("Fındık") || topping.contains("Krem Şanti")) {
+                    totalPrice += 1.5;
+                } else {
+                    totalPrice += 1.0;
+                }
+            }
+
+            // Start real payment
+            if (mdbManager != null) {
+                if (mdbManager.startPayment(totalPrice, "Credit Card")) {
+                    showToast("Ödeme başlatıldı! Toplam: " + String.format("%.2f", totalPrice) + " TL");
+                    
+                    // Log the payment
+                    Log.i(TAG, "Ödeme başlatıldı - Payment started: " + totalPrice + " TL");
+                    
+                    clearCart();
+                } else {
+                    showToast("Ödeme başlatılamadı!");
+                    
+                    // Log the payment failure
+                    Log.i(TAG, "Ödeme başarısız - Payment failed: " + totalPrice + " TL");
+                }
+            } else {
+                showToast("Ödeme sistemi bağlantısı yok!");
+            }
+            
+            resetUserInteractionTimer();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Checkout error: " + e.getMessage(), e);
+            showToast("Ödeme hatası: " + e.getMessage());
+        }
+    }
+
+    private void addToCart(String itemName, double price, String type) {
+        try {
+            if (itemName == null || type == null) return;
+            
+            // Check existing items
+            for (CartItem item : cartItems) {
+                if (item != null && item.getName() != null && item.getName().equals(itemName)) {
+                    item.incrementQuantity();
+                    totalPrice += price;
+                    updateDisplay();
+                    return;
+                }
+            }
+
+            // Add new item
+            CartItem newItem = new CartItem(itemName, price, type);
+            cartItems.add(newItem);
+            totalPrice += price;
+            updateDisplay();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Add to cart error: " + e.getMessage(), e);
+        }
+    }
+
+    private void toggleSauce(String sauceName, double price, Button button) {
+        try {
+            if (sauceName == null || button == null) return;
+
+            if (selectedSauces.contains(sauceName)) {
+                selectedSauces.remove(sauceName);
+                removeFromCart(sauceName);
+                button.setAlpha(1.0f);
+            } else {
+                selectedSauces.add(sauceName);
+                addToCart(sauceName, price, "sauce");
+                button.setAlpha(0.7f);
+            }
+            updateDisplay();
+            resetUserInteractionTimer();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Toggle sauce error: " + e.getMessage(), e);
+        }
+    }
+
+    private void toggleTopping(String toppingName, double price, Button button) {
+        try {
+            if (toppingName == null || button == null) return;
+
+            if (selectedToppings.contains(toppingName)) {
+                selectedToppings.remove(toppingName);
+                removeFromCart(toppingName);
+                button.setAlpha(1.0f);
+            } else {
+                selectedToppings.add(toppingName);
+                addToCart(toppingName, price, "topping");
+                button.setAlpha(0.7f);
+            }
+            updateDisplay();
+            resetUserInteractionTimer();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Toggle topping error: " + e.getMessage(), e);
+        }
+    }
+
+    private void removeFromCart(String itemName) {
+        try {
+            if (itemName == null) return;
+            
+            for (int i = cartItems.size() - 1; i >= 0; i--) {
+                CartItem item = cartItems.get(i);
+                if (item != null && item.getName() != null && item.getName().equals(itemName)) {
+                    totalPrice -= (item.getPrice() * item.getQuantity());
+                    cartItems.remove(i);
+                    break;
+                }
+            }
+            updateDisplay();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Remove from cart error: " + e.getMessage(), e);
+        }
+    }
+
+
+
+    private void openAdminLogin() {
+        try {
+            Intent intent = new Intent(this, AdminLoginActivity.class);
+            startActivity(intent);
+            resetUserInteractionTimer();
+            
+            // Log the action
+            Log.i(TAG, "Admin paneline erişim - Admin panel accessed");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Admin login error: " + e.getMessage(), e);
+            showToast("Admin paneli açılamadı: " + e.getMessage());
+        }
+    }
+
+    private void resetUserInteractionTimer() {
+        try {
+            isUserInteracting = true;
+            hideScreensaver();
+            hideAdvertisement();
+            
+            // Reset timer
+            mainHandler.postDelayed(() -> {
+                isUserInteracting = false;
+            }, 5000); // 5 seconds of interaction
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Reset user interaction timer error: " + e.getMessage(), e);
+        }
+    }
+
+    private void showToast(String message) {
+        try {
+            if (message != null) {
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Show toast error: " + e.getMessage(), e);
+        }
+    }
+
+    private void showErrorDialog(String title, String message) {
+        try {
+            new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+        } catch (Exception e) {
+            Log.e(TAG, "Error dialog error: " + e.getMessage(), e);
+            finish();
+        }
+    }
+
+    private void saveProductImage(Uri imageUri, String productType) {
+        try {
+            if (imageUri == null || productType == null) return;
+            
+            String fileName = "product_" + productType + "_" + System.currentTimeMillis() + ".jpg";
+            File imageFile = new File(getExternalFilesDir("ProductImages"), fileName);
+            
+            // Ensure directory exists
+            if (!imageFile.getParentFile().exists()) {
+                imageFile.getParentFile().mkdirs();
+            }
+            
+            // Copy image to app directory
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            
+            inputStream.close();
+            outputStream.close();
+            
+            // Save path to preferences
+            productImagePaths.put(productType, imageFile.getAbsolutePath());
+            sharedPreferences.edit().putString("product_image_" + productType, imageFile.getAbsolutePath()).apply();
+            
+            // Update UI
+            updateProductImages();
+            showToast("Ürün görseli kaydedildi!");
+            
+            // Log the action
+            Log.i(TAG, "Ürün görseli kaydedildi - Product image saved: " + fileName);
+            
+            Log.d(TAG, "Product image saved: " + imageFile.getAbsolutePath());
+
+        } catch (Exception e) {
+            Log.e(TAG, "Save product image error: " + e.getMessage(), e);
+            showToast("Görsel kaydedilemedi: " + e.getMessage());
+        }
+    }
+
+    private void saveAdvertisementVideo(Uri videoUri) {
+        try {
+            if (videoUri == null) return;
+            
+            String fileName = "advertisement_" + System.currentTimeMillis() + ".mp4";
+            File videoFile = new File(getExternalFilesDir("Advertisements"), fileName);
+            
+            // Ensure directory exists
+            if (!videoFile.getParentFile().exists()) {
+                videoFile.getParentFile().mkdirs();
+            }
+            
+            // Copy video to app directory
+            InputStream inputStream = getContentResolver().openInputStream(videoUri);
+            FileOutputStream outputStream = new FileOutputStream(videoFile);
+            
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            
+            inputStream.close();
+            outputStream.close();
+            
+            // Save path to preferences
+            advertisementVideoPath = videoFile.getAbsolutePath();
+            sharedPreferences.edit().putString("advertisement_video", videoFile.getAbsolutePath()).apply();
+            
+            showToast("Reklam videosu kaydedildi!");
+            
+            // Log the action
+            Log.i(TAG, "Reklam videosu kaydedildi - Advertisement video saved: " + fileName);
+            
+            Log.d(TAG, "Advertisement video saved: " + videoFile.getAbsolutePath());
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Save advertisement video error: " + e.getMessage(), e);
+            showToast("Video kaydedilemedi: " + e.getMessage());
+        }
+    }
+
+    private void generateNewMachineIdentity() {
+        try {
+            machineSerialNumber = "DGS-ICE-" + System.currentTimeMillis();
+            isMachineIdentified = true;
+            saveMachineIdentityToStorage();
+            Log.d(TAG, "New machine identity generated");
+        } catch (Exception e) {
+            Log.e(TAG, "Generate machine identity error: " + e.getMessage(), e);
+        }
+    }
+
+    private void saveMachineIdentityToStorage() {
+        try {
+            String encryptedSerial = encryptIdentityData(machineSerialNumber);
+
+            FileOutputStream fos = openFileOutput("machine_serial.dat", MODE_PRIVATE);
+            fos.write(encryptedSerial.getBytes());
+            fos.close();
+
+            Log.d(TAG, "Machine identity saved to storage");
+        } catch (Exception e) {
+            Log.e(TAG, "Save machine identity error: " + e.getMessage(), e);
+        }
+    }
+
+    private String getMachineSerialFromStorage() {
+        try {
+            File file = new File(getFilesDir(), "machine_serial.dat");
+            if (file.exists()) {
+                FileInputStream fis = openFileInput("machine_serial.dat");
+                byte[] data = new byte[(int) file.length()];
+                fis.read(data);
+                fis.close();
+                return decryptIdentityData(new String(data));
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Get machine serial error: " + e.getMessage(), e);
         }
         return null;
     }
 
-    private void removeFromCart(String itemName) {
-        removeFromCart(itemName, "base");
-    }
-
-    private void removeFromCart(String itemName, String type) {
-        for (int i = cartItems.size() - 1; i >= 0; i--) {
-            CartItem item = cartItems.get(i);
-            if (item.getName().equals(itemName) && item.getType().equals(type)) {
-                totalPrice -= item.getTotalPrice();
-                cartItems.remove(i);
-                break;
+    private String encryptIdentityData(String data) {
+        try {
+            if (data == null) return "";
+            
+            // Simple XOR encryption
+            StringBuilder encrypted = new StringBuilder();
+            int key = 42; // Simple key
+            for (char c : data.toCharArray()) {
+                encrypted.append((char) (c ^ key));
             }
-        }
-    }
-
-    private void resetButtonAppearance() {
-        // Sos butonları (sadece 3 tane)
-        btnSauceChocolate.setAlpha(1.0f);
-        btnSauceCaramel.setAlpha(1.0f);
-        btnSauceStrawberry.setAlpha(1.0f);
-
-        // Süsleme butonları (sadece 3 tane)
-        btnDecorNuts.setAlpha(1.0f);
-        btnDecorSprinkles.setAlpha(1.0f);
-        btnDecorWhippedCream.setAlpha(1.0f);
-    }
-
-    /**
-     * Sade dondurma siparişi verir
-     */
-    private void orderPlainIceCream() {
-        try {
-            // Sepeti temizle ve sade dondurma ekle
-            cartItems.clear();
-            selectedSauces.clear();
-            selectedToppings.clear();
-
-            // Sade dondurma için temel fiyat
-            totalPrice = basePrice;
-
-            // Sade dondurma öğesini sepete ekle
-            CartItem plainIceCream = new CartItem("🍦 Sade Dondurma", basePrice, "base");
-            cartItems.add(plainIceCream);
-
-            // Buton görünümlerini sıfırla
-            resetButtonAppearance();
-
-            // Sepeti güncelle
-            updateDisplay();
-            updateSlotInfo();
-
-            // TCN entegrasyonu ile satış işlemini başlat
-            startTCNVending("🍦 Sade Dondurma");
-
-            // Direkt ödeme ekranına git
-            checkout();
-
-            showToast("Sade dondurma siparişi verildi!");
-
+            return encrypted.toString();
         } catch (Exception e) {
-            Log.e(TAG, "Sade dondurma siparişi hatası: " + e.getMessage());
-            showToast("Sipariş hatası: " + e.getMessage());
+            Log.e(TAG, "Encrypt identity data error: " + e.getMessage(), e);
+            return data;
         }
     }
 
-    /**
-     * TCN entegrasyonu ile satış işlemini başlatır
-     */
-    private void startTCNVending(String productDetails) {
+    private String decryptIdentityData(String encryptedData) {
         try {
-            if (tcnIntegrationManager != null && tcnIntegrationManager.isConnected()) {
-                // Slot numarasını hesapla (ürün tipine göre)
-                int slotNumber = calculateSlotNumber();
-
-                // TCN entegrasyonu ile satış başlat
-                tcnIntegrationManager.startVending(slotNumber, 1, productDetails);
-
-                Log.i(TAG, "TCN satış işlemi başlatıldı - Slot: " + slotNumber + ", Ürün: " + productDetails);
-
-            } else {
-                Log.w(TAG, "TCN entegrasyonu hazır değil, satış simüle ediliyor");
-                // TCN entegrasyonu yoksa simüle et
-                simulateVending();
+            if (encryptedData == null) return "";
+            
+            // Simple XOR decryption
+            StringBuilder decrypted = new StringBuilder();
+            int key = 42; // Same key
+            for (char c : encryptedData.toCharArray()) {
+                decrypted.append((char) (c ^ key));
             }
-
+            return decrypted.toString();
         } catch (Exception e) {
-            Log.e(TAG, "TCN satış başlatma hatası: " + e.getMessage());
-            // Hata durumunda simüle et
-            simulateVending();
+            Log.e(TAG, "Decrypt identity data error: " + e.getMessage(), e);
+            return encryptedData;
         }
     }
 
-    /**
-     * Slot numarasını hesaplar
-     */
-    private int calculateSlotNumber() {
-        // Ürün tipine göre slot numarası hesapla
-        if (selectedSauces.contains("🍫 Çikolata Sos")) {
-            return 1; // Çikolata sos slot'u
-        } else if (selectedSauces.contains("🍯 Karamel Sos")) {
-            return 2; // Karamel sos slot'u
-        } else if (selectedSauces.contains("🍓 Çilek Sos")) {
-            return 3; // Çilek sos slot'u
-        } else if (selectedToppings.contains("🥜 Fındık")) {
-            return 4; // Fındık slot'u
-        } else if (selectedToppings.contains("✨ Renkli Şeker")) {
-            return 5; // Renkli şeker slot'u
-        } else if (selectedToppings.contains("💨 Krem Şanti")) {
-            return 6; // Krem şanti slot'u
-        } else {
-            return 1; // Varsayılan slot
-        }
-    }
-
-    /**
-     * Satış işlemini simüle eder
-     */
-    private void simulateVending() {
+    private void updateMachineIdentityDisplay() {
         try {
-            Log.i(TAG, "Satış simülasyonu başlatılıyor...");
-
-            // 2 saniye bekle (simüle edilmiş hazırlama süresi)
-            new Handler().postDelayed(() -> {
-                showToast("Dondurmanız hazır! Afiyet olsun! 🍦");
-                Log.i(TAG, "Satış simülasyonu tamamlandı");
-            }, 2000);
-
-        } catch (Exception e) {
-            Log.e(TAG, "Satış simülasyonu hatası: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Ödeme sistemini sıfırlar ve yeni ödeme için hazırlar
-     */
-    private void resetPaymentSystem() {
-        try {
-            // MDB ödeme sistemini sıfırla
-            MDBPaymentManager mdbManager = MDBPaymentManager.getInstance(this);
-            mdbManager.resetPaymentStatus();
-
-            // Telemetri olayını gönder
-            TelemetryManager telemetryManager = TelemetryManager.getInstance(this);
-            if (telemetryManager != null) {
-                Map<String, Object> eventData = new HashMap<>();
-                eventData.put("event_type", "payment_system_reset");
-                eventData.put("timestamp", System.currentTimeMillis());
-                telemetryManager.sendDataAsync("payment_event", eventData);
+            // Sadece seri numarası gösterilecek, IoT numarası gizli
+            if (tvMachineInfo != null) {
+                tvMachineInfo.setText("Makine Seri No: " + machineSerialNumber);
             }
-
-            Log.i(TAG, "Ödeme sistemi sıfırlandı - yeni ödeme için hazır");
+            Log.i(TAG, "Machine Identity - Serial: " + machineSerialNumber);
         } catch (Exception e) {
-            Log.e(TAG, "Ödeme sistemi sıfırlama hatası: " + e.getMessage());
+            Log.e(TAG, "Update machine identity display error: " + e.getMessage(), e);
         }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        // Aktivite yeniden açıldığında fiyatları ve sepeti güncelle
-        loadPrices();
-        updateDisplay();
-
-        // Reklam ve ekran koruyucu görsellerini kontrol et
-        checkAdvertisementAndScreensaver();
-    }
-
-    private void checkAdvertisementAndScreensaver() {
+    protected void onDestroy() {
         try {
-            if (fileManagementSystem != null) {
-                // Reklam görsellerini kontrol et
-                List<String> advertisements = fileManagementSystem.listFilesInFolder("Advertisements");
-                if (!advertisements.isEmpty()) {
-                    // Rastgele bir reklam seç ve göster
-                    String randomAd = advertisements.get((int) (Math.random() * advertisements.size()));
-                    showAdvertisement(randomAd);
-                }
-
-                // Ekran koruyucu görsellerini kontrol et
-                List<String> screensavers = fileManagementSystem.listFilesInFolder("Screensavers");
-                if (!screensavers.isEmpty()) {
-                    // Ekran koruyucu için hazırla
-                    prepareScreensaver(screensavers.get(0)); // İlk ekran koruyucuyu kullan
-                }
-
-                // Log olayını kaydet
-                if (advancedLoggingSystem != null) {
-                    advancedLoggingSystem.logSystemEvent("advertisement_check",
-                            "Reklam: " + advertisements.size() + ", Ekran koruyucu: " + screensavers.size());
-                }
+            // Clean up handlers
+            if (mainHandler != null) {
+                mainHandler.removeCallbacksAndMessages(null);
             }
+            super.onDestroy();
         } catch (Exception e) {
-            Log.e(TAG, "Reklam ve ekran koruyucu kontrol hatası: " + e.getMessage());
+            Log.e(TAG, "onDestroy error: " + e.getMessage(), e);
         }
     }
 
-    private void showAdvertisement(String adName) {
-        try {
-            if (fileManagementSystem != null) {
-                Bitmap adImage = fileManagementSystem.getAdvertisement(adName);
-                if (adImage != null && advertisementImageView != null) {
-                    // Reklam görselini UI'da göster
-                    advertisementImageView.setImageBitmap(adImage);
-                    advertisementImageView.setVisibility(View.VISIBLE);
-
-                    // Ayarlanabilir süre sonra reklamı gizle
-                    new Handler().postDelayed(() -> {
-                        if (advertisementImageView != null) {
-                            advertisementImageView.setVisibility(View.GONE);
-                        }
-                    }, advertisementDuration);
-
-                    Log.i(TAG,
-                            "Rklam gösteriliyor: " + adName + " - Süre: " + (advertisementDuration / 1000) + " saniye");
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Reklam gösterme hatası: " + e.getMessage());
-        }
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        resetUserInteractionTimer();
     }
-
-    /**
-     * Reklam süresini ayarlar
-     */
-    public void setAdvertisementDuration(long durationMs) {
-        try {
-            // Minimum 5 saniye, maksimum 60 saniye
-            if (durationMs < 5000)
-                durationMs = 5000;
-            if (durationMs > 60000)
-                durationMs = 60000;
-
-            advertisementDuration = durationMs;
-
-            // Ayarlara kaydet
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("advertisement_duration", advertisementDuration);
-            editor.apply();
-
-            Log.i(TAG, "Reklam süresi ayarlandı: " + (advertisementDuration / 1000) + " saniye");
-
-        } catch (Exception e) {
-            Log.e(TAG, "Reklam süresi ayarlama hatası: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Mevcut reklam süresini döndürür
-     */
-    public long getAdvertisementDuration() {
-        return advertisementDuration;
-    }
-
-    private void prepareScreensaver(String screensavers) {
-        try {
-            if (fileManagementSystem != null) {
-                // Ekran koruyucu için hazırlık yap
-                Log.i(TAG, "Ekran koruyucu hazırlanıyor: " + screensavers);
-
-                // Burada ekran koruyucu mantığını uygulayabilirsiniz
-                // Örnek: Belirli bir süre sonra ekran koruyucuyu göster
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Ekran koruyucu hazırlama hatası: " + e.getMessage());
-        }
-    }
-
 }

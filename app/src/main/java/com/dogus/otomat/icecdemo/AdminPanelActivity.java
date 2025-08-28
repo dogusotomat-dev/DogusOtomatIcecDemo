@@ -3,25 +3,19 @@ package com.dogus.otomat.icecdemo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminPanelActivity extends AppCompatActivity {
+    private static final String TAG = "AdminPanel";
 
     private Button btnPasswordSettings;
-    private Button btnPriceSettings;
+    private Button btnProductSettings;
     private Button btnMachineSettings;
-    private Button btnTelemetrySettings;
-    private Button btnSerialPortSettings;
-    private Button btnRecipeManagement;
-    private Button btnSauceToppingNames;
-    private Button btnSalesData;
-    private Button btnFileManagement;
-    private Button btnLogSystem;
+    private Button btnSystemSettings;
     private Button btnAdvertisementSettings;
-    private Button btnProductImageAssignment;
-    private Button btnAdvancedLogging;
     private Button btnBackToSales;
 
     private SharedPreferences sharedPreferences;
@@ -29,114 +23,120 @@ public class AdminPanelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_panel);
 
-        sharedPreferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
-        initializeViews();
-        setupClickListeners();
+        try {
+            setContentView(R.layout.activity_admin_panel);
+
+            Log.i(TAG, "AdminPanelActivity onCreate started");
+
+            sharedPreferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
+            initializeViews();
+            setupClickListeners();
+
+            Log.i(TAG, "AdminPanelActivity onCreate completed successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, "onCreate error: " + e.getMessage(), e);
+            finish();
+        }
     }
 
     private void initializeViews() {
-        btnPasswordSettings = findViewById(R.id.btnPasswordSettings);
-        btnPriceSettings = findViewById(R.id.btnPriceSettings);
-        btnMachineSettings = findViewById(R.id.btnPasswordSettings);
-        btnTelemetrySettings = findViewById(R.id.btnTelemetrySettings);
-        btnSerialPortSettings = findViewById(R.id.btnSerialPortSettings);
-        btnRecipeManagement = findViewById(R.id.btnRecipeManagement);
-        btnSauceToppingNames = findViewById(R.id.btnSauceToppingNames);
-        btnSalesData = findViewById(R.id.btnSalesData);
-        btnFileManagement = findViewById(R.id.btnFileManagement);
-        btnLogSystem = findViewById(R.id.btnLogSystem);
-        btnAdvertisementSettings = findViewById(R.id.btnAdvertisementSettings);
-        btnProductImageAssignment = findViewById(R.id.btnProductImageAssignment);
-        btnAdvancedLogging = findViewById(R.id.btnAdvancedLogging);
-        btnBackToSales = findViewById(R.id.btnBackToSales);
+        try {
+            btnPasswordSettings = findViewById(R.id.btnPasswordSettings);
+            btnProductSettings = findViewById(R.id.btnProductSettings);
+            btnMachineSettings = findViewById(R.id.btnMachineSettings);
+            btnSystemSettings = findViewById(R.id.btnSystemSettings);
+            btnAdvertisementSettings = findViewById(R.id.btnAdvertisementSettings);
+            btnBackToSales = findViewById(R.id.btnBackToSales);
+
+            Log.d(TAG, "Views initialized successfully");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Initialize views error: " + e.getMessage(), e);
+        }
     }
 
     private void setupClickListeners() {
-        btnPasswordSettings.setOnClickListener(v -> openPasswordSettings());
-        btnPriceSettings.setOnClickListener(v -> openPriceSettings());
-        btnMachineSettings.setOnClickListener(v -> openMachineParameters());
-        btnTelemetrySettings.setOnClickListener(v -> openTelemetrySettings());
-        btnSerialPortSettings.setOnClickListener(v -> openSerialPortSettings());
-        btnRecipeManagement.setOnClickListener(v -> openRecipeManagement());
-        btnSauceToppingNames.setOnClickListener(v -> openSauceToppingNames());
-        btnSalesData.setOnClickListener(v -> openSalesData());
-        btnFileManagement.setOnClickListener(v -> openFileManagement());
-        btnLogSystem.setOnClickListener(v -> openLogSystem());
-        btnAdvertisementSettings.setOnClickListener(v -> openAdvertisementSettings());
-        btnProductImageAssignment.setOnClickListener(v -> openProductImageAssignment());
-        btnAdvancedLogging.setOnClickListener(v -> openAdvancedLogging());
-        btnBackToSales.setOnClickListener(v -> finish());
+        try {
+            if (btnPasswordSettings != null) {
+                btnPasswordSettings.setOnClickListener(v -> openPasswordSettings());
+            }
+            if (btnProductSettings != null) {
+                btnProductSettings.setOnClickListener(v -> openProductSettings());
+            }
+            if (btnMachineSettings != null) {
+                btnMachineSettings.setOnClickListener(v -> openMachineSettings());
+            }
+            if (btnSystemSettings != null) {
+                btnSystemSettings.setOnClickListener(v -> openSystemSettings());
+            }
+            if (btnAdvertisementSettings != null) {
+                btnAdvertisementSettings.setOnClickListener(v -> openAdvertisementSettings());
+            }
+            if (btnBackToSales != null) {
+                btnBackToSales.setOnClickListener(v -> finish());
+            }
+
+            Log.d(TAG, "Click listeners setup completed");
+
+        } catch (Exception e) {
+            Log.e(TAG, "Setup click listeners error: " + e.getMessage(), e);
+        }
     }
 
     private void openPasswordSettings() {
-        Intent intent = new Intent(this, PasswordSettingsActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, PasswordSettingsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Open password settings error: " + e.getMessage(), e);
+        }
     }
 
-    private void openPriceSettings() {
-        Intent intent = new Intent(this, PriceSettingsActivity.class);
-        startActivity(intent);
+    private void openProductSettings() {
+        try {
+            Intent intent = new Intent(this, ProductSettingsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Open product settings error: " + e.getMessage(), e);
+        }
     }
 
     private void openMachineSettings() {
-        Intent intent = new Intent(this, MachineSettingsActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, MachineSettingsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Open machine settings error: " + e.getMessage(), e);
+        }
     }
 
-    private void openTelemetrySettings() {
-        Intent intent = new Intent(this, TelemetrySettingsActivity.class);
-        startActivity(intent);
-    }
-
-    private void openMachineParameters() {
-        Intent intent = new Intent(this, MachineParametersActivity.class);
-        startActivity(intent);
-    }
-
-    private void openSerialPortSettings() {
-        Intent intent = new Intent(this, SerialPortSettingsActivity.class);
-        startActivity(intent);
-    }
-
-    private void openRecipeManagement() {
-        Intent intent = new Intent(this, RecipeManagementActivity.class);
-        startActivity(intent);
-    }
-
-    private void openSauceToppingNames() {
-        Intent intent = new Intent(this, SauceToppingNamesActivity.class);
-        startActivity(intent);
-    }
-
-    private void openSalesData() {
-        Intent intent = new Intent(this, SalesDataActivity.class);
-        startActivity(intent);
-    }
-
-    private void openFileManagement() {
-        Intent intent = new Intent(this, FileManagementActivity.class);
-        startActivity(intent);
-    }
-
-    private void openLogSystem() {
-        Intent intent = new Intent(this, LogSystemActivity.class);
-        startActivity(intent);
+    private void openSystemSettings() {
+        try {
+            Intent intent = new Intent(this, SystemSettingsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Open system settings error: " + e.getMessage(), e);
+        }
     }
 
     private void openAdvertisementSettings() {
-        Intent intent = new Intent(this, AdvertisementSettingsActivity.class);
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(this, AdvertisementSettingsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Open advertisement settings error: " + e.getMessage(), e);
+        }
     }
 
-    private void openProductImageAssignment() {
-        Intent intent = new Intent(this, ProductImageAssignmentActivity.class);
-        startActivity(intent);
-    }
-
-    private void openAdvancedLogging() {
-        Intent intent = new Intent(this, AdvancedLoggingActivity.class);
-        startActivity(intent);
+    @Override
+    protected void onDestroy() {
+        try {
+            Log.i(TAG, "AdminPanelActivity onDestroy");
+            super.onDestroy();
+        } catch (Exception e) {
+            Log.e(TAG, "onDestroy error: " + e.getMessage(), e);
+        }
     }
 }
