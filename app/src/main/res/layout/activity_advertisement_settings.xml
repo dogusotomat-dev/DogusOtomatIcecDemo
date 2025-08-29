@@ -3,49 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/dogus_background_light"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- Header -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:text="←"
-            android:textSize="24sp"
-            android:background="@drawable/dogus_button_secondary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginEnd="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="🎬 Reklam Ayarları"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/dogus_text_dark"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btnResetToDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🔄"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning_modern"
-            android:textColor="@color/dogus_text_white"
-            android:padding="12dp"
-            android:layout_marginStart="8dp"/>
-
-    </LinearLayout>
+        android:text="Reklam Ayarları"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,412 +27,340 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Control Buttons Section -->
-            <LinearLayout
+            <!-- Reklam Gösterimi Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Reklam Gösterimi Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎮 Reklam Kontrolü"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <Button
-                        android:id="@+id/btnAddPhoto"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="📷 Fotoğraf Ekle"
-                        android:background="@drawable/dogus_button_primary_modern"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <Button
-                        android:id="@+id/btnAddVideo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🎥 Video Ekle"
-                        android:background="@drawable/dogus_button_primary_modern"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnStartAds"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="▶️ Reklamları Başlat"
-                        android:background="@drawable/dogus_button_success_modern"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <Button
-                        android:id="@+id/btnStopAds"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="⏹️ Reklamları Durdur"
-                        android:background="@drawable/dogus_button_danger_modern"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- General Settings Section -->
-            <LinearLayout
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Reklam Gösterimi Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⚙️ Genel Ayarlar"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Reklam Gösterim Süresi (saniye)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Reklam Geçişi Süresi (milisaniye)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <Switch
-                        android:id="@+id/switchAutoPlay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Otomatik Oynatma"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_marginEnd="16dp"/>
-
-                    <Switch
-                        android:id="@+id/switchPhotoAds"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fotoğraf Reklamları"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_marginEnd="16dp"/>
-
-                    <Switch
-                        android:id="@+id/switchVideoAds"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Video Reklamları"
-                        android:textColor="@color/dogus_text_dark"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Duration Settings Section -->
-            <LinearLayout
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Rastgele Reklam Sırası"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⏱️ Süre Ayarları"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Photo Duration -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/tvPhotoDuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fotoğraf Gösterim Süresi: 5 saniye"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
-
-                    <SeekBar
-                        android:id="@+id/seekBarPhotoDuration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="20"
-                        android:progress="5"/>
-
-                </LinearLayout>
-
-                <!-- Video Duration -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/tvVideoDuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Video Gösterim Süresi: 15 saniye"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
-
-                    <SeekBar
-                        android:id="@+id/seekBarVideoDuration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="60"
-                        android:progress="15"/>
-
-                </LinearLayout>
-
-                <!-- Transition Duration -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/tvTransitionDuration"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Geçiş Süresi: 1 saniye"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
-
-                    <SeekBar
-                        android:id="@+id/seekBarTransitionDuration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="5"
-                        android:progress="1"/>
-
-                </LinearLayout>
-
-                <!-- Cycle Delay -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvCycleDelay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Döngü Gecikmesi: 3 saniye"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
-
-                    <SeekBar
-                        android:id="@+id/seekBarCycleDelay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="10"
-                        android:progress="3"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Quality Settings Section -->
-            <LinearLayout
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Döngüsel Reklam Gösterimi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🎯 Kalite Ayarları"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fotoğraf Kalitesi:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_marginEnd="16dp"/>
-
-                    <Spinner
-                        android:id="@+id/spinnerPhotoQuality"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Video Kalitesi:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_marginEnd="16dp"/>
-
-                    <Spinner
-                        android:id="@+id/spinnerVideoQuality"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Advertisement List Section -->
-            <LinearLayout
+            <!-- Medya Türleri Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Medya Türleri Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📋 Mevcut Reklamlar"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
-
-                <ListView
-                    android:id="@+id/listViewAdvertisements"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:divider="@color/dogus_background_light"
-                    android:dividerHeight="1dp"/>
-
-            </LinearLayout>
-
-            <!-- Preview Section -->
-            <LinearLayout
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
+                android:text="Fotoğraf Reklamları Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Video Reklamları Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Animasyonlu Reklamlar Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="HTML5 Reklamlar Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Reklam Kaynağı Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reklam Kaynağı Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <RadioButton
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="👁️ Önizleme"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
+                    android:text="Yerel Depolama"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="8dp"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="USB Bellek"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="8dp"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ağ (HTTP/HTTPS)"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="8dp"/>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cloud (Firebase)"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
                     android:layout_marginBottom="16dp"/>
 
-                <ImageView
-                    android:id="@+id/ivPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/dogus_image_placeholder"
-                    android:scaleType="centerCrop"
-                    android:layout_marginBottom="12dp"
-                    android:visibility="gone"/>
+            </RadioGroup>
 
-                <VideoView
-                    android:id="@+id/vvPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/dogus_image_placeholder"
-                    android:layout_marginBottom="12dp"
-                    android:visibility="gone"/>
+            <!-- Reklam Zamanlama Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reklam Zamanlama Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-            </LinearLayout>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zaman Tabanlı Reklam Gösterimi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sabah Reklam Başlangıç Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Akşam Reklam Bitiş Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hafta Sonu Özel Reklamlar"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bayram/Özel Gün Reklamları"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Reklam Filtreleme Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reklam Filtreleme Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yaş Grubu Filtrelemesi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cinsiyet Filtrelemesi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zaman Dilimi Filtrelemesi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Konum Bazlı Filtreleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Reklam Performans Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reklam Performans Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Performans Monitörleme Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Performans Veri Saklama Süresi (gün)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reklam Etkileşim İzleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tıklanma Oranı Analizi"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gösterim Sayısı İzleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- Bottom Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnSaveSettings"
+            android:id="@+id/btn_back"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="💾 Ayarları Kaydet"
-            android:background="@drawable/dogus_button_primary_modern"
-            android:textColor="@color/dogus_text_white"
-            android:padding="16dp"
+            android:text="Geri"
+            android:textSize="16sp"
+            android:background="#FF5722"
+            android:textColor="@android:color/white"
             android:layout_marginEnd="8dp"/>
 
         <Button
-            android:id="@+id/btnTestAdvertisement"
+            android:id="@+id/btn_save"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="🧪 Test Et"
-            android:background="@drawable/dogus_button_info_modern"
-            android:textColor="@color/dogus_text_white"
-            android:padding="16dp"
+            android:text="Kaydet"
+            android:textSize="16sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"
             android:layout_marginStart="8dp"/>
 
     </LinearLayout>

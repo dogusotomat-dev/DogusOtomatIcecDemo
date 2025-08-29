@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Doğuş Otomat Ice Cream Demo"
+        android:text="Dogi Soft Ice Cream"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
@@ -39,35 +39,14 @@
         android:layout_marginBottom="12dp"/>
 
     <Button
-        android:id="@+id/btn_test_ship"
+        android:id="@+id/btn_admin"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Test Ürün Çıkar"
+        android:text="Yönetici Paneli"
         android:textSize="18sp"
         android:background="#2196F3"
         android:textColor="@android:color/white"
-        android:enabled="false"
-        android:layout_marginBottom="12dp"/>
-
-    <Button
-        android:id="@+id/btn_query_status"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Makine Durumu Sorgula"
-        android:textSize="18sp"
-        android:background="#FF9800"
-        android:textColor="@android:color/white"
-        android:enabled="false"
         android:layout_marginBottom="20dp"/>
-
-    <Button
-        android:id="@+id/btn_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Ayarlar"
-        android:textSize="14sp"
-        android:background="#4CAF50"
-        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -88,7 +67,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="• Serial Port iletişimi\n• Dondurma makinesi kontrolü\n• Ürün çıkarma komutları\n• Makine durum sorgulama\n• Sıcaklık monitoring\n• Hata kodu yönetimi\n• Payment entegrasyonu\n• Real-time event handling\n• Admin girişi ile güvenli ayar erişimi"
+            android:text="• Serial Port iletişimi\n• Dondurma makinesi kontrolü\n• Ürün çıkarma komutları\n• Makine durum sorgulama\n• Sıcaklık monitoring\n• Hata kodu yönetimi\n• Payment entegrasyonu (MDB Level 3)\n• Reklam yönetimi\n• Real-time event handling\n• Admin girişi ile güvenli ayar erişimi"
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:lineSpacingExtra="4dp"/>

@@ -1,243 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dogus_background_light"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:text="Yönetici Girişi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"/>
 
-        <!-- Modern Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginBottom="48dp"
-            android:background="@drawable/dogus_header_background"
-            android:padding="32dp"
-            android:elevation="8dp">
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Kullanıcı Adı"
+        android:textSize="16sp"
+        android:inputType="text"
+        android:background="#f0f0f0"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@android:drawable/ic_menu_manage"
-                android:tint="@color/dogus_text_white"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/dogus_icon_background"
-                android:padding="20dp"/>
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Şifre"
+        android:textSize="16sp"
+        android:inputType="textPassword"
+        android:background="#f0f0f0"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🔐 Yönetici Paneli"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_text_white"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="sans-serif-light"/>
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Giriş Yap"
+        android:textSize="18sp"
+        android:background="#4CAF50"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="16dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Güvenli erişim için lütfen kimlik doğrulaması yapın"
-                android:textSize="16sp"
-                android:textColor="@color/dogus_text_white"
-                android:alpha="0.9"
-                android:gravity="center"/>
-        </LinearLayout>
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Geri"
+        android:textSize="14sp"
+        android:background="#FF5722"
+        android:textColor="@android:color/white"
+        android:layout_gravity="center"/>
 
-        <!-- Giriş Seçenekleri -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="32dp">
-
-            <!-- Yetkili Giriş -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="28dp"
-                android:layout_marginBottom="24dp"
-                android:elevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_manage"
-                        android:tint="@color/dogus_primary"
-                        android:layout_marginEnd="16dp"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🔐 Yetkili Girişi"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dogus_text_dark"
-                        android:fontFamily="sans-serif-medium"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="• Tüm makine ayarları ve konfigürasyonu\n• Fiyat değişiklikleri ve ürün yönetimi\n• Sistem parametreleri ve güvenlik\n• Telemetri ayarları ve raporlama\n• Kullanıcı yönetimi ve yetkilendirme"
-                    android:textSize="14sp"
-                    android:textColor="@color/dogus_text_secondary"
-                    android:layout_marginBottom="24dp"
-                    android:lineSpacingExtra="4dp"/>
-
-                <EditText
-                    android:id="@+id/et_admin_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:hint="🔑 Yönetici şifresini girin"
-                    android:inputType="textPassword"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="16dp"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="20dp"
-                    android:elevation="2dp"/>
-
-                <Button
-                    android:id="@+id/btn_admin_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="🚀 YETKİLİ GİRİŞİ YAP"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/dogus_button_primary_modern"
-                    android:textColor="@android:color/white"
-                    android:elevation="4dp"/>
-            </LinearLayout>
-
-            <!-- Dolum Giriş -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="28dp"
-                android:elevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@android:drawable/ic_menu_rotate"
-                        android:tint="@color/dogus_button_success"
-                        android:layout_marginEnd="16dp"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🔄 Dolum Girişi"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dogus_text_dark"
-                        android:fontFamily="sans-serif-medium"/>
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="• Malzeme dolumu ve stok yönetimi\n• Basit bakım işlemleri ve temizlik\n• Fiyat değişikliği yapılamaz\n• Sınırlı erişim ve güvenlik\n• Hızlı işlem ve kolay kullanım"
-                    android:textSize="14sp"
-                    android:textColor="@color/dogus_text_secondary"
-                    android:layout_marginBottom="24dp"
-                    android:lineSpacingExtra="4dp"/>
-
-                <EditText
-                    android:id="@+id/et_dolum_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:hint="🔑 Dolum şifresini girin"
-                    android:inputType="textPassword"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="16dp"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="20dp"
-                    android:elevation="2dp"/>
-
-                <Button
-                    android:id="@+id/btn_dolum_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="🔄 DOLUM GİRİŞİ YAP"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/dogus_button_success_modern"
-                    android:textColor="@android:color/white"
-                    android:elevation="4dp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Geri Dön Butonu -->
-        <Button
-            android:id="@+id/btn_back_to_sales"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="← Satış Ekranına Dön"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:background="@drawable/dogus_button_back_modern"
-            android:textColor="@android:color/white"
-            android:elevation="4dp"/>
-
-        <!-- Alt Bilgi -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="32dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🔒 Güvenli Bağlantı"
-                android:textSize="12sp"
-                android:textColor="@color/dogus_text_secondary"
-                android:layout_marginEnd="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="⚡ Hızlı Erişim"
-                android:textSize="12sp"
-                android:textColor="@color/dogus_text_secondary"
-                android:layout_marginEnd="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🌟 Premium Güvenlik"
-                android:textSize="12sp"
-                android:textColor="@color/dogus_text_secondary"/>
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -1,142 +1,165 @@
 package com.dogus.otomat.icecdemo;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminPanelActivity extends AppCompatActivity {
     private static final String TAG = "AdminPanel";
-
-    private Button btnPasswordSettings;
-    private Button btnProductSettings;
-    private Button btnMachineSettings;
-    private Button btnSystemSettings;
-    private Button btnAdvertisementSettings;
-    private Button btnBackToSales;
-
-    private SharedPreferences sharedPreferences;
-
+    
+    // UI Components
+    private TextView tvTitle;
+    private Button btnMachineSettings, btnProductSettings;
+    private Button btnPriceSettings, btnPaymentSettings;
+    private Button btnAdvertisementSettings, btnSystemSettings;
+    private Button btnFileManagement, btnLogSystem;
+    private Button btnBackToMain;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-            setContentView(R.layout.activity_admin_panel);
-
-            Log.i(TAG, "AdminPanelActivity onCreate started");
-
-            sharedPreferences = getSharedPreferences("AdminPrefs", MODE_PRIVATE);
-            initializeViews();
-            setupClickListeners();
-
-            Log.i(TAG, "AdminPanelActivity onCreate completed successfully");
-
-        } catch (Exception e) {
-            Log.e(TAG, "onCreate error: " + e.getMessage(), e);
-            finish();
-        }
+        setContentView(R.layout.activity_admin_panel);
+        
+        Log.i(TAG, "AdminPanelActivity onCreate started");
+        
+        initializeViews();
+        setupClickListeners();
+        
+        Log.i(TAG, "AdminPanelActivity onCreate completed");
     }
-
+    
     private void initializeViews() {
-        try {
-            btnPasswordSettings = findViewById(R.id.btnPasswordSettings);
-            btnProductSettings = findViewById(R.id.btnProductSettings);
-            btnMachineSettings = findViewById(R.id.btnMachineSettings);
-            btnSystemSettings = findViewById(R.id.btnSystemSettings);
-            btnAdvertisementSettings = findViewById(R.id.btnAdvertisementSettings);
-            btnBackToSales = findViewById(R.id.btnBackToSales);
-
-            Log.d(TAG, "Views initialized successfully");
-
-        } catch (Exception e) {
-            Log.e(TAG, "Initialize views error: " + e.getMessage(), e);
-        }
+        tvTitle = findViewById(R.id.tv_title);
+        btnMachineSettings = findViewById(R.id.btn_machine_settings);
+        btnProductSettings = findViewById(R.id.btn_product_settings);
+        btnPriceSettings = findViewById(R.id.btn_price_settings);
+        btnPaymentSettings = findViewById(R.id.btn_payment_settings);
+        btnAdvertisementSettings = findViewById(R.id.btn_advertisement_settings);
+        btnSystemSettings = findViewById(R.id.btn_system_settings);
+        btnFileManagement = findViewById(R.id.btn_file_management);
+        btnLogSystem = findViewById(R.id.btn_log_system);
+        btnBackToMain = findViewById(R.id.btn_back_to_main);
+        
+        tvTitle.setText("Yönetici Paneli");
     }
-
+    
     private void setupClickListeners() {
-        try {
-            if (btnPasswordSettings != null) {
-                btnPasswordSettings.setOnClickListener(v -> openPasswordSettings());
+        btnMachineSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMachineSettings();
             }
-            if (btnProductSettings != null) {
-                btnProductSettings.setOnClickListener(v -> openProductSettings());
+        });
+        
+        btnProductSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProductSettings();
             }
-            if (btnMachineSettings != null) {
-                btnMachineSettings.setOnClickListener(v -> openMachineSettings());
+        });
+        
+        btnPriceSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPriceSettings();
             }
-            if (btnSystemSettings != null) {
-                btnSystemSettings.setOnClickListener(v -> openSystemSettings());
+        });
+        
+        btnPaymentSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPaymentSettings();
             }
-            if (btnAdvertisementSettings != null) {
-                btnAdvertisementSettings.setOnClickListener(v -> openAdvertisementSettings());
+        });
+        
+        btnAdvertisementSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAdvertisementSettings();
             }
-            if (btnBackToSales != null) {
-                btnBackToSales.setOnClickListener(v -> finish());
+        });
+        
+        btnSystemSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSystemSettings();
             }
-
-            Log.d(TAG, "Click listeners setup completed");
-
-        } catch (Exception e) {
-            Log.e(TAG, "Setup click listeners error: " + e.getMessage(), e);
-        }
+        });
+        
+        btnFileManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileManagement();
+            }
+        });
+        
+        btnLogSystem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogSystem();
+            }
+        });
+        
+        btnBackToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Go back to previous activity
+            }
+        });
     }
-
-    private void openPasswordSettings() {
-        try {
-            Intent intent = new Intent(this, PasswordSettingsActivity.class);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Open password settings error: " + e.getMessage(), e);
-        }
-    }
-
-    private void openProductSettings() {
-        try {
-            Intent intent = new Intent(this, ProductSettingsActivity.class);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Open product settings error: " + e.getMessage(), e);
-        }
-    }
-
+    
     private void openMachineSettings() {
-        try {
-            Intent intent = new Intent(this, MachineSettingsActivity.class);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Open machine settings error: " + e.getMessage(), e);
-        }
+        Intent intent = new Intent(AdminPanelActivity.this, MachineSettingsActivity.class);
+        startActivity(intent);
     }
-
-    private void openSystemSettings() {
-        try {
-            Intent intent = new Intent(this, SystemSettingsActivity.class);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Open system settings error: " + e.getMessage(), e);
-        }
+    
+    private void openProductSettings() {
+        Intent intent = new Intent(AdminPanelActivity.this, ProductSettingsActivity.class);
+        startActivity(intent);
     }
-
+    
+    private void openPriceSettings() {
+        Intent intent = new Intent(AdminPanelActivity.this, PriceSettingsActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openPaymentSettings() {
+        Intent intent = new Intent(AdminPanelActivity.this, PaymentSettingsActivity.class);
+        startActivity(intent);
+    }
+    
     private void openAdvertisementSettings() {
-        try {
-            Intent intent = new Intent(this, AdvertisementSettingsActivity.class);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Open advertisement settings error: " + e.getMessage(), e);
-        }
+        Intent intent = new Intent(AdminPanelActivity.this, AdvertisementSettingsActivity.class);
+        startActivity(intent);
     }
-
+    
+    private void openSystemSettings() {
+        Intent intent = new Intent(AdminPanelActivity.this, SystemSettingsActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openFileManagement() {
+        Intent intent = new Intent(AdminPanelActivity.this, FileManagementActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openLogSystem() {
+        Intent intent = new Intent(AdminPanelActivity.this, LogSystemActivity.class);
+        startActivity(intent);
+    }
+    
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+    
     @Override
     protected void onDestroy() {
-        try {
-            Log.i(TAG, "AdminPanelActivity onDestroy");
-            super.onDestroy();
-        } catch (Exception e) {
-            Log.e(TAG, "onDestroy error: " + e.getMessage(), e);
-        }
+        super.onDestroy();
+        Log.i(TAG, "AdminPanelActivity onDestroy");
     }
 }

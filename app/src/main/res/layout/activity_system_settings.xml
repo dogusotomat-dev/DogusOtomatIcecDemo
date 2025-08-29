@@ -3,49 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/dogus_background_light"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- Header -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:text="←"
-            android:textSize="24sp"
-            android:background="@drawable/dogus_button_secondary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginEnd="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="⚙️ Sistem Ayarları"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/dogus_text_dark"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btnResetToDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🔄"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning_modern"
-            android:textColor="@color/dogus_text_white"
-            android:padding="12dp"
-            android:layout_marginStart="8dp"/>
-
-    </LinearLayout>
+        android:text="Sistem Ayarları"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,663 +27,503 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Serial Port Settings Section -->
-            <LinearLayout
+            <!-- Sistem Genel Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Sistem Genel Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔌 Serial Port Ayarları"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sistem Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sistem Konumu"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ana Board Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sistem ID"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <Spinner
-                        android:id="@+id/spMainDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sistem Parolası"
+                android:textSize="14sp"
+                android:inputType="textPassword"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Board Baud Rate:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spMainBaudRate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Server Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spServerDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Server Baud Rate:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spServerBaudRate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="IC Card Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spIcCardDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="IC Card Baud Rate:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spIcCardBaudRate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="POS Machine Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spPosDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Digital Tube Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spDigitalTubeDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scan Code Payment Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spScanCodeDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Scan Code Payment Baud Rate:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spScanCodeBaudRate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Drop Detection Sensor Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spDropDetectionDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Temperature Serial Port:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spTemperatureDevice"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Digital Tube Baud Rate:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <Spinner
-                        android:id="@+id/spDigitalTubeBaudRate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <Button
-                        android:id="@+id/btnTestConnection"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🔍 Test Et"
-                        android:background="@drawable/dogus_button_secondary"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <Button
-                        android:id="@+id/btnSaveSerialPort"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="💾 Kaydet"
-                        android:background="@drawable/dogus_button_primary"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Logging Settings Section -->
-            <LinearLayout
+            <!-- Zaman ve Tarih Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Zaman ve Tarih Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📝 Logging Ayarları"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Log Seviyesi (DEBUG/INFO/WARN/ERROR):"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/etLogLevel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="INFO"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Log Saklama Süresi (gün):"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/etLogRetention"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="30"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Log Dosya Yolu:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/etLogPath"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="/logs/"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Log Formatı (TEXT/JSON/XML):"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/etLogFormat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="TEXT"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Log Rotasyonu (Daily/Weekly/Monthly):"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
-
-                    <EditText
-                        android:id="@+id/etLogRotation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Daily"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnSaveLogging"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="💾 Logging Ayarlarını Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
-
-            <!-- Machine Parameters Section (Auto-Detected) -->
-            <LinearLayout
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Otomatik Zaman Senkronizasyonu"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔧 Makine Parametreleri (Otomatik Algılanan)"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Zaman Sunucusu (NTP)"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bu parametreler dondurma makinesi anakartından otomatik olarak algılanır ve değiştirilemez."
-                    android:textColor="@color/dogus_text_secondary"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Zaman Dilimi"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Manuel Tarih ve Saat"
+                android:textSize="14sp"
+                android:inputType="datetime"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Makine ID:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"
-                        android:textStyle="bold"/>
+            <!-- Ağ Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ağ Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                    <TextView
-                        android:id="@+id/tvMachineId"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Algılanıyor..."
-                        android:textColor="@color/dogus_text_secondary"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:gravity="center"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WiFi Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="WiFi SSID"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="WiFi Şifresi"
+                android:textSize="14sp"
+                android:inputType="textPassword"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Board Tipi:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"
-                        android:textStyle="bold"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ethernet Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:id="@+id/tvBoardType"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Algılanıyor..."
-                        android:textColor="@color/dogus_text_secondary"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:gravity="center"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Ethernet IP Adresi"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Ethernet Alt Ağ Maskesi"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Ethernet Gateway"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sıcaklık:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"
-                        android:textStyle="bold"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Ethernet DNS Sunucusu"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                    <TextView
-                        android:id="@+id/tvTemperature"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Algılanıyor..."
-                        android:textColor="@color/dogus_text_secondary"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:gravity="center"/>
+            <!-- Güç Yönetimi Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güç Yönetimi Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                </LinearLayout>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otomatik Güç Tasarrufu"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Güç Tasarrufu Başlangıç Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nem:"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"
-                        android:textStyle="bold"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Güç Tasarrufu Bitiş Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:id="@+id/tvHumidity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Algılanıyor..."
-                        android:textColor="@color/dogus_text_secondary"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:gravity="center"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otomatik Yeniden Başlatma"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Yeniden Başlatma Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <Button
-                    android:id="@+id/btnRefreshParameters"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="🔄 Parametreleri Yenile"
-                    android:background="@drawable/dogus_button_secondary"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Düşük Pil Modu"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-            </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Düşük Pil Eşiği (%)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Güvenlik Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güvenlik Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Oturum Zaman Aşımı Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Oturum Zaman Aşımı (saniye)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Çoklu Oturum Engelleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parola Karmaşıklığı Zorunlu"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Minimum Parola Uzunluğu"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parola Süresi (gün)"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Parola Süresi (gün)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Güncelleme Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güncelleme Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otomatik Güncelleştirme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Güncelleme Sunucusu"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Beta Sürümleri Dahil Et"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güncelleme Bildirimleri"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Güncelleme Onayı Gerekli"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Yedekleme Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yedekleme Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otomatik Yedekleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Yedekleme Sıklığı"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Maksimum Yedek Sayısı"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bulut Yedekleme"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Bulut Yedekleme Sunucusu"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yedekleme Bildirimleri"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- Bottom Save All Button -->
-    <Button
-        android:id="@+id/btnSaveAll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="💾 Tüm Ayarları Kaydet"
-        android:background="@drawable/dogus_button_success_modern"
-        android:textColor="@color/dogus_text_white"
-        android:padding="16dp"
-        android:layout_marginTop="16dp"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Geri"
+            android:textSize="16sp"
+            android:background="#FF5722"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Kaydet"
+            android:textSize="16sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

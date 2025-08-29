@@ -1,253 +1,413 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scroll_view"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dogus_background_light"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Sistemi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Log Seviyesi Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Seviyesi Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_log_level"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_enable_console_logging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Konsol Loglamayı Etkinleştir"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_enable_file_logging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dosya Loglamayı Etkinleştir"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_enable_remote_logging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uzaktan Loglamayı Etkinleştir"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Log Dosyası Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Dosyası Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <EditText
+                android:id="@+id/et_log_file_path"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Log Dosyası Yolu"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_max_file_size"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Maksimum Dosya Boyutu (MB)"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_max_files"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Maksimum Dosya Sayısı"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Log Görüntüleme -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Görüntüleme"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btn_view_recent_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Son Loglar"
+                    android:textSize="14sp"
+                    android:background="#4CAF50"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_view_all_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Tüm Loglar"
+                    android:textSize="14sp"
+                    android:background="#2196F3"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_search_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Log Ara"
+                    android:textSize="14sp"
+                    android:background="#FF9800"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="4dp"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_search_term"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Arama terimi girin"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_log_filter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_log_display"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:text="Loglar burada gösterilecek..."
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:scrollbars="vertical"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Log İşlemleri -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log İşlemleri"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btn_clear_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Logları Temizle"
+                    android:textSize="14sp"
+                    android:background="#FF5722"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_export_logs"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Logları Dışa Aktar"
+                    android:textSize="14sp"
+                    android:background="#9C27B0"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="4dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_rotate_logs"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Log Döndürme"
+                android:textSize="16sp"
+                android:background="#607D8B"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btn_compress_logs"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Logları Sıkıştır"
+                android:textSize="16sp"
+                android:background="#3F51B5"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Log Analizi -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Analizi"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/btn_analyze_errors"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Hata Analizi"
+                    android:textSize="14sp"
+                    android:background="#E91E63"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/btn_generate_report"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                android:layout_weight="1"
+                    android:text="Rapor Oluştur"
+                    android:textSize="14sp"
+                    android:background="#00BCD4"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="4dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_performance_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Performans Analizi"
+                android:textSize="16sp"
+                android:background="#8BC34A"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btn_security_analysis"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Güvenlik Analizi"
+                android:textSize="16sp"
+                android:background="#FFC107"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Uzaktan Loglama Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uzaktan Loglama Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <EditText
+                android:id="@+id/et_remote_server"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Uzak Sunucu Adresi"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:id="@+id/et_remote_port"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Uzak Sunucu Portu"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_enable_ssl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SSL/TLS Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_enable_compression"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Log Sıkıştırma Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="16dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:orientation="horizontal">
 
-        <!-- Modern Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/dogus_header_background"
-            android:padding="32dp"
-            android:elevation="8dp">
-
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@android:drawable/ic_menu_info_details"
-                android:tint="@color/dogus_text_white"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/dogus_icon_background"
-                android:padding="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📝 DOGİ Gelişmiş Log Sistemi"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_text_white"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-light"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DOGİ log dosyalarını yönetin ve izleyin"
-                android:textSize="16sp"
-                android:textColor="@color/dogus_text_white"
-                android:alpha="0.9"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <!-- Log System Status -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/dogus_card_background">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📊 Log Sistemi Durumu"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_primary"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_log_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DOGİ Log Sistemi Aktif"
-                    android:textSize="16sp"
-                    android:textColor="@color/dogus_text_dark"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="16dp"
-                    android:gravity="center"
-                    android:layout_marginBottom="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_log_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DOGİ log sistemi başarıyla başlatıldı.\nGerçek dosya sistemi entegrasyonu aktif.\nLog dosyaları DOGİ_Logs klasöründe saklanıyor."
-                    android:textSize="14sp"
-                    android:textColor="@color/dogus_text_secondary"
-                    android:background="@drawable/dogus_cart_empty_background"
-                    android:padding="12dp"
-                    android:gravity="center"
-                    android:minHeight="100dp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Log Management -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/dogus_card_background">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🗂️ Log Yönetimi"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_primary"
-                    android:layout_marginBottom="20dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <Button
-                        android:id="@+id/btn_get_log_info"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="📋 Log Bilgisi"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/dogus_button_success_modern"
-                        android:textColor="@android:color/white"
-                        android:layout_marginEnd="6dp"
-                        android:elevation="4dp"/>
-
-                    <Button
-                        android:id="@+id/btn_test_logging"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="🧪 Test Log"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/dogus_button_secondary_modern"
-                        android:textColor="@android:color/white"
-                        android:layout_marginStart="6dp"
-                        android:elevation="4dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <Button
-                        android:id="@+id/btn_clear_current_log"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="🧹 Mevcut Log"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/dogus_button_decor_modern"
-                        android:textColor="@android:color/white"
-                        android:layout_marginEnd="6dp"
-                        android:elevation="4dp"/>
-
-                    <Button
-                        android:id="@+id/btn_clear_all_logs"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:text="🗑️ Tüm Loglar"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/dogus_button_sales_modern"
-                        android:textColor="@android:color/white"
-                        android:layout_marginStart="6dp"
-                        android:elevation="4dp"/>
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btn_generate_report"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="📊 Log Raporu Oluştur"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/dogus_button_admin_modern"
-                    android:textColor="@android:color/white"
-                    android:elevation="4dp"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Back Button -->
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="⬅️ Geri Dön"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Geri"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:background="@drawable/dogus_button_back_modern"
+            android:background="#FF5722"
             android:textColor="@android:color/white"
-            android:elevation="4dp"/>
+            android:layout_marginEnd="8dp"/>
 
-        <!-- Footer -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="32dp">
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Kaydet"
+            android:textSize="16sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🔒 Güvenli Log Yönetimi"
-                android:textSize="14sp"
-                android:textColor="@color/dogus_text_secondary"
-                android:layout_marginEnd="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📱 Gerçek Zamanlı İzleme"
-                android:textSize="14sp"
-                android:textColor="@color/dogus_text_secondary"
-                android:layout_marginEnd="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="⚡ Hızlı Erişim"
-                android:textSize="14sp"
-                android:textColor="@color/dogus_text_secondary"/>
-        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>

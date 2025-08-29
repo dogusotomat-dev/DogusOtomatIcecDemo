@@ -1,246 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/dogus_background_light"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- Header -->
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="💰 Fiyat Ayarları"
+        android:text="Fiyat Ayarları"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/dogus_primary"
+        android:textColor="@android:color/black"
         android:gravity="center"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="20dp"/>
 
-    <!-- Fiyat Ayarları -->
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/dogus_background_card">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:orientation="vertical">
 
+            <!-- Temel Fiyatlar -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fiyat Belirle"
+                android:text="Temel Fiyatlar"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/dogus_primary"
-                android:layout_marginBottom="20dp"/>
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
             <EditText
-                android:id="@+id/etBasePrice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:hint="Temel Dondurma Fiyatı (TL)"
+                android:textSize="14sp"
                 android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
-                android:padding="16dp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Büyük Boy Fiyatı (TL)"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Küçük Boy Fiyatı (TL)"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
                 android:layout_marginBottom="16dp"/>
 
+            <!-- Sos Fiyatları -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📋 Esnek Seçim Sistemi"
-                android:textSize="14sp"
+                android:text="Sos Fiyatları"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
-                android:layout_marginBottom="8dp"/>
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-            <LinearLayout
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <Switch
-                    android:id="@+id/swFlexibleSelection"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Esnek Seçim Aktif"
-                    android:textSize="14sp"
-                    android:textColor="@color/dogus_text_primary"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="✅ Birden fazla sos seçebilirsiniz\n✅ Birden fazla süsleme seçebilirsiniz\n✅ Her seçim ayrı olarak ücretlendirilir\n💡 Satış verilerinde tüm seçimler görünür"
-                android:textSize="12sp"
-                android:textColor="@color/dogus_text_secondary"
-                android:background="@drawable/dogus_info_card"
+                android:layout_height="50dp"
+                android:hint="Çikolata Sos Fiyatı (TL)"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
                 android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🍫 Sos Fiyatları"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_primary"
-                android:layout_marginBottom="12dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🍫 Sos 1"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
                 android:layout_marginBottom="8dp"/>
 
             <EditText
-                android:id="@+id/etSauce1Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Sos 1 Fiyatı (TL)"
-                android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
-                android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🍯 Sos 2"
+                android:layout_height="50dp"
+                android:hint="Karamel Sos Fiyatı (TL)"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
                 android:layout_marginBottom="8dp"/>
 
             <EditText
-                android:id="@+id/etSauce2Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Sos 2 Fiyatı (TL)"
+                android:layout_height="50dp"
+                android:hint="Çilek Sos Fiyatı (TL)"
+                android:textSize="14sp"
                 android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
+                android:background="#f0f0f0"
                 android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="16dp"/>
 
+            <!-- Süsleme Fiyatları -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🍓 Sos 3"
-                android:textSize="14sp"
+                android:text="Süsleme Fiyatları"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Fındık Süsleme Fiyatı (TL)"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
                 android:layout_marginBottom="8dp"/>
 
             <EditText
-                android:id="@+id/etSauce3Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Sos 3 Fiyatı (TL)"
-                android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
-                android:padding="12dp"
-                android:layout_marginBottom="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="✨ Süsleme Fiyatları"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_primary"
-                android:layout_marginBottom="12dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="🥜 Süsleme 1"
+                android:layout_height="50dp"
+                android:hint="Renkli Şeker Süsleme Fiyatı (TL)"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
                 android:layout_marginBottom="8dp"/>
 
             <EditText
-                android:id="@+id/etTopping1Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Süsleme 1 Fiyatı (TL)"
+                android:layout_height="50dp"
+                android:hint="Krem Şanti Süsleme Fiyatı (TL)"
+                android:textSize="14sp"
                 android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
+                android:background="#f0f0f0"
                 android:padding="12dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="16dp"/>
 
+            <!-- Kampanya ve İndirim Ayarları -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🌈 Süsleme 2"
-                android:textSize="14sp"
+                android:text="Kampanya ve İndirim Ayarları"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
-                android:layout_marginBottom="8dp"/>
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
             <EditText
-                android:id="@+id/etTopping2Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Süsleme 2 Fiyatı (TL)"
+                android:layout_height="50dp"
+                android:hint="İndirim Oranı (%)"
+                android:textSize="14sp"
                 android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
+                android:background="#f0f0f0"
                 android:padding="12dp"
                 android:layout_marginBottom="8dp"/>
 
-            <TextView
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Sadakat İndirimi (%)"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <CheckBox
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🍰 Süsleme 3"
+                android:text="Saatlik İndirim Etkin"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/dogus_secondary"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp"/>
 
             <EditText
-                android:id="@+id/etTopping3Price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Süsleme 3 Fiyatı (TL)"
-                android:inputType="numberDecimal"
-                android:background="@drawable/dogus_input_field"
+                android:layout_height="50dp"
+                android:hint="Saatlik İndirim Başlangıç Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
                 android:padding="12dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <Button
-                android:id="@+id/btnSavePrices"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="💾 Fiyatları Kaydet"
-                android:textSize="16sp"
-                android:background="@drawable/dogus_button_success"
-                android:textColor="@color/dogus_text_white"/>
+                android:layout_height="50dp"
+                android:hint="Saatlik İndirim Bitiş Saati"
+                android:textSize="14sp"
+                android:inputType="time"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <!-- Geri Dön -->
-    <Button
-        android:id="@+id/btnBack"
+    </ScrollView>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="← Geri Dön"
-        android:textSize="16sp"
-        android:background="@drawable/dogus_button_back"
-        android:textColor="@color/dogus_text_white"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Geri"
+            android:textSize="16sp"
+            android:background="#FF5722"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Kaydet"
+            android:textSize="16sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

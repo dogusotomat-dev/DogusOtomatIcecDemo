@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.tcn.icecboard.TcnService;
 import com.tcn.icecboard.control.TcnVendIF;
@@ -20,25 +18,25 @@ import com.tcn.icecboard.control.TcnVendEventID;
 import com.tcn.icecboard.control.TcnVendEventResultID;
 import com.tcn.icecboard.control.VendEventInfo;
 import com.tcn.icecboard.control.PayMethod;
-import com.tcn.icecboard.control.Coil_info;
 import com.tcn.icecboard.DriveControl.VendProtoControl;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventListener {
     private static final String TAG = "MainAct";
 
     // UI Components
     private TextView tvStatus;
-    private Button btnTestShip;
-    private Button btnQueryStatus;
-    private Button btnConnect;
-    private Button btnSettings;
+    private Button btnAdmin;
     
     // TCN SDK
     private TcnVendIF tcnVendIF;
     private boolean isConnected = false;
+    private boolean isMachineReady = false;
+
+    // Payment manager
+    private MDBPaymentManager paymentManager;
+    
+    // Advertisement manager
+    private AdvertisementManager advertisementManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +47,18 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
         
         initializeViews();
         initializeTCNSDK();
+        initializeManagers();
         setupClickListeners();
             
-            Log.i(TAG, "MainAct onCreate completed successfully");
+        Log.i(TAG, "MainAct onCreate completed successfully");
+        
+        // Uygulama başlatıldığında doğrudan satış ekranını aç
+        openSalesScreen();
     }
     
     private void initializeViews() {
         tvStatus = findViewById(R.id.tv_status);
-        btnTestShip = findViewById(R.id.btn_test_ship);
-        btnQueryStatus = findViewById(R.id.btn_query_status);
-        btnConnect = findViewById(R.id.btn_connect);
-        btnSettings = findViewById(R.id.btn_settings); // Initialize btnSettings
+        btnAdmin = findViewById(R.id.btn_admin);
         
         updateStatus("Sistem başlatılıyor...");
     }
@@ -85,78 +84,76 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
         }
     }
 
-    private void setupClickListeners() {
-        btnConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectToMachine();
-            }
-        });
-        
-        btnTestShip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testShipment();
-            }
-        });
-        
-        btnQueryStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queryMachineStatus();
-            }
-        });
+    private void initializeManagers() {
+        try {
+            // Payment manager'ı başlat
+            paymentManager = MDBPaymentManager.getInstance(this);
+            paymentManager.setPaymentListener(new MDBPaymentManager.OnPaymentListener() {
+                @Override
+                public void onPaymentStarted(double amount, String paymentMethod) {
+                    runOnUiThread(() -> {
+                        updateStatus("Ödeme başlatıldı: " + amount + " TL (" + paymentMethod + ")");
+                        showToast("Ödeme başlatıldı");
+                    });
+                }
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onPaymentCompleted(double amount, String paymentMethod, String transactionId) {
+                    runOnUiThread(() -> {
+                        updateStatus("Ödeme tamamlandı: " + amount + " TL");
+                        showToast("Ödeme başarılı");
+                        
+                        // Ödeme tamamlandıktan sonra ürün çıkar
+                        testShipment();
+                    });
+                }
+
+                @Override
+                public void onPaymentFailed(String error) {
+                    runOnUiThread(() -> {
+                        updateStatus("Ödeme başarısız: " + error);
+                        showToast("Ödeme başarısız: " + error);
+                    });
+                }
+
+                @Override
+                public void onPaymentCancelled() {
+                    runOnUiThread(() -> {
+                        updateStatus("Ödeme iptal edildi");
+                        showToast("Ödeme iptal edildi");
+                    });
+                }
+            });
+            
+            // Advertisement manager'ı başlat
+            advertisementManager = AdvertisementManager.getInstance(this);
+            
+            Log.i(TAG, "Yöneticiler başlatıldı");
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Yönetici başlatma hatası: " + e.getMessage(), e);
+        }
+    }
+
+    private void setupClickListeners() {
+        btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Admin girişi için AdminLoginActivity'yi aç
                 Intent intent = new Intent(MainAct.this, AdminLoginActivity.class);
                 startActivity(intent);
             }
         });
     }
     
-    private void connectToMachine() {
-        try {
-            updateStatus("Makineye bağlanıyor...");
-            
-            // TCN SDK ile makineye bağlan
-            VendProtoControl vendProtoControl = VendProtoControl.getInstance();
-            vendProtoControl.initialize(
-                "icec_3",  // board1 - ice cream machine
-                "NONE",    // board2
-                "NONE",    // board3
-                "NONE",    // board4
-                "1",       // group1
-                "NONE",    // group2
-                "NONE",    // group3
-                "NONE",    // group4
-                new Handler() {
-            @Override
-                    public void handleMessage(Message msg) {
-                        handleVendMessage(msg);
-                    }
-                }
-            );
-            
-            vendProtoControl.setUnlock(true);
-            
-            isConnected = true;
-            updateStatus("Makineye başarıyla bağlandı");
-            
-            // Butonları aktif et
-            btnTestShip.setEnabled(true);
-            btnQueryStatus.setEnabled(true);
-            
-        } catch (Exception e) {
-            Log.e(TAG, "Makine bağlantı hatası: " + e.getMessage(), e);
-            updateStatus("Makine bağlantı hatası: " + e.getMessage());
-            isConnected = false;
-        }
+    private void openSalesScreen() {
+        // Doğrudan satış ekranını aç
+        Intent intent = new Intent(MainAct.this, SalesScreenActivity.class);
+        startActivity(intent);
     }
     
     private void testShipment() {
-        if (!isConnected) {
+        if (!isConnected || !isMachineReady) {
             showToast("Önce makineye bağlanın");
             return;
         }
@@ -204,6 +201,22 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
         } catch (Exception e) {
             Log.e(TAG, "Durum sorgulama hatası: " + e.getMessage(), e);
             updateStatus("Durum sorgulama hatası: " + e.getMessage());
+        }
+    }
+    
+    private void queryMachineParameters() {
+        if (!isConnected) {
+            return;
+        }
+        
+        try {
+            updateStatus("Makine parametreleri sorgulanıyor...");
+            
+            VendProtoControl vendProtoControl = VendProtoControl.getInstance();
+            vendProtoControl.reqQueryParamIceMake(); // Query ice cream machine parameters
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Parametre sorgulama hatası: " + e.getMessage(), e);
         }
     }
     
@@ -280,18 +293,28 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
                     switch (eventInfo.GetlParam1()) {
                         case TcnVendEventResultID.STATUS_FREE:
                             status = "Boş";
+                            isMachineReady = true;
                             break;
                         case TcnVendEventResultID.STATUS_BUSY:
                             status = "Meşgul";
+                            isMachineReady = false;
                             break;
                         case TcnVendEventResultID.STATUS_FAULT:
                             status = "Arızalı";
+                            isMachineReady = false;
                             break;
                         default:
                             status = "Bilinmeyen (" + eventInfo.GetlParam1() + ")";
-                    break;
-                }
+                            isMachineReady = false;
+                    }
                     updateStatus("Makine durumu: " + status);
+                });
+                break;
+                
+            case 0x1001: // RET_QUERY_PARAM_ICE_MAKE - assuming this value
+                runOnUiThread(() -> {
+                    updateStatus("Makine parametreleri alındı");
+                    // Burada parametreleri işleyebiliriz
                 });
                 break;
                 
@@ -309,7 +332,7 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
     }
 
     private void showToast(String message) {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

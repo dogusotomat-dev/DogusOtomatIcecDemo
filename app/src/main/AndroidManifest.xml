@@ -47,14 +47,14 @@
         </activity>
         
         <activity
-            android:name=".MachineSettingsActivity"
-            android:label="Makine Ayarları"
+            android:name=".SalesScreenActivity"
+            android:label="Satış Ekranı"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
         
         <activity
-            android:name=".PasswordSettingsActivity"
-            android:label="Şifre Ayarları"
+            android:name=".MachineSettingsActivity"
+            android:label="Makine Ayarları"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
         
@@ -63,10 +63,40 @@
             android:label="Ürün Ayarları"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
-
+        
+        <activity
+            android:name=".PriceSettingsActivity"
+            android:label="Fiyat Ayarları"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        
+        <activity
+            android:name=".PaymentSettingsActivity"
+            android:label="Ödeme Ayarları"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        
+        <activity
+            android:name=".AdvertisementSettingsActivity"
+            android:label="Reklam Ayarları"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        
         <activity
             android:name=".SystemSettingsActivity"
             android:label="Sistem Ayarları"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        
+        <activity
+            android:name=".FileManagementActivity"
+            android:label="Dosya Yönetimi"
+            android:configChanges="locale|keyboardHidden|orientation">
+        </activity>
+        
+        <activity
+            android:name=".LogSystemActivity"
+            android:label="Log Sistemi"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
 

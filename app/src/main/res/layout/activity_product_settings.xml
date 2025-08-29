@@ -3,49 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/dogus_background_light"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- Header -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:text="←"
-            android:textSize="24sp"
-            android:background="@drawable/dogus_button_secondary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginEnd="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="🍦 Ürün Ayarları"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/dogus_text_dark"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btnResetToDefault"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🔄"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning_modern"
-            android:textColor="@color/dogus_text_white"
-            android:padding="12dp"
-            android:layout_marginStart="8dp"/>
-
-    </LinearLayout>
+        android:text="Ürün Ayarları"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,738 +27,192 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Product Names Section -->
-            <LinearLayout
+            <!-- Dondurma Türleri -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Dondurma Türleri"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📝 Ürün İsimleri"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Vanilya Dondurma Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <EditText
-                    android:id="@+id/etIceCreamName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Dondurma İsmi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Çikolata Dondurma Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Çilek Dondurma Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                    <EditText
-                        android:id="@+id/etSauce1Name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Sos 1 İsmi"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etSauce2Name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Sos 2 İsmi"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/etSauce3Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Sos 3 İsmi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <EditText
-                        android:id="@+id/etTopping1Name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 1 İsmi"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etTopping2Name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 2 İsmi"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/etTopping3Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Süsleme 3 İsmi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="16dp"/>
-
-                <Button
-                    android:id="@+id/btnSaveNames"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="İsimleri Kaydet"
-                    android:background="@drawable/dogus_button_primary"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
-
-            <!-- Product Dosages Section -->
-            <LinearLayout
+            <!-- Sos Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Sos Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⚙️ Motor Dozajlama (Dönüş Miktarı)"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Çikolata Sos Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Karamel Sos Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dondurma Motor Dönüş (0-255):"
-                        android:textColor="@color/dogus_text_dark"
-                        android:layout_weight="1"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Çilek Sos Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                    <EditText
-                        android:id="@+id/etIceCreamDosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="100"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginEnd="6dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sos 1 Motor Dönüş (0-255):"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="4dp"/>
-
-                        <EditText
-                            android:id="@+id/etSauce1Dosage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="20"
-                            android:inputType="number"
-                            android:background="@drawable/dogus_input_field_modern"
-                            android:padding="12dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="6dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sos 2 Motor Dönüş (0-255):"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="4dp"/>
-
-                        <EditText
-                            android:id="@+id/etSauce2Dosage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="20"
-                            android:inputType="number"
-                            android:background="@drawable/dogus_input_field_modern"
-                            android:padding="12dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <EditText
-                        android:id="@+id/etSauce3Dosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Sos 3 Motor Dönüş (0-255)"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etTopping1Dosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 1 Motor Dönüş (0-255)"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <EditText
-                        android:id="@+id/etTopping2Dosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 2 Motor Dönüş (0-255)"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etTopping3Dosage"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 3 Motor Dönüş (0-255)"
-                        android:inputType="number"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnSaveDosages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Dozajları Kaydet"
-                    android:background="@drawable/dogus_button_primary"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
-
-            <!-- Product Images Section -->
-            <LinearLayout
+            <!-- Süsleme Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Süsleme Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🖼️ Ürün Görselleri"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Fındık Süsleme Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Renkli Şeker Süsleme Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
 
-                    <ImageView
-                        android:id="@+id/ivIceCream"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Krem Şanti Süsleme Adı"
+                android:textSize="14sp"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dondurma Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectIceCream"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/ivSauce1"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sos 1 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectSauce1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/ivSauce2"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sos 2 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectSauce2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/ivSauce3"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sos 3 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectSauce3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/ivTopping1"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Süsleme 1 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectTopping1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/ivTopping2"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Süsleme 2 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectTopping2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivTopping3"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/dogus_image_placeholder"
-                        android:scaleType="centerCrop"
-                        android:layout_marginEnd="12dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Süsleme 3 Görseli"
-                            android:textColor="@color/dogus_text_dark"
-                            android:layout_marginBottom="8dp"/>
-
-                        <Button
-                            android:id="@+id/btnSelectTopping3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Görsel Seç"
-                            android:background="@drawable/dogus_button_secondary"
-                            android:textColor="@color/dogus_text_white"
-                            android:padding="8dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnSaveImages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Görselleri Kaydet"
-                    android:background="@drawable/dogus_button_primary"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
-
-            <!-- Product Prices Section -->
-            <LinearLayout
+            <!-- Stok Ayarları -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/dogus_card_background_modern"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp">
+                android:text="Stok Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="💰 Ürün Fiyatları"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dogus_text_dark"
-                    android:layout_marginBottom="16dp"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stok Takibi Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <EditText
-                    android:id="@+id/etIceCreamPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Dondurma Fiyatı (TL)"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Düşük Stok Uyarısı Etkin"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <EditText
-                        android:id="@+id/etSauce1Price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Sos 1 Fiyatı (TL)"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etSauce2Price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Sos 2 Fiyatı (TL)"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/etSauce3Price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Sos 3 Fiyatı (TL)"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
-
-                    <EditText
-                        android:id="@+id/etTopping1Price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 1 Fiyatı (TL)"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginEnd="6dp"/>
-
-                    <EditText
-                        android:id="@+id/etTopping2Price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Süsleme 2 Fiyatı (TL)"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/dogus_input_field_modern"
-                        android:padding="12dp"
-                        android:layout_marginStart="6dp"/>
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/etTopping3Price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Süsleme 3 Fiyatı (TL)"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="16dp"/>
-
-                <Button
-                    android:id="@+id/btnSavePrices"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fiyatları Kaydet"
-                    android:background="@drawable/dogus_button_primary"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"/>
-
-            </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Düşük Stok Eşiği"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:background="#f0f0f0"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!-- Bottom Save All Button -->
-    <Button
-        android:id="@+id/btnSaveAll"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="💾 Tüm Ayarları Kaydet"
-        android:background="@drawable/dogus_button_success_modern"
-        android:textColor="@color/dogus_text_white"
-        android:padding="16dp"
-        android:layout_marginTop="16dp"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Geri"
+            android:textSize="16sp"
+            android:background="#FF5722"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Kaydet"
+            android:textSize="16sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>

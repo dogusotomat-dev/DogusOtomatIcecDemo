@@ -1,92 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dogus_background_light">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Yönetici Paneli"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
 
-        <!-- Header -->
-        <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Admin Paneli"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/dogus_primary"
-            android:gravity="center"
-            android:layout_marginBottom="32dp"/>
+            android:orientation="vertical">
 
-        <!-- Şifre Ayarları -->
-        <Button
-            android:id="@+id/btnPasswordSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🔐 Şifre Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_primary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <!-- Makine Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Makine Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-        <!-- Ürün Ayarları -->
-        <Button
-            android:id="@+id/btnProductSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🍦 Ürün Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_success"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/btn_machine_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Makine Ayarları"
+                android:textSize="16sp"
+                android:background="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
 
-        <!-- Makine Ayarları -->
-        <Button
-            android:id="@+id/btnMachineSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="⚙️ Makine Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_warning"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/btn_product_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ürün Ayarları"
+                android:textSize="16sp"
+                android:background="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
 
-        <!-- Sistem Ayarları -->
-        <Button
-            android:id="@+id/btnSystemSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🔧 Sistem Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_info"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/btn_price_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Fiyat Ayarları"
+                android:textSize="16sp"
+                android:background="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
 
-        <!-- Reklam Ayarları -->
-        <Button
-            android:id="@+id/btnAdvertisementSettings"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🎬 Reklam Ayarları"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_primary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <!-- Ödeme Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ödeme Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
 
-        <!-- Geri Dön -->
-        <Button
-            android:id="@+id/btnBackToSales"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:text="🔙 Ana Ekrana Dön"
-            android:textSize="18sp"
-            android:background="@drawable/dogus_button_secondary"
-            android:textColor="@color/dogus_text_white"
-            android:layout_marginBottom="16dp"/>
+            <Button
+                android:id="@+id/btn_payment_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ödeme Ayarları"
+                android:textSize="16sp"
+                android:background="#2196F3"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
 
-    </LinearLayout>
-</ScrollView>
+            <Button
+                android:id="@+id/btn_advertisement_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Reklam Ayarları"
+                android:textSize="16sp"
+                android:background="#2196F3"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Sistem Ayarları -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sistem Ayarları"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"
+                android:background="#E0E0E0"
+                android:padding="8dp"/>
+
+            <Button
+                android:id="@+id/btn_system_settings"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Sistem Ayarları"
+                android:textSize="16sp"
+                android:background="#9C27B0"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btn_file_management"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Dosya Yönetimi"
+                android:textSize="16sp"
+                android:background="#9C27B0"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/btn_log_system"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Log Sistemi"
+                android:textSize="16sp"
+                android:background="#9C27B0"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_back_to_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Ana Ekrana Dön"
+        android:textSize="16sp"
+        android:background="#757575"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>
