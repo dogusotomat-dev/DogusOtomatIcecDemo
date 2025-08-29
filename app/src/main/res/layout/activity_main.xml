@@ -3,87 +3,245 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="@android:color/white">
 
-    <TextView
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Doğuş Otomat Ice Cream Demo"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"/>
-
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sistem başlatılıyor..."
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:gravity="center"
-        android:background="#f0f0f0"
-        android:padding="12dp"
-        android:layout_marginBottom="20dp"/>
-
-    <Button
-        android:id="@+id/btn_connect"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Makineye Bağlan"
-        android:textSize="18sp"
-        android:background="#4CAF50"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="12dp"/>
-
-    <Button
-        android:id="@+id/btn_test_ship"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Test Ürün Çıkar"
-        android:textSize="18sp"
+        android:orientation="horizontal"
+        android:padding="16dp"
         android:background="#2196F3"
-        android:textColor="@android:color/white"
-        android:enabled="false"
-        android:layout_marginBottom="12dp"/>
+        android:gravity="center_vertical">
 
-    <Button
-        android:id="@+id/btn_query_status"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Makine Durumu Sorgula"
-        android:textSize="18sp"
-        android:background="#FF9800"
-        android:textColor="@android:color/white"
-        android:enabled="false"
-        android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Doğuş Otomat Ice Cream"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
 
-    <TextView
+        <Button
+            android:id="@+id/btn_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Admin"
+            android:textSize="14sp"
+            android:background="#FF5722"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"/>
+
+        <Button
+            android:id="@+id/btn_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Ayarlar"
+            android:textSize="14sp"
+            android:background="#4CAF50"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+
+    <!-- Status Bar -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TCN SDK Fonksiyonları:"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="12dp"/>
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="#f5f5f5">
 
-    <ScrollView
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sistem başlatılıyor..."
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:background="#ffffff"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bakiye: ₺0.00"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:background="#ffffff"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sıcaklık: --°C"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:background="#ffffff"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <!-- Base Ice Cream Info -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#f8f8f8"
-        android:padding="8dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#e8f5e8">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="• Serial Port iletişimi\n• Dondurma makinesi kontrolü\n• Ürün çıkarma komutları\n• Makine durum sorgulama\n• Sıcaklık monitoring\n• Hata kodu yönetimi\n• Payment entegrasyonu\n• Real-time event handling"
+            android:text="Temel Dondurma"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vanilyalı dondurma (₺5.00) + seçilen ekstralar"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <!-- Süslemeler -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Süslemeler (İsteğe Bağlı)"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="#fff3e0"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_toppings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#fafafa"/>
+
+    <!-- Soslar -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Soslar (İsteğe Bağlı)"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="#e3f2fd"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sauces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="#fafafa"/>
+
+    <!-- Seçim Bilgileri -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#f5f5f5">
+
+        <TextView
+            android:id="@+id/tv_selected_toppings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seçilen Süslemeler: Yok"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:lineSpacingExtra="4dp"/>
+            android:background="#ffffff"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"/>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Toplam: ₺5.00"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:gravity="center"
+            android:background="#ffffff"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Butonlar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_clear_selection"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Seçimleri Temizle"
+                android:textSize="16sp"
+                android:background="#FF9800"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btn_confirm_order"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Siparişi Onayla"
+                android:textSize="16sp"
+                android:background="#4CAF50"
+                android:textColor="@android:color/white"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Footer Info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#f5f5f5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TCN SDK Entegrasyonu Aktif"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• 3 Süsleme • 3 Sos • Dinamik Fiyatlandırma • Ürün Ayarları Senkronizasyonu"
+            android:textSize="10sp"
+            android:textColor="#999999"
+            android:gravity="center"
+            android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
