@@ -628,6 +628,85 @@
                     android:textColor="@color/dogus_text_white"
                     android:padding="12dp"/>
 
+                <!-- Product Image Views -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivIceCream"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivSauce1"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivSauce2"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivSauce3"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivTopping1"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivTopping2"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="4dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivTopping3"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_image_placeholder"
+                        android:scaleType="centerCrop"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <!-- Product Prices Section -->

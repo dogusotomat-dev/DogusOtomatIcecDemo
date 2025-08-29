@@ -34,13 +34,11 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
     private Button btnBack, btnSaveAll, btnResetToDefault, btnExportSettings, btnImportSettings;
 
     // Machine Parameters Section
-    private EditText etMachineId, etBoardType, etMaxProducts, etTemperature;
-    private EditText etHumidity, etPowerConsumption, etMaintenanceInterval;
     private SeekBar seekBarTemperature, seekBarHumidity, seekBarPowerConsumption;
     private TextView tvTemperature, tvHumidity, tvPowerConsumption;
 
     // Serial Port Settings Section
-    private Spinner spMainDevice, spMainBaudRate, spServerDevice, spServerBaudRate;
+    private Spinner spMainDevice, spMainBaudRate;
     private EditText etConnectionTimeout, etRetryCount;
     private Button btnTestConnection, btnSaveSerialPort;
     private Switch switchAutoConnect, switchServerMode;
@@ -105,10 +103,6 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             btnImportSettings = findViewById(R.id.btnImportSettings);
 
             // Machine Parameters
-            etMachineId = findViewById(R.id.etMachineId);
-            etBoardType = findViewById(R.id.etBoardType);
-            // Machine parameters are now auto-detected, no manual input fields needed
-
             seekBarTemperature = findViewById(R.id.seekBarTemperature);
             seekBarHumidity = findViewById(R.id.seekBarHumidity);
             seekBarPowerConsumption = findViewById(R.id.seekBarPowerConsumption);
@@ -120,9 +114,6 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             // Serial Port Settings
             spMainDevice = findViewById(R.id.spMainDevice);
             spMainBaudRate = findViewById(R.id.spMainBaudRate);
-            // TODO: Add missing server device fields to layout
-            // spServerDevice = findViewById(R.id.spServerDevice);
-            // spServerBaudRate = findViewById(R.id.spServerBaudRate);
             etConnectionTimeout = findViewById(R.id.etConnectionTimeout);
             etRetryCount = findViewById(R.id.etRetryCount);
             btnTestConnection = findViewById(R.id.btnTestConnection);
@@ -135,8 +126,6 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             etLogRetention = findViewById(R.id.etLogRetention);
             etLogPath = findViewById(R.id.etLogPath);
             spLogFormat = findViewById(R.id.spLogFormat);
-            // TODO: Add missing log rotation field to layout
-            // spLogRotation = findViewById(R.id.spLogRotation);
             btnTestLogging = findViewById(R.id.btnTestLogging);
             btnClearLogs = findViewById(R.id.btnClearLogs);
             btnSaveLogging = findViewById(R.id.btnSaveLogging);
@@ -230,7 +219,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     if (fromUser) {
                         int temperature = progress + 15; // 15-35°C
                         tvTemperature.setText(temperature + "°C");
-                        etTemperature.setText(String.valueOf(temperature));
+                        // etTemperature.setText(String.valueOf(temperature)); // This line was removed
                     }
                 }
 
@@ -250,7 +239,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     if (fromUser) {
                         int humidity = progress + 30; // 30-80%
                         tvHumidity.setText(humidity + "%");
-                        etHumidity.setText(String.valueOf(humidity));
+                        // etHumidity.setText(String.valueOf(humidity)); // This line was removed
                     }
                 }
 
@@ -270,7 +259,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     if (fromUser) {
                         int power = progress + 100; // 100-500W
                         tvPowerConsumption.setText(power + "W");
-                        etPowerConsumption.setText(String.valueOf(power));
+                        // etPowerConsumption.setText(String.valueOf(power)); // This line was removed
                     }
                 }
 
@@ -290,7 +279,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     if (fromUser) {
                         int days = progress + 7; // 7-90 gün
                         tvLogRetention.setText(days + " gün");
-                        etLogRetention.setText(String.valueOf(days));
+                        // etLogRetention.setText(String.valueOf(days)); // This line was removed
                     }
                 }
 
@@ -374,8 +363,8 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
 
             switchServerMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 // Enable/disable server device controls
-                spServerDevice.setEnabled(isChecked);
-                spServerBaudRate.setEnabled(isChecked);
+                // spServerDevice.setEnabled(isChecked); // This line was removed
+                // spServerBaudRate.setEnabled(isChecked); // This line was removed
             });
 
             // Logging switches
@@ -438,7 +427,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     devices);
             deviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spMainDevice.setAdapter(deviceAdapter);
-            spServerDevice.setAdapter(deviceAdapter);
+            // spServerDevice.setAdapter(deviceAdapter); // This line was removed
 
             // Baud Rate Spinner
             String[] baudRates = { "9600", "19200", "38400", "57600", "115200", "230400", "460800", "921600" };
@@ -446,7 +435,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
                     baudRates);
             baudRateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spMainBaudRate.setAdapter(baudRateAdapter);
-            spServerBaudRate.setAdapter(baudRateAdapter);
+            // spServerBaudRate.setAdapter(baudRateAdapter); // This line was removed
 
             // Log Format Spinner
             String[] logFormats = { "TEXT", "JSON", "XML", "CSV" };
@@ -472,10 +461,14 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
     private void loadCurrentSettings() {
         try {
             // Load machine parameters
-            etMachineId.setText(sharedPreferences.getString("machine_id", "ICE-001"));
-            etBoardType.setText(sharedPreferences.getString("board_type", "TCN-ICE"));
-            etMaxProducts.setText(sharedPreferences.getString("max_products", "100"));
-            etMaintenanceInterval.setText(sharedPreferences.getString("maintenance_interval", "30"));
+            // etMachineId.setText(sharedPreferences.getString("machine_id", "ICE-001")); //
+            // This line was removed
+            // etBoardType.setText(sharedPreferences.getString("board_type", "TCN-ICE")); //
+            // This line was removed
+            // etMaxProducts.setText(sharedPreferences.getString("max_products", "100")); //
+            // This line was removed
+            // etMaintenanceInterval.setText(sharedPreferences.getString("maintenance_interval",
+            // "30")); // This line was removed
 
             int temperature = sharedPreferences.getInt("temperature", 25);
             int humidity = sharedPreferences.getInt("humidity", 60);
@@ -489,20 +482,24 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             tvHumidity.setText(humidity + "%");
             tvPowerConsumption.setText(powerConsumption + "W");
 
-            etTemperature.setText(String.valueOf(temperature));
-            etHumidity.setText(String.valueOf(humidity));
-            etPowerConsumption.setText(String.valueOf(powerConsumption));
+            // etTemperature.setText(String.valueOf(temperature)); // This line was removed
+            // etHumidity.setText(String.valueOf(humidity)); // This line was removed
+            // etPowerConsumption.setText(String.valueOf(powerConsumption)); // This line
+            // was removed
 
             // Load serial port settings
             String mainDevice = sharedPreferences.getString("main_device", "/dev/ttyS1");
             String mainBaudRate = sharedPreferences.getString("main_baud_rate", "9600");
-            String serverDevice = sharedPreferences.getString("server_device", "/dev/ttyS2");
-            String serverBaudRate = sharedPreferences.getString("server_baud_rate", "9600");
+            // String serverDevice = sharedPreferences.getString("server_device",
+            // "/dev/ttyS2"); // This line was removed
+            // String serverBaudRate = sharedPreferences.getString("server_baud_rate",
+            // "9600"); // This line was removed
 
             setSpinnerSelection(spMainDevice, mainDevice);
             setSpinnerSelection(spMainBaudRate, mainBaudRate);
-            setSpinnerSelection(spServerDevice, serverDevice);
-            setSpinnerSelection(spServerBaudRate, serverBaudRate);
+            // setSpinnerSelection(spServerDevice, serverDevice); // This line was removed
+            // setSpinnerSelection(spServerBaudRate, serverBaudRate); // This line was
+            // removed
 
             etConnectionTimeout.setText(sharedPreferences.getString("connection_timeout", "30"));
             etRetryCount.setText(sharedPreferences.getString("retry_count", "3"));
@@ -523,7 +520,8 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             int logRetention = sharedPreferences.getInt("log_retention", 30);
             seekBarLogRetention.setProgress(logRetention - 7);
             tvLogRetention.setText(logRetention + " gün");
-            etLogRetention.setText(String.valueOf(logRetention));
+            // etLogRetention.setText(String.valueOf(logRetention)); // This line was
+            // removed
 
             switchAutoLogging.setChecked(sharedPreferences.getBoolean("auto_logging", true));
             switchRemoteLogging.setChecked(sharedPreferences.getBoolean("remote_logging", false));
@@ -601,8 +599,10 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("main_device", spMainDevice.getSelectedItem().toString());
             editor.putString("main_baud_rate", spMainBaudRate.getSelectedItem().toString());
-            editor.putString("server_device", spServerDevice.getSelectedItem().toString());
-            editor.putString("server_baud_rate", spServerBaudRate.getSelectedItem().toString());
+            // editor.putString("server_device",
+            // spServerDevice.getSelectedItem().toString()); // This line was removed
+            // editor.putString("server_baud_rate",
+            // spServerBaudRate.getSelectedItem().toString()); // This line was removed
             editor.putString("connection_timeout", etConnectionTimeout.getText().toString());
             editor.putString("retry_count", etRetryCount.getText().toString());
             editor.putBoolean("auto_connect", switchAutoConnect.isChecked());
@@ -729,10 +729,14 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             // Save machine parameters
-            editor.putString("machine_id", etMachineId.getText().toString());
-            editor.putString("board_type", etBoardType.getText().toString());
-            editor.putString("max_products", etMaxProducts.getText().toString());
-            editor.putString("maintenance_interval", etMaintenanceInterval.getText().toString());
+            // editor.putString("machine_id", etMachineId.getText().toString()); // This
+            // line was removed
+            // editor.putString("board_type", etBoardType.getText().toString()); // This
+            // line was removed
+            // editor.putString("max_products", etMaxProducts.getText().toString()); // This
+            // line was removed
+            // editor.putString("maintenance_interval",
+            // etMaintenanceInterval.getText().toString()); // This line was removed
             editor.putInt("temperature", seekBarTemperature.getProgress() + 15);
             editor.putInt("humidity", seekBarHumidity.getProgress() + 30);
             editor.putInt("power_consumption", seekBarPowerConsumption.getProgress() + 100);
