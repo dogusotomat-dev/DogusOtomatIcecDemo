@@ -114,6 +114,9 @@ android {
             enableSplit = true
         }
     }
+    
+    // Namespace ayarı (AndroidManifest.xml'deki package yerine)
+    namespace 'com.dogus.otomat.icecdemo'
 }
 
 repositories {
@@ -144,4 +147,7 @@ dependencies {
     
     // TCN Icecboard module
     implementation project(':tcn_icecboard')
+    
+    // Gson for JSON parsing
+    implementation 'com.google.code.gson:gson:2.8.9'
 }

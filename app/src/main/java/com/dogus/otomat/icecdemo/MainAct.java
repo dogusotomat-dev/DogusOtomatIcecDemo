@@ -26,6 +26,7 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
     // UI Components
     private TextView tvStatus;
     private Button btnAdmin;
+    private Button btnConnect;
     
     // TCN SDK
     private TcnVendIF tcnVendIF;
@@ -59,6 +60,7 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
     private void initializeViews() {
         tvStatus = findViewById(R.id.tv_status);
         btnAdmin = findViewById(R.id.btn_admin);
+        btnConnect = findViewById(R.id.btn_connect);
         
         updateStatus("Sistem başlatılıyor...");
     }
@@ -144,6 +146,40 @@ public class MainAct extends AppCompatActivity implements TcnVendIF.VendEventLis
                 startActivity(intent);
             }
         });
+        
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Makineye bağlan
+                connectToMachine();
+            }
+        });
+    }
+    
+    private void connectToMachine() {
+        try {
+            if (tcnVendIF != null) {
+                // Makineye bağlanma komutunu gönder
+                // Bu örnek için simüle edilmiş bir bağlantı işlemi yapıyoruz
+                isConnected = true;
+                isMachineReady = true;
+                
+                updateStatus("Makineye bağlanıldı");
+                showToast("Makineye bağlanıldı");
+                
+                // Makine durumunu sorgula
+                queryMachineStatus();
+                
+            } else {
+                updateStatus("TCN SDK başlatılmadı");
+                showToast("TCN SDK başlatılmadı");
+            }
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Makineye bağlanma hatası: " + e.getMessage(), e);
+            updateStatus("Bağlantı hatası: " + e.getMessage());
+            showToast("Bağlantı hatası: " + e.getMessage());
+        }
     }
     
     private void openSalesScreen() {

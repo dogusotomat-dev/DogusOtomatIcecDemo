@@ -1,13 +1,21 @@
 package com.dogus.otomat.icecdemo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.tcn.icecboard.DriveControl.VendProtoControl;
 import com.tcn.icecboard.control.PayMethod;
@@ -35,6 +43,32 @@ public class SalesScreenActivity extends AppCompatActivity {
 
     // Payment manager
     private MDBPaymentManager paymentManager;
+    
+    // Missing fields that were referenced but not declared
+    private EditText etSauce1Dosage, etSauce2Dosage, etSauce3Dosage;
+    private EditText etTopping1Dosage, etTopping2Dosage, etTopping3Dosage;
+    private EditText etMachineSerialNo, etIoTNumber;
+    private Button btnGenerateMachineInfo, btnOpenDoor, btnCloseDoor, btnQueryDoorStatus;
+    private Button btnQueryParam, btnSetParam, btnQueryAllParams;
+    private TextView tvMachineModel, tvBrand, tvStatusIndicator;
+    private LinearLayout llParameterSettings;
+    private EditText etParamAddress, etParamValue;
+    private Spinner spnParamType, spnWorkMode;
+    private EditText etUpperTankTemp, etLowerTankTemp, etFridgeTemp, etFreezerTemp;
+    private EditText etLeftIceLevel, etRightIceLevel;
+    private Button btnTestParameters, btnQueryStatus;
+    private Handler uiHandler;
+    private SDKIntegrationHelper sdkHelper;
+    private boolean isSDKConnected = false;
+    private boolean isMachineReady = false;
+    private int currentPaymentStatus = 0;
+    private double currentAmount = 0.0;
+    private String currentPaymentMethod = "";
+    private static final int PAYMENT_STATUS_IDLE = 0;
+    private static final int PAYMENT_STATUS_PROCESSING = 1;
+    private static final int PAYMENT_STATUS_APPROVED = 2;
+    private static final int PAYMENT_STATUS_DECLINED = 3;
+    private static final int PAYMENT_STATUS_CANCELLED = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
