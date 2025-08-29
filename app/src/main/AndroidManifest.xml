@@ -8,9 +8,15 @@
 
     <!-- Camera permission for product image capture -->
     <uses-permission android:name="android.permission.CAMERA" />
+    
+    <!-- TCN SDK permissions -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="controller.VendApplication"
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -63,6 +69,18 @@
             android:label="Sistem Ayarları"
             android:configChanges="locale|keyboardHidden|orientation">
         </activity>
+
+        <!-- Periyodik Log Servisi -->
+        <service
+            android:name=".PeriodicLoggingService"
+            android:enabled="true"
+            android:exported="false" />
+            
+        <!-- TCN Service -->
+        <service
+            android:name="com.tcn.icecboard.TcnService"
+            android:enabled="true"
+            android:exported="false" />
 
     </application>
 

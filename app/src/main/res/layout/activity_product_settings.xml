@@ -98,7 +98,7 @@
                         android:hint="Sos 1 İsmi"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="6dp"/>
 
                     <EditText
                         android:id="@+id/etSauce2Name"
@@ -108,7 +108,7 @@
                         android:hint="Sos 2 İsmi"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -124,7 +124,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
 
                     <EditText
                         android:id="@+id/etTopping1Name"
@@ -134,7 +135,7 @@
                         android:hint="Süsleme 1 İsmi"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="6dp"/>
 
                     <EditText
                         android:id="@+id/etTopping2Name"
@@ -144,7 +145,7 @@
                         android:hint="Süsleme 2 İsmi"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -155,17 +156,16 @@
                     android:hint="Süsleme 3 İsmi"
                     android:background="@drawable/dogus_input_field_modern"
                     android:padding="12dp"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginBottom="16dp"/>
 
                 <Button
                     android:id="@+id/btnSaveNames"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="💾 İsimleri Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
+                    android:text="İsimleri Kaydet"
+                    android:background="@drawable/dogus_button_primary"
                     android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"/>
+                    android:padding="12dp"/>
 
             </LinearLayout>
 
@@ -181,7 +181,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⚖️ Ürün Dozajları"
+                    android:text="⚙️ Motor Dozajlama (Dönüş Miktarı)"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/dogus_text_dark"
@@ -190,22 +190,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_marginBottom="12dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dondurma Dozajı: 100ml"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
+                        android:text="Dondurma Motor Dönüş (0-255):"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
 
-                    <SeekBar
-                        android:id="@+id/seekBarIceCreamDosage"
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/etIceCreamDosage"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:max="200"
-                        android:progress="100"/>
+                        android:layout_weight="1"
+                        android:hint="100"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
 
                 </LinearLayout>
 
@@ -220,21 +223,23 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginEnd="8dp">
+                        android:layout_marginEnd="6dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sos 1: 20ml"
-                            android:textColor="@color/dogus_text_secondary"
-                            android:layout_marginBottom="8dp"/>
+                            android:text="Sos 1 Motor Dönüş (0-255):"
+                            android:textColor="@color/dogus_text_dark"
+                            android:layout_marginBottom="4dp"/>
 
-                        <SeekBar
-                            android:id="@+id/seekBarSauce1Dosage"
+                        <EditText
+                            android:id="@+id/etSauce1Dosage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="50"
-                            android:progress="20"/>
+                            android:hint="20"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field_modern"
+                            android:padding="12dp"/>
 
                     </LinearLayout>
 
@@ -243,21 +248,23 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginStart="8dp">
+                        android:layout_marginStart="6dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sos 2: 25ml"
-                            android:textColor="@color/dogus_text_secondary"
-                            android:layout_marginBottom="8dp"/>
+                            android:text="Sos 2 Motor Dönüş (0-255):"
+                            android:textColor="@color/dogus_text_dark"
+                            android:layout_marginBottom="4dp"/>
 
-                        <SeekBar
-                            android:id="@+id/seekBarSauce2Dosage"
+                        <EditText
+                            android:id="@+id/etSauce2Dosage"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="50"
-                            android:progress="25"/>
+                            android:hint="20"
+                            android:inputType="number"
+                            android:background="@drawable/dogus_input_field_modern"
+                            android:padding="12dp"/>
 
                     </LinearLayout>
 
@@ -266,97 +273,60 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_marginBottom="12dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/etSauce3Dosage"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Sos 3: 20ml"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_weight="1"
+                        android:hint="Sos 3 Motor Dönüş (0-255)"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp"/>
 
-                    <SeekBar
-                        android:id="@+id/seekBarSauce3Dosage"
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:id="@+id/etTopping1Dosage"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:max="50"
-                        android:progress="20"/>
+                        android:layout_weight="1"
+                        android:hint="Süsleme 1 Motor Dönüş (0-255)"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
 
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/etTopping2Dosage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginEnd="8dp">
+                        android:hint="Süsleme 2 Motor Dönüş (0-255)"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginEnd="6dp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Süsleme 1: 15ml"
-                            android:textColor="@color/dogus_text_secondary"
-                            android:layout_marginBottom="8dp"/>
-
-                        <SeekBar
-                            android:id="@+id/seekBarTopping1Dosage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:max="30"
-                            android:progress="15"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/etTopping3Dosage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Süsleme 2: 10ml"
-                            android:textColor="@color/dogus_text_secondary"
-                            android:layout_marginBottom="8dp"/>
-
-                        <SeekBar
-                            android:id="@+id/seekBarTopping2Dosage"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:max="30"
-                            android:progress="10"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Süsleme 3: 15ml"
-                        android:textColor="@color/dogus_text_secondary"
-                        android:layout_marginBottom="8dp"/>
-
-                    <SeekBar
-                        android:id="@+id/seekBarTopping3Dosage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="30"
-                        android:progress="15"/>
+                        android:hint="Süsleme 3 Motor Dönüş (0-255)"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -364,11 +334,10 @@
                     android:id="@+id/btnSaveDosages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="💾 Dozajları Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
+                    android:text="Dozajları Kaydet"
+                    android:background="@drawable/dogus_button_primary"
                     android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"/>
+                    android:padding="12dp"/>
 
             </LinearLayout>
 
@@ -678,21 +647,11 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btnClearAllImages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="🗑️ Tüm Görselleri Temizle"
-                    android:background="@drawable/dogus_button_danger_modern"
-                    android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
-
-                <Button
                     android:id="@+id/btnSaveImages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="💾 Görselleri Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
+                    android:text="Görselleri Kaydet"
+                    android:background="@drawable/dogus_button_primary"
                     android:textColor="@color/dogus_text_white"
                     android:padding="12dp"/>
 
@@ -717,10 +676,10 @@
                     android:layout_marginBottom="16dp"/>
 
                 <EditText
-                    android:id="@+id/etBasePrice"
+                    android:id="@+id/etIceCreamPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Temel Dondurma Fiyatı (TL)"
+                    android:hint="Dondurma Fiyatı (TL)"
                     android:inputType="numberDecimal"
                     android:background="@drawable/dogus_input_field_modern"
                     android:padding="12dp"
@@ -741,7 +700,7 @@
                         android:inputType="numberDecimal"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="6dp"/>
 
                     <EditText
                         android:id="@+id/etSauce2Price"
@@ -752,7 +711,7 @@
                         android:inputType="numberDecimal"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -769,7 +728,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
                     <EditText
                         android:id="@+id/etTopping1Price"
@@ -780,7 +740,7 @@
                         android:inputType="numberDecimal"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:layout_marginEnd="6dp"/>
 
                     <EditText
                         android:id="@+id/etTopping2Price"
@@ -791,7 +751,7 @@
                         android:inputType="numberDecimal"
                         android:background="@drawable/dogus_input_field_modern"
                         android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -803,17 +763,16 @@
                     android:inputType="numberDecimal"
                     android:background="@drawable/dogus_input_field_modern"
                     android:padding="12dp"
-                    android:layout_marginTop="12dp"/>
+                    android:layout_marginBottom="16dp"/>
 
                 <Button
                     android:id="@+id/btnSavePrices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="💾 Fiyatları Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
+                    android:text="Fiyatları Kaydet"
+                    android:background="@drawable/dogus_button_primary"
                     android:textColor="@color/dogus_text_white"
-                    android:padding="12dp"
-                    android:layout_marginTop="16dp"/>
+                    android:padding="12dp"/>
 
             </LinearLayout>
 

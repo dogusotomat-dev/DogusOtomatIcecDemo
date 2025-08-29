@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Connection Settings Section -->
+            <!-- Serial Port Settings Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,85 +69,338 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔌 Bağlantı Ayarları"
+                    android:text="🔌 Serial Port Ayarları"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/dogus_text_dark"
                     android:layout_marginBottom="16dp"/>
 
-                <EditText
-                    android:id="@+id/etConnectionType"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Bağlantı Tipi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
-                <EditText
-                    android:id="@+id/etConnectionRetention"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Bağlantı Saklama Süresi (gün)"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ana Board Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
 
-                <EditText
-                    android:id="@+id/etLogDirectory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Log Dosya Dizini"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <Spinner
+                        android:id="@+id/spMainDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
 
-                <EditText
-                    android:id="@+id/etConnectionRate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Bağlantı Hızı"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
-
-                <EditText
-                    android:id="@+id/etConnectionTimeout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Bağlantı Zaman Aşımı (ms)"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="16dp"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
-                    <Button
-                        android:id="@+id/btnTest"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Board Baud Rate:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spMainBaudRate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="✏️ Test Et"
-                        android:background="@drawable/dogus_button_info_modern"
-                        android:textColor="@color/dogus_text_white"
-                        android:padding="12dp"
-                        android:layout_marginEnd="8dp"/>
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
 
-                    <Button
-                        android:id="@+id/btnClear"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Server Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spServerDevice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="🗑️ Temizle"
-                        android:background="@drawable/dogus_button_danger_modern"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Server Baud Rate:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spServerBaudRate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IC Card Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spIcCardDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IC Card Baud Rate:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spIcCardBaudRate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="POS Machine Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spPosDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Digital Tube Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spDigitalTubeDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan Code Payment Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spScanCodeDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Scan Code Payment Baud Rate:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spScanCodeBaudRate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Drop Detection Sensor Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spDropDetectionDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temperature Serial Port:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spTemperatureDevice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Digital Tube Baud Rate:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <Spinner
+                        android:id="@+id/spDigitalTubeBaudRate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/btnTestConnection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🔍 Test Et"
+                        android:background="@drawable/dogus_button_secondary"
                         android:textColor="@color/dogus_text_white"
                         android:padding="12dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_marginEnd="6dp"/>
+
+                    <Button
+                        android:id="@+id/btnSaveSerialPort"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="💾 Kaydet"
+                        android:background="@drawable/dogus_button_primary"
+                        android:textColor="@color/dogus_text_white"
+                        android:padding="12dp"
+                        android:layout_marginStart="6dp"/>
 
                 </LinearLayout>
 
@@ -171,51 +424,126 @@
                     android:textColor="@color/dogus_text_dark"
                     android:layout_marginBottom="16dp"/>
 
-                <EditText
-                    android:id="@+id/etLogLevel"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Log Seviyesi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
-                <EditText
-                    android:id="@+id/etLogRetention"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Log Saklama Süresi (gün)"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Seviyesi (DEBUG/INFO/WARN/ERROR):"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
 
-                <EditText
-                    android:id="@+id/etLogPath"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Log Dosya Yolu"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <EditText
+                        android:id="@+id/etLogLevel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="INFO"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
 
-                <EditText
-                    android:id="@+id/etLogFormat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Log Formatı"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etLogRotation"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Log Rotasyonu"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Saklama Süresi (gün):"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <EditText
+                        android:id="@+id/etLogRetention"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="30"
+                        android:inputType="number"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Dosya Yolu:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <EditText
+                        android:id="@+id/etLogPath"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="/logs/"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Formatı (TEXT/JSON/XML):"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <EditText
+                        android:id="@+id/etLogFormat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="TEXT"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Log Rotasyonu (Daily/Weekly/Monthly):"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"/>
+
+                    <EditText
+                        android:id="@+id/etLogRotation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Daily"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"/>
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnSaveLogging"
@@ -228,7 +556,7 @@
 
             </LinearLayout>
 
-            <!-- Parameters Section -->
+            <!-- Machine Parameters Section (Auto-Detected) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,76 +568,134 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔧 Sistem Parametreleri"
+                    android:text="🔧 Makine Parametreleri (Otomatik Algılanan)"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/dogus_text_dark"
                     android:layout_marginBottom="16dp"/>
 
-                <EditText
-                    android:id="@+id/etMachineId"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Makine ID"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:text="Bu parametreler dondurma makinesi anakartından otomatik olarak algılanır ve değiştirilemez."
+                    android:textColor="@color/dogus_text_secondary"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"/>
 
-                <EditText
-                    android:id="@+id/etBoardType"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Board Tipi"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
-                <EditText
-                    android:id="@+id/etMaxProducts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Maksimum Ürün Sayısı"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Makine ID:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
 
-                <EditText
-                    android:id="@+id/etTemperature"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Sıcaklık (°C)"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                    <TextView
+                        android:id="@+id/tvMachineId"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Algılanıyor..."
+                        android:textColor="@color/dogus_text_secondary"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:gravity="center"/>
 
-                <EditText
-                    android:id="@+id/etHumidity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nem (%)"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="12dp"/>
+                </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etPowerConsumption"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Güç Tüketimi (W)"
-                    android:inputType="number"
-                    android:background="@drawable/dogus_input_field_modern"
-                    android:padding="12dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Board Tipi:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvBoardType"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Algılanıyor..."
+                        android:textColor="@color/dogus_text_secondary"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sıcaklık:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvTemperature"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Algılanıyor..."
+                        android:textColor="@color/dogus_text_secondary"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nem:"
+                        android:textColor="@color/dogus_text_dark"
+                        android:layout_weight="1"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Algılanıyor..."
+                        android:textColor="@color/dogus_text_secondary"
+                        android:background="@drawable/dogus_input_field_modern"
+                        android:padding="12dp"
+                        android:gravity="center"/>
+
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/btnSaveParameters"
+                    android:id="@+id/btnRefreshParameters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="💾 Parametreleri Kaydet"
-                    android:background="@drawable/dogus_button_primary_modern"
+                    android:text="🔄 Parametreleri Yenile"
+                    android:background="@drawable/dogus_button_secondary"
                     android:textColor="@color/dogus_text_white"
                     android:padding="12dp"/>
 

@@ -228,30 +228,47 @@ public class AdvertisementManager {
      * Mevcut reklamı oynat
      */
     private void playCurrentAdvertisement() {
-        if (!isAdvertisementActive || advertisementList.isEmpty()) {
-            return;
-        }
+        try {
+            if (!isAdvertisementActive || advertisementList.isEmpty()) {
+                return;
+            }
 
-        AdvertisementItem currentItem = advertisementList.get(currentAdIndex);
+            AdvertisementItem currentAd = advertisementList.get(currentAdIndex);
+            if (currentAd == null) {
+                Log.w(TAG, "Mevcut reklam bulunamadı");
+                return;
+            }
 
-        if (advertisementListener != null) {
-            advertisementListener.onAdvertisementStarted(currentItem);
-        }
+            Log.i(TAG, "Reklam oynatılıyor: " + currentAd.getId() + " (Tip: " + currentAd.getType() + ")");
 
-        if (currentItem.getType() == AD_TYPE_PHOTO) {
-            playPhotoAdvertisement(currentItem);
-        } else if (currentItem.getType() == AD_TYPE_VIDEO) {
-            playVideoAdvertisement(currentItem);
+            if (currentAd.getType() == AD_TYPE_PHOTO) {
+                playPhotoAdvertisement(currentAd);
+            } else if (currentAd.getType() == AD_TYPE_VIDEO) {
+                playVideoAdvertisement(currentAd);
+            }
+
+            // Listener'a bildir
+            if (advertisementListener != null) {
+                advertisementListener.onAdvertisementStarted(currentAd);
+            }
+
+        } catch (Exception e) {
+            Log.e(TAG, "Reklam oynatma hatası: " + e.getMessage());
+            if (advertisementListener != null) {
+                advertisementListener.onAdvertisementError("Reklam oynatma hatası: " + e.getMessage());
+            }
         }
     }
 
     /**
      * Fotoğraf reklamını oynat
      */
-    private void playPhotoAdvertisement(AdvertisementItem item) {
+    private void playPhotoAdvertisement(AdvertisementItem ad) {
         try {
-            if (photoImageView == null)
+            if (photoImageView == null) {
+                Log.w(TAG, "PhotoImageView bulunamadı");
                 return;
+            }
 
             // Video view'ı gizle
             if (videoView != null) {
@@ -259,41 +276,35 @@ public class AdvertisementManager {
             }
 
             // Fotoğrafı yükle ve göster
-            executorService.execute(() -> {
-                try {
-                    Bitmap bitmap = BitmapFactory.decodeFile(item.getFilePath());
-                    if (bitmap != null) {
-                        mainHandler.post(() -> {
-                            photoImageView.setImageBitmap(bitmap);
-                            photoImageView.setVisibility(View.VISIBLE);
+            loadImageFromPath(photoImageView, ad.getFilePath());
+            photoImageView.setVisibility(View.VISIBLE);
 
-                            // Belirtilen süre sonra sonraki reklama geç
-                            mainHandler.postDelayed(() -> {
-                                if (isAdvertisementActive) {
-                                    showTransition();
-                                }
-                            }, item.getDuration());
-                        });
-                    }
-                } catch (Exception e) {
-                    Log.e(TAG, "Fotoğraf yükleme hatası: " + e.getMessage());
-                    mainHandler.post(() -> playNextAdvertisement());
+            // Geçiş efekti başlat
+            if (advertisementListener != null) {
+                advertisementListener.onTransitionStarted();
+            }
+
+            // Belirtilen süre sonra sonraki reklama geç
+            mainHandler.postDelayed(() -> {
+                if (isAdvertisementActive) {
+                    nextAdvertisement();
                 }
-            });
+            }, ad.getDuration());
 
         } catch (Exception e) {
             Log.e(TAG, "Fotoğraf reklam oynatma hatası: " + e.getMessage());
-            playNextAdvertisement();
         }
     }
 
     /**
      * Video reklamını oynat
      */
-    private void playVideoAdvertisement(AdvertisementItem item) {
+    private void playVideoAdvertisement(AdvertisementItem ad) {
         try {
-            if (videoView == null)
+            if (videoView == null) {
+                Log.w(TAG, "VideoView bulunamadı");
                 return;
+            }
 
             // Fotoğraf view'ı gizle
             if (photoImageView != null) {
@@ -301,79 +312,55 @@ public class AdvertisementManager {
             }
 
             // Video'yu yükle ve oynat
-            videoView.setVideoPath(item.getFilePath());
+            videoView.setVideoPath(ad.getFilePath());
             videoView.setVisibility(View.VISIBLE);
+            videoView.start();
 
-            videoView.setOnPreparedListener(mp -> {
-                mp.start();
-
-                // Video süresi sonunda sonraki reklama geç
-                mainHandler.postDelayed(() -> {
-                    if (isAdvertisementActive) {
-                        showTransition();
-                    }
-                }, item.getDuration());
-            });
-
+            // Video tamamlandığında sonraki reklama geç
             videoView.setOnCompletionListener(mp -> {
                 if (isAdvertisementActive) {
-                    showTransition();
+                    nextAdvertisement();
                 }
-            });
-
-            videoView.setOnErrorListener((mp, what, extra) -> {
-                Log.e(TAG, "Video oynatma hatası: what=" + what + ", extra=" + extra);
-                playNextAdvertisement();
-                return true;
             });
 
         } catch (Exception e) {
             Log.e(TAG, "Video reklam oynatma hatası: " + e.getMessage());
-            playNextAdvertisement();
         }
-    }
-
-    /**
-     * Geçiş efekti göster
-     */
-    private void showTransition() {
-        if (advertisementListener != null) {
-            advertisementListener.onTransitionStarted();
-        }
-
-        // Geçiş süresi sonunda sonraki reklama geç
-        mainHandler.postDelayed(() -> {
-            if (isAdvertisementActive) {
-                if (advertisementListener != null) {
-                    advertisementListener.onTransitionCompleted();
-                }
-                playNextAdvertisement();
-            }
-        }, transitionDuration);
     }
 
     /**
      * Sonraki reklama geç
      */
-    private void playNextAdvertisement() {
-        currentAdIndex++;
-
-        // Döngü tamamlandıysa başa dön
-        if (currentAdIndex >= advertisementList.size()) {
-            currentAdIndex = 0;
-
-            // Döngü arası bekleme
-            if (cycleDelay > 0) {
-                mainHandler.postDelayed(() -> {
-                    if (isAdvertisementActive) {
-                        playCurrentAdvertisement();
-                    }
-                }, cycleDelay);
+    private void nextAdvertisement() {
+        try {
+            if (!isAdvertisementActive) {
                 return;
             }
-        }
 
-        playCurrentAdvertisement();
+            // Geçiş efekti başlat
+            if (advertisementListener != null) {
+                advertisementListener.onTransitionStarted();
+            }
+
+            // Geçiş süresi bekle
+            mainHandler.postDelayed(() -> {
+                if (isAdvertisementActive) {
+                    // Sonraki reklam indeksini hesapla
+                    currentAdIndex = (currentAdIndex + 1) % advertisementList.size();
+
+                    // Geçiş tamamlandı
+                    if (advertisementListener != null) {
+                        advertisementListener.onTransitionCompleted();
+                    }
+
+                    // Sonraki reklamı oynat
+                    playCurrentAdvertisement();
+                }
+            }, transitionDuration);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Sonraki reklama geçiş hatası: " + e.getMessage());
+        }
     }
 
     /**
@@ -381,33 +368,26 @@ public class AdvertisementManager {
      */
     public boolean addAdvertisement(String filePath, int type) {
         try {
-            File sourceFile = new File(filePath);
-            if (!sourceFile.exists()) {
-                Log.e(TAG, "Kaynak dosya bulunamadı: " + filePath);
+            if (filePath == null || filePath.isEmpty()) {
+                Log.w(TAG, "Geçersiz dosya yolu");
                 return false;
             }
 
-            // Hedef dizini oluştur
-            String targetDir = type == AD_TYPE_PHOTO ? "photos" : "videos";
-            File targetDirectory = new File(context.getFilesDir(), "advertisements/" + targetDir);
-            if (!targetDirectory.exists()) {
-                targetDirectory.mkdirs();
+            File file = new File(filePath);
+            if (!file.exists()) {
+                Log.w(TAG, "Dosya bulunamadı: " + filePath);
+                return false;
             }
 
-            // Dosyayı kopyala
-            File targetFile = new File(targetDirectory, sourceFile.getName());
-            copyFile(sourceFile, targetFile);
+            AdvertisementItem newAd = new AdvertisementItem();
+            newAd.setId(file.getName());
+            newAd.setType(type);
+            newAd.setFilePath(filePath);
+            newAd.setDuration(type == AD_TYPE_PHOTO ? photoDuration : videoDuration);
 
-            // Reklam listesine ekle
-            AdvertisementItem item = new AdvertisementItem();
-            item.setId(targetFile.getName());
-            item.setType(type);
-            item.setFilePath(targetFile.getAbsolutePath());
-            item.setDuration(type == AD_TYPE_PHOTO ? photoDuration : videoDuration);
+            advertisementList.add(newAd);
+            Log.i(TAG, "Yeni reklam eklendi: " + newAd.getId());
 
-            advertisementList.add(item);
-
-            Log.i(TAG, "Reklam eklendi: " + targetFile.getName());
             return true;
 
         } catch (Exception e) {
@@ -422,22 +402,12 @@ public class AdvertisementManager {
     public boolean removeAdvertisement(String adId) {
         try {
             for (int i = 0; i < advertisementList.size(); i++) {
-                AdvertisementItem item = advertisementList.get(i);
-                if (item.getId().equals(adId)) {
-                    // Dosyayı sil
-                    File file = new File(item.getFilePath());
-                    if (file.exists()) {
-                        file.delete();
-                    }
-
-                    // Listeden kaldır
+                if (advertisementList.get(i).getId().equals(adId)) {
                     advertisementList.remove(i);
-
                     Log.i(TAG, "Reklam kaldırıldı: " + adId);
                     return true;
                 }
             }
-
             return false;
 
         } catch (Exception e) {
@@ -512,6 +482,13 @@ public class AdvertisementManager {
     }
 
     /**
+     * Reklam sayısını döndür
+     */
+    public int getAdvertisementCount() {
+        return advertisementList.size();
+    }
+
+    /**
      * Mevcut ayarları döndür
      */
     public AdvertisementSettings getCurrentSettings() {
@@ -525,17 +502,104 @@ public class AdvertisementManager {
     }
 
     /**
-     * Reklam durumunu kontrol et
+     * Reklam durumunu döndür
      */
     public boolean isAdvertisementActive() {
         return isAdvertisementActive;
     }
 
     /**
-     * Otomatik oynatma durumunu kontrol et
+     * Otomatik oynatma durumunu döndür
      */
     public boolean isAutoPlayEnabled() {
         return isAutoPlayEnabled;
+    }
+
+    /**
+     * Otomatik oynatmayı ayarla
+     */
+    public void setAutoPlayEnabled(boolean enabled) {
+        this.isAutoPlayEnabled = enabled;
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("auto_play_enabled", enabled);
+        editor.apply();
+
+        if (enabled && !isAdvertisementActive) {
+            startAdvertisement();
+        } else if (!enabled) {
+            stopAdvertisement();
+        }
+    }
+
+    /**
+     * Ayarları güncelle
+     */
+    public void updateSettings(int photoDuration, int videoDuration, int transitionDuration, int cycleDelay) {
+        this.photoDuration = photoDuration;
+        this.videoDuration = videoDuration;
+        this.transitionDuration = transitionDuration;
+        this.cycleDelay = cycleDelay;
+
+        // Ayarları kaydet
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("photo_duration", photoDuration);
+        editor.putInt("video_duration", videoDuration);
+        editor.putInt("transition_duration", transitionDuration);
+        editor.putInt("cycle_delay", cycleDelay);
+        editor.apply();
+
+        Log.i(TAG, "Reklam ayarları güncellendi");
+    }
+
+    /**
+     * Test reklamı göster
+     */
+    public void showTestAdvertisement() {
+        try {
+            // Test reklamı için basit bir mesaj oluştur
+            Log.i(TAG, "Test reklamı gösteriliyor...");
+
+            if (advertisementListener != null) {
+                advertisementListener.onAdvertisementStarted(null);
+            }
+
+            // 3 saniye sonra test reklamını kapat
+            mainHandler.postDelayed(() -> {
+                if (advertisementListener != null) {
+                    advertisementListener.onAdvertisementCompleted(null);
+                }
+            }, 3000);
+
+        } catch (Exception e) {
+            Log.e(TAG, "Test reklam gösterme hatası: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Görseli dosya yolundan yükle
+     */
+    private void loadImageFromPath(ImageView imageView, String imagePath) {
+        try {
+            if (imageView == null || imagePath == null || imagePath.isEmpty()) {
+                return;
+            }
+
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                executorService.execute(() -> {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                        if (bitmap != null) {
+                            mainHandler.post(() -> imageView.setImageBitmap(bitmap));
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Görsel yükleme hatası: " + e.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Görsel yükleme hatası: " + e.getMessage());
+        }
     }
 
     /**

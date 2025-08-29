@@ -8,11 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.tcn.icecboard.control.TcnVendIF;
-
-import controller.VendService;
+import com.tcn.icecboard.TcnService;
 
 public class TcnMainActivity extends AppCompatActivity {
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +18,11 @@ public class TcnMainActivity extends AppCompatActivity {
 
 		setFullScreen(this);
 
-//		if (TcnVendIF.getInstance().isServiceRunning()) {
-//
-//		} else {
-			startService(new Intent(getApplication(), VendService.class));
-//		}
-
+		if (TcnVendIF.getInstance().isServiceRunning()) {
+			// Service zaten çalışıyor
+		} else {
+			startService(new Intent(getApplication(), TcnService.class));
+		}
 	}
 
 	@Override

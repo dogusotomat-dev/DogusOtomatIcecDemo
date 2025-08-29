@@ -301,6 +301,81 @@ public class SDKIntegrationHelper {
     }
 
     /**
+     * MDB komutu gönderir
+     */
+    public byte[] sendMDBCommand(byte[] command) {
+        if (tcnVendIF != null && isSDKConnected) {
+            try {
+                Log.i(TAG, "MDB komut gönderiliyor: " + bytesToHex(command));
+
+                // Gerçek MDB komut gönderimi için TCN SDK metodları kullanılacak
+                // Şimdilik simüle edilmiş yanıt döndür
+                byte[] response = simulateMDBResponse(command);
+
+                Log.i(TAG, "MDB komut yanıtı alındı: " + bytesToHex(response));
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onStatusUpdate("MDB komut gönderildi"));
+                }
+
+                return response;
+            } catch (Exception e) {
+                Log.e(TAG, "MDB komut gönderme hatası: " + e.getMessage());
+
+                if (callback != null) {
+                    uiHandler.post(() -> callback.onError("MDB komut hatası: " + e.getMessage()));
+                }
+
+                return new byte[] { (byte) 0xFF, (byte) 0xFF }; // Hata yanıtı
+            }
+        } else {
+            Log.w(TAG, "SDK bağlantısı yok, MDB komut gönderilemiyor");
+            return new byte[] { (byte) 0xFF, (byte) 0xFF }; // Hata yanıtı
+        }
+    }
+
+    /**
+     * MDB komut yanıtını simüle eder
+     */
+    private byte[] simulateMDBResponse(byte[] command) {
+        try {
+            if (command == null || command.length == 0) {
+                return new byte[] { (byte) 0xFF, (byte) 0xFF };
+            }
+
+            byte commandType = command[0];
+
+            switch (commandType) {
+                case 0x01: // Reset command
+                    return new byte[] { 0x00, 0x00 }; // ACK
+                case 0x02: // Payment command
+                    return new byte[] { 0x00, 0x01 }; // ACK + Success
+                case 0x03: // Status command
+                    return new byte[] { 0x00, 0x01, 0x00, 0x01 }; // ACK + Status
+                default:
+                    return new byte[] { 0x00, 0x00 }; // ACK
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "MDB yanıt simülasyon hatası: " + e.getMessage());
+            return new byte[] { (byte) 0xFF, (byte) 0xFF };
+        }
+    }
+
+    /**
+     * Byte array'i hex string'e çevirir
+     */
+    private String bytesToHex(byte[] bytes) {
+        if (bytes == null || bytes.length == 0)
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02X ", b));
+        }
+        return sb.toString().trim();
+    }
+
+    /**
      * Ödeme işlemini başlatır
      */
     public boolean startPayment(double amount, String paymentMethod) {

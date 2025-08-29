@@ -39,12 +39,12 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
     private SeekBar seekBarTemperature, seekBarHumidity, seekBarPowerConsumption;
     private TextView tvTemperature, tvHumidity, tvPowerConsumption;
 
-        // Serial Port Settings Section
+    // Serial Port Settings Section
     private Spinner spMainDevice, spMainBaudRate, spServerDevice, spServerBaudRate;
     private EditText etConnectionTimeout, etRetryCount;
     private Button btnTestConnection, btnSaveSerialPort;
     private Switch switchAutoConnect, switchServerMode;
-    
+
     // Logging Settings Section
     private EditText etLogLevel, etLogRetention, etLogPath;
     private Spinner spLogFormat, spLogRotation;
@@ -107,11 +107,7 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             // Machine Parameters
             etMachineId = findViewById(R.id.etMachineId);
             etBoardType = findViewById(R.id.etBoardType);
-            etMaxProducts = findViewById(R.id.etMaxProducts);
-            etTemperature = findViewById(R.id.etTemperature);
-            etHumidity = findViewById(R.id.etHumidity);
-            etPowerConsumption = findViewById(R.id.etPowerConsumption);
-            etMaintenanceInterval = findViewById(R.id.etMaintenanceInterval);
+            // Machine parameters are now auto-detected, no manual input fields needed
 
             seekBarTemperature = findViewById(R.id.seekBarTemperature);
             seekBarHumidity = findViewById(R.id.seekBarHumidity);
@@ -124,8 +120,9 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             // Serial Port Settings
             spMainDevice = findViewById(R.id.spMainDevice);
             spMainBaudRate = findViewById(R.id.spMainBaudRate);
-            spServerDevice = findViewById(R.id.spServerDevice);
-            spServerBaudRate = findViewById(R.id.spServerBaudRate);
+            // TODO: Add missing server device fields to layout
+            // spServerDevice = findViewById(R.id.spServerDevice);
+            // spServerBaudRate = findViewById(R.id.spServerBaudRate);
             etConnectionTimeout = findViewById(R.id.etConnectionTimeout);
             etRetryCount = findViewById(R.id.etRetryCount);
             btnTestConnection = findViewById(R.id.btnTestConnection);
@@ -138,7 +135,8 @@ public class EnhancedSystemSettingsActivity extends AppCompatActivity {
             etLogRetention = findViewById(R.id.etLogRetention);
             etLogPath = findViewById(R.id.etLogPath);
             spLogFormat = findViewById(R.id.spLogFormat);
-            spLogRotation = findViewById(R.id.spLogRotation);
+            // TODO: Add missing log rotation field to layout
+            // spLogRotation = findViewById(R.id.spLogRotation);
             btnTestLogging = findViewById(R.id.btnTestLogging);
             btnClearLogs = findViewById(R.id.btnClearLogs);
             btnSaveLogging = findViewById(R.id.btnSaveLogging);

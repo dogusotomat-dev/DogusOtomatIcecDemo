@@ -40,13 +40,6 @@ public class ProductSettingsActivity extends AppCompatActivity {
     private EditText etIceCreamDosage, etSauce1Dosage, etSauce2Dosage, etSauce3Dosage;
     private EditText etTopping1Dosage, etTopping2Dosage, etTopping3Dosage;
     private Button btnSaveDosages;
-    
-    // Product Images Tab
-    private ImageView ivIceCream, ivSauce1, ivSauce2, ivSauce3;
-    private ImageView ivTopping1, ivTopping2, ivTopping3;
-    private Button btnSelectIceCream, btnSelectSauce1, btnSelectSauce2, btnSelectSauce3;
-    private Button btnSelectTopping1, btnSelectTopping2, btnSelectTopping3;
-    private Button btnSaveImages;
 
     // Product Images Tab
     private ImageView ivIceCream, ivSauce1, ivSauce2, ivSauce3;
@@ -133,53 +126,6 @@ public class ProductSettingsActivity extends AppCompatActivity {
             btnSaveImages = findViewById(R.id.btnSaveImages);
 
             // Product Prices
-            etIceCreamPrice = findViewById(R.id.etIceCreamPrice);
-            etSauce1Price = findViewById(R.id.etSauce1Price);
-            etSauce2Price = findViewById(R.id.etSauce2Price);
-            etSauce3Price = findViewById(R.id.etSauce3Price);
-            etTopping1Price = findViewById(R.id.etTopping1Price);
-            etTopping2Price = findViewById(R.id.etTopping2Price);
-            etTopping3Price = findViewById(R.id.etTopping3Price);
-            btnSavePrices = findViewById(R.id.btnSavePrices);
-
-            // Product Names Tab
-            etIceCreamName = findViewById(R.id.etIceCreamName);
-            etSauce1Name = findViewById(R.id.etSauce1Name);
-            etSauce2Name = findViewById(R.id.etSauce2Name);
-            etSauce3Name = findViewById(R.id.etSauce3Name);
-            etTopping1Name = findViewById(R.id.etTopping1Name);
-            etTopping2Name = findViewById(R.id.etTopping2Name);
-            etTopping3Name = findViewById(R.id.etTopping3Name);
-            btnSaveNames = findViewById(R.id.btnSaveNames);
-
-            // Product Dosages Tab
-            etIceCreamDosage = findViewById(R.id.etIceCreamDosage);
-            etSauce1Dosage = findViewById(R.id.etSauce1Dosage);
-            etSauce2Dosage = findViewById(R.id.etSauce2Dosage);
-            etSauce3Dosage = findViewById(R.id.etSauce3Dosage);
-            etTopping1Dosage = findViewById(R.id.etTopping1Dosage);
-            etTopping2Dosage = findViewById(R.id.etTopping2Dosage);
-            etTopping3Dosage = findViewById(R.id.etTopping3Dosage);
-            btnSaveDosages = findViewById(R.id.btnSaveDosages);
-
-            // Product Images Tab
-            ivIceCream = findViewById(R.id.ivIceCream);
-            ivSauce1 = findViewById(R.id.ivSauce1);
-            ivSauce2 = findViewById(R.id.ivSauce2);
-            ivSauce3 = findViewById(R.id.ivSauce3);
-            ivTopping1 = findViewById(R.id.ivTopping1);
-            ivTopping2 = findViewById(R.id.ivTopping2);
-            ivTopping3 = findViewById(R.id.ivTopping3);
-            btnSelectIceCream = findViewById(R.id.btnSelectIceCream);
-            btnSelectSauce1 = findViewById(R.id.btnSelectSauce1);
-            btnSelectSauce2 = findViewById(R.id.btnSelectSauce2);
-            btnSelectSauce3 = findViewById(R.id.btnSelectSauce3);
-            btnSelectTopping1 = findViewById(R.id.btnSelectTopping1);
-            btnSelectTopping2 = findViewById(R.id.btnSelectTopping2);
-            btnSelectTopping3 = findViewById(R.id.btnSelectTopping3);
-            btnSaveImages = findViewById(R.id.btnSaveImages);
-
-            // Product Prices Tab
             etIceCreamPrice = findViewById(R.id.etIceCreamPrice);
             etSauce1Price = findViewById(R.id.etSauce1Price);
             etSauce2Price = findViewById(R.id.etSauce2Price);
@@ -318,14 +264,14 @@ public class ProductSettingsActivity extends AppCompatActivity {
             if (etTopping3Name != null)
                 etTopping3Name.setText(topping3Name);
 
-            // Load product dosages
-            String iceCreamDosage = sharedPreferences.getString("ice_cream_dosage", "100ml");
-            String sauce1Dosage = sharedPreferences.getString("sauce1_dosage", "20ml");
-            String sauce2Dosage = sharedPreferences.getString("sauce2_dosage", "20ml");
-            String sauce3Dosage = sharedPreferences.getString("sauce3_dosage", "20ml");
-            String topping1Dosage = sharedPreferences.getString("topping1_dosage", "15g");
-            String topping2Dosage = sharedPreferences.getString("topping2_dosage", "10g");
-            String topping3Dosage = sharedPreferences.getString("topping3_dosage", "15g");
+            // Load product dosages (motor rotation values 0-255)
+            String iceCreamDosage = sharedPreferences.getString("ice_cream_dosage", "100");
+            String sauce1Dosage = sharedPreferences.getString("sauce1_dosage", "20");
+            String sauce2Dosage = sharedPreferences.getString("sauce2_dosage", "20");
+            String sauce3Dosage = sharedPreferences.getString("sauce3_dosage", "20");
+            String topping1Dosage = sharedPreferences.getString("topping1_dosage", "15");
+            String topping2Dosage = sharedPreferences.getString("topping2_dosage", "10");
+            String topping3Dosage = sharedPreferences.getString("topping3_dosage", "15");
 
             if (etIceCreamDosage != null)
                 etIceCreamDosage.setText(iceCreamDosage);
@@ -343,7 +289,7 @@ public class ProductSettingsActivity extends AppCompatActivity {
                 etTopping3Dosage.setText(topping3Dosage);
 
             // Load product prices
-            float basePrice = sharedPreferences.getFloat("base_price", 8.0f);
+            float iceCreamPrice = sharedPreferences.getFloat("ice_cream_price", 8.0f);
             float sauce1Price = sharedPreferences.getFloat("sauce1_price", 2.0f);
             float sauce2Price = sharedPreferences.getFloat("sauce2_price", 2.5f);
             float sauce3Price = sharedPreferences.getFloat("sauce3_price", 2.0f);
@@ -352,7 +298,7 @@ public class ProductSettingsActivity extends AppCompatActivity {
             float topping3Price = sharedPreferences.getFloat("topping3_price", 1.5f);
 
             if (etIceCreamPrice != null)
-                etIceCreamPrice.setText(String.valueOf(basePrice));
+                etIceCreamPrice.setText(String.valueOf(iceCreamPrice));
             if (etSauce1Price != null)
                 etSauce1Price.setText(String.valueOf(sauce1Price));
             if (etSauce2Price != null)
@@ -434,8 +380,19 @@ public class ProductSettingsActivity extends AppCompatActivity {
             editor.putString("topping3_name", topping3Name);
             editor.apply();
 
-            showToast("Ürün isimleri kaydedildi!");
-            Log.i(TAG, "Product names saved successfully");
+            // Ana ekrana yansıyacak şekilde ProductPrefs'e de kaydet
+            SharedPreferences productPrefs = getSharedPreferences("ProductPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor productEditor = productPrefs.edit();
+            productEditor.putString("sauce_chocolate_name", sauce1Name);
+            productEditor.putString("sauce_caramel_name", sauce2Name);
+            productEditor.putString("sauce_fruit_name", sauce3Name);
+            productEditor.putString("topping_chocolate_name", topping1Name);
+            productEditor.putString("topping_hazelnut_name", topping2Name);
+            productEditor.putString("topping_fruit_name", topping3Name);
+            productEditor.apply();
+
+            showToast("Ürün isimleri kaydedildi ve ana ekrana yansıtıldı!");
+            Log.i(TAG, "Product names saved successfully and synced to main screen");
 
         } catch (Exception e) {
             Log.e(TAG, "Save product names error: " + e.getMessage(), e);
@@ -485,7 +442,8 @@ public class ProductSettingsActivity extends AppCompatActivity {
 
     private void saveProductPrices() {
         try {
-            float basePrice = Float.parseFloat(etIceCreamPrice != null ? etIceCreamPrice.getText().toString() : "8.0");
+            float iceCreamPrice = Float
+                    .parseFloat(etIceCreamPrice != null ? etIceCreamPrice.getText().toString() : "8.0");
             float sauce1Price = Float.parseFloat(etSauce1Price != null ? etSauce1Price.getText().toString() : "2.0");
             float sauce2Price = Float.parseFloat(etSauce2Price != null ? etSauce2Price.getText().toString() : "2.5");
             float sauce3Price = Float.parseFloat(etSauce3Price != null ? etSauce3Price.getText().toString() : "2.0");
@@ -497,7 +455,7 @@ public class ProductSettingsActivity extends AppCompatActivity {
                     .parseFloat(etTopping3Price != null ? etTopping3Price.getText().toString() : "1.5");
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putFloat("base_price", basePrice);
+            editor.putFloat("ice_cream_price", iceCreamPrice);
             editor.putFloat("sauce1_price", sauce1Price);
             editor.putFloat("sauce2_price", sauce2Price);
             editor.putFloat("sauce3_price", sauce3Price);
@@ -506,8 +464,19 @@ public class ProductSettingsActivity extends AppCompatActivity {
             editor.putFloat("topping3_price", topping3Price);
             editor.apply();
 
-            showToast("Ürün fiyatları kaydedildi!");
-            Log.i(TAG, "Product prices saved successfully");
+            // Ana ekrana yansıyacak şekilde ProductPrefs'e de kaydet
+            SharedPreferences productPrefs = getSharedPreferences("ProductPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor productEditor = productPrefs.edit();
+            productEditor.putFloat("sauce_chocolate_price", sauce1Price);
+            productEditor.putFloat("sauce_caramel_price", sauce2Price);
+            productEditor.putFloat("sauce_fruit_price", sauce3Price);
+            productEditor.putFloat("topping_chocolate_price", topping1Price);
+            productEditor.putFloat("topping_hazelnut_price", topping2Price);
+            productEditor.putFloat("topping_fruit_price", topping3Price);
+            productEditor.apply();
+
+            showToast("Ürün fiyatları kaydedildi ve ana ekrana yansıtıldı!");
+            Log.i(TAG, "Product prices saved successfully and synced to main screen");
 
         } catch (Exception e) {
             Log.e(TAG, "Save product prices error: " + e.getMessage(), e);
@@ -585,6 +554,11 @@ public class ProductSettingsActivity extends AppCompatActivity {
 
             if (imageView != null) {
                 loadImageFromPath(imageView, imagePath);
+                // Force refresh the UI
+                imageView.invalidate();
+                Log.d(TAG, "Product image updated for: " + productType + " at path: " + imagePath);
+            } else {
+                Log.e(TAG, "ImageView not found for product type: " + productType);
             }
 
         } catch (Exception e) {

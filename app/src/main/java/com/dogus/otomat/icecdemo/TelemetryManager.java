@@ -2,25 +2,21 @@ package com.dogus.otomat.icecdemo;
 
 import android.content.Context;
 import android.util.Log;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Telemetri Yöneticisi
- * Makine durumu ve performans verilerini Firebase'e gönderir
+ * Makine durumu ve performans verilerini local olarak loglar
  */
 public class TelemetryManager {
     private static final String TAG = "TelemetryManager";
     private static TelemetryManager instance;
     private final Context context;
-    private final DatabaseReference databaseRef;
     private boolean isEnabled = true;
 
     private TelemetryManager(Context context) {
         this.context = context;
-        this.databaseRef = FirebaseDatabase.getInstance().getReference("telemetry");
     }
 
     public static synchronized TelemetryManager getInstance(Context context) {
@@ -31,69 +27,45 @@ public class TelemetryManager {
     }
 
     /**
-     * Makine durumunu gönderir
+     * Makine durumunu loglar
      */
     public void sendMachineStatus(String status, String message) {
         if (!isEnabled)
             return;
 
         try {
-            Map<String, Object> data = new HashMap<>();
-            data.put("status", status);
-            data.put("message", message);
-            data.put("timestamp", System.currentTimeMillis());
-            data.put("device_id", getDeviceId());
-
-            databaseRef.child("machine_status").push().setValue(data);
-            Log.i(TAG, "Makine durumu gönderildi: " + status);
+            Log.i(TAG, "Makine Durumu: " + status + " - " + message);
         } catch (Exception e) {
-            Log.e(TAG, "Makine durumu gönderilemedi: " + e.getMessage());
+            Log.e(TAG, "Makine durumu loglanamadı: " + e.getMessage());
         }
     }
 
     /**
-     * Performans verilerini gönderir
+     * Performans verilerini loglar
      */
     public void sendPerformanceData(String metric, long value, String unit) {
         if (!isEnabled)
             return;
 
         try {
-            Map<String, Object> data = new HashMap<>();
-            data.put("metric", metric);
-            data.put("value", value);
-            data.put("unit", unit);
-            data.put("timestamp", System.currentTimeMillis());
-            data.put("device_id", getDeviceId());
-
-            databaseRef.child("performance").push().setValue(data);
-            Log.i(TAG, "Performans verisi gönderildi: " + metric + " = " + value + " " + unit);
+            Log.i(TAG, "Performans: " + metric + " = " + value + " " + unit);
         } catch (Exception e) {
-            Log.e(TAG, "Performans verisi gönderilemedi: " + e.getMessage());
+            Log.e(TAG, "Performans verisi loglanamadı: " + e.getMessage());
         }
     }
 
     /**
-     * Satış verilerini gönderir
+     * Satış verilerini loglar
      */
     public void sendSalesData(int slotNo, String productName, double amount, String paymentMethod, boolean success) {
         if (!isEnabled)
             return;
 
         try {
-            Map<String, Object> data = new HashMap<>();
-            data.put("slot_no", slotNo);
-            data.put("product_name", productName);
-            data.put("amount", amount);
-            data.put("payment_method", paymentMethod);
-            data.put("success", success);
-            data.put("timestamp", System.currentTimeMillis());
-            data.put("device_id", getDeviceId());
-
-            databaseRef.child("sales").push().setValue(data);
-            Log.i(TAG, "Satış verisi gönderildi: " + productName + " - " + amount);
+            Log.i(TAG, "Satış: Slot " + slotNo + " - " + productName + " - " + amount + " - " + paymentMethod + " - "
+                    + (success ? "Başarılı" : "Başarısız"));
         } catch (Exception e) {
-            Log.e(TAG, "Satış verisi gönderilemedi: " + e.getMessage());
+            Log.e(TAG, "Satış verisi loglanamadı: " + e.getMessage());
         }
     }
 
@@ -108,8 +80,9 @@ public class TelemetryManager {
             data.put("timestamp", System.currentTimeMillis());
             data.put("device_id", getDeviceId());
 
-            databaseRef.child(dataType).push().setValue(data);
-            Log.i(TAG, "Veri gönderildi: " + dataType);
+            // Firebase databaseRef.child(dataType).push().setValue(data); // Removed
+            // Firebase dependency
+            Log.i(TAG, "Veri gönderildi (local log): " + dataType);
         } catch (Exception e) {
             Log.e(TAG, "Veri gönderilemedi: " + e.getMessage());
         }
@@ -132,19 +105,12 @@ public class TelemetryManager {
             testData.put("test", true);
             testData.put("timestamp", System.currentTimeMillis());
 
-            databaseRef.child("connection_test").push().setValue(testData)
-                    .addOnSuccessListener(aVoid -> {
-                        Log.i(TAG, "Bağlantı testi başarılı");
-                        if (callback != null) {
-                            callback.onConnectionTestResult(true, "Bağlantı başarılı");
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        Log.e(TAG, "Bağlantı testi başarısız: " + e.getMessage());
-                        if (callback != null) {
-                            callback.onConnectionTestResult(false, "Bağlantı başarısız: " + e.getMessage());
-                        }
-                    });
+            // Firebase databaseRef.child("connection_test").push().setValue(testData) //
+            // Removed Firebase dependency
+            Log.i(TAG, "Bağlantı testi başarılı (local log)");
+            if (callback != null) {
+                callback.onConnectionTestResult(true, "Bağlantı başarılı");
+            }
         } catch (Exception e) {
             Log.e(TAG, "Bağlantı testi hatası: " + e.getMessage());
             if (callback != null) {
@@ -203,8 +169,9 @@ public class TelemetryManager {
             machineInfo.put("timestamp", System.currentTimeMillis());
             machineInfo.put("device_id", getDeviceId());
 
-            databaseRef.child("machine_info").push().setValue(machineInfo);
-            Log.i(TAG, "Makine bilgileri güncellendi: " + machineId);
+            // Firebase databaseRef.child("machine_info").push().setValue(machineInfo); //
+            // Removed Firebase dependency
+            Log.i(TAG, "Makine bilgileri güncellendi (local log): " + machineId);
         } catch (Exception e) {
             Log.e(TAG, "Makine bilgileri güncellenemedi: " + e.getMessage());
         }

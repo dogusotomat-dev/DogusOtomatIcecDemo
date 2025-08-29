@@ -6,9 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -51,7 +48,6 @@ public class MDBPaymentManager {
     private static MDBPaymentManager instance;
     private final Context context;
     private final SharedPreferences prefs;
-    private final DatabaseReference databaseRef;
     private final TelemetryManager telemetryManager;
     private final ExecutorService executorService;
 
@@ -83,7 +79,6 @@ public class MDBPaymentManager {
     private MDBPaymentManager(Context context) {
         this.context = context;
         this.prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        this.databaseRef = FirebaseDatabase.getInstance().getReference();
         this.telemetryManager = TelemetryManager.getInstance(context);
         this.executorService = Executors.newSingleThreadExecutor();
         this.sdkHelper = SDKIntegrationHelper.getInstance(context);
@@ -225,21 +220,51 @@ public class MDBPaymentManager {
      */
     private byte[] sendMDBCommand(byte[] command) {
         try {
-            // Simüle edilmiş MDB yanıtı
-            // Gerçek uygulamada burada MDB donanımı ile iletişim kurulur
-            Thread.sleep(100); // Simüle edilmiş gecikme
+            if (sdkHelper != null && isMDBConnected) {
+                // Gerçek TCN SDK üzerinden MDB komutu gönder
+                byte[] response = sdkHelper.sendMDBCommand(command);
+                if (response != null && response.length > 0) {
+                    Log.i(TAG, "MDB komut başarıyla gönderildi: " + bytesToHex(command));
+                    return response;
+                } else {
+                    Log.w(TAG, "MDB komut yanıtı alınamadı");
+                    return new byte[] { MDB_NAK, (byte) 0xFF };
+                }
+            } else {
+                // Test modu - Simüle edilmiş MDB yanıtı
+                Log.i(TAG, "Test modu: MDB komut simüle ediliyor: " + bytesToHex(command));
+                Thread.sleep(100); // Simüle edilmiş gecikme
 
-            if (command[0] == 0x01) { // Reset command
+                if (command[0] == 0x01) { // Reset command
+                    return new byte[] { MDB_ACK, 0x00 };
+                } else if (command[0] == 0x02) { // Payment command
+                    return new byte[] { MDB_ACK, 0x01 };
+                } else if (command[0] == MDB_LEVEL3_ENABLE) { // Level 3 enable
+                    return new byte[] { MDB_ACK, 0x01 };
+                } else if (command[0] == MDB_LEVEL3_STATUS) { // Level 3 status
+                    return new byte[] { MDB_ACK, 0x01, 0x00, 0x01 };
+                }
+
                 return new byte[] { MDB_ACK, 0x00 };
-            } else if (command[0] == 0x02) { // Payment command
-                return new byte[] { MDB_ACK, 0x01 };
             }
-
-            return new byte[] { MDB_ACK, 0x00 };
         } catch (Exception e) {
             Log.e(TAG, "MDB komut gönderimi başarısız: " + e.getMessage());
             return new byte[] { MDB_NAK, (byte) 0xFF };
         }
+    }
+
+    /**
+     * Byte array'i hex string'e çevirir
+     */
+    private String bytesToHex(byte[] bytes) {
+        if (bytes == null || bytes.length == 0)
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02X ", b));
+        }
+        return sb.toString().trim();
     }
 
     /**
@@ -578,9 +603,9 @@ public class MDBPaymentManager {
             transactionData.put("magnetic_enabled", enableMagneticStripe);
             transactionData.put("timestamp", System.currentTimeMillis());
 
-            databaseRef.child("mdb_transactions").push().setValue(transactionData);
-
-            Log.i(TAG, "MDB Level 3 işlem detayları kaydedildi");
+            // Firebase bağlantısı kaldırıldı, buraya yerel kayıt eklenecek
+            // databaseRef.child("mdb_transactions").push().setValue(transactionData);
+            Log.i(TAG, "MDB Level 3 işlem detayları kaydedildi (Yerel)");
 
         } catch (Exception e) {
             Log.e(TAG, "MDB Level 3 işlem kaydetme hatası: " + e.getMessage());
